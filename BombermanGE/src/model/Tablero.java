@@ -34,11 +34,11 @@ public class Tablero extends JPanel {
             		matriz[0][0] = new BomberMan();
             	}
             	else if (i % 2 != 0 && j % 2 != 0) {
-            		matriz[i][j] = new BloqueDuro(); //falta constructora
+            		matriz[i][j] = new Duro(i, j); 
             	}
             	else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
             		if (x) {
-            			matriz[i][j] = new BloqueBlando(); //falta constructora
+            			matriz[i][j] = new Blando(i, j); 
             		}
             	}
             }
