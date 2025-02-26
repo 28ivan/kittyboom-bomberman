@@ -12,8 +12,13 @@ public class Tablero extends JPanel {
     private static final int col = 17; // Columnas
 
     public Tablero() {
-        setLayout(new GridLayout(fila, col)); // Layout de cuadrícula
+        setLayout(new GridLayout(fila, col)); // Layout de cuadrï¿½cula
         setBackground(Color.BLACK); // Fondo 
+        
+        
+        
+        
+        
         Random p =new Random();
         
         for (int i = 0; i < fila; i++) {
@@ -38,7 +43,7 @@ public class Tablero extends JPanel {
                 	}   
                 }
                 cell.setOpaque(true); //esto es pa que se vean los botones
-                add(cell); // Añadir la celda al panel
+                add(cell); // Aï¿½adir la celda al panel
             }
         }
         
