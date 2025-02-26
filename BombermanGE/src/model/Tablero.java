@@ -1,15 +1,17 @@
-package viewController;
+package model;
+
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class PantallaClassic extends JPanel {
+public class Tablero extends JPanel {
     private static final int fila = 11; // Filas
     private static final int col = 17; // Columnas
 
-    public PantallaClassic() {
+    public Tablero() {
         setLayout(new GridLayout(fila, col)); // Layout de cuadrícula
         setBackground(Color.BLACK); // Fondo 
         Random p =new Random();
