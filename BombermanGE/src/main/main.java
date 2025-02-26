@@ -1,8 +1,8 @@
-package viewController;
+package main;
 
 import javax.swing.JFrame;
 
-public class Main {
+public class main {
     public static void main(String[] args) {
         // JFrame
         JFrame frame = new JFrame("BomberMan - Pantalla Classic");
@@ -11,9 +11,9 @@ public class Main {
         PantallaClassic pantallaClassic = new PantallaClassic();
         frame.add(pantallaClassic);
 
-        // Configuración del JFrame
-        frame.setSize(850, 550); // Tamaño de la ventana (ajustable)
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar la aplicación al cerrar la ventana
+        // Configuraciï¿½n del JFrame
+        frame.setSize(850, 550); // Tamaï¿½o de la ventana (ajustable)
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar la aplicaciï¿½n al cerrar la ventana
         frame.setResizable(false); // Hacer que la ventana no sea redimensionable
         frame.setVisible(true); // Mostrar la ventana
     }
