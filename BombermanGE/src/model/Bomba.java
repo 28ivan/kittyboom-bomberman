@@ -39,7 +39,8 @@ public class Bomba {
 	
 	private void explotar(){
 		if (!explotada)
-		explotada = true;
+		explotada = true;	
+		destruirBloquesBlandos();
 		//habria que destruir los bloques blandos
 	}
 	
@@ -47,7 +48,14 @@ public class Bomba {
 		return explotada;
 	}
 
-
+	private void destruirBloques() {
+		//for int( int i=1 ; i<= radio ; i++) {
+			//tablero.destruirBloques(cordX, cordY-i); //arriba
+			//tablero.destruirBloques(cordX, cordY+i); //abajo
+			//tablero.destruirBloques(cordX-1, cordY); //izq
+			//tablero.destruirBloques(cordX+1, cordY); //dcha
+		//}
+	}
 
 
 
