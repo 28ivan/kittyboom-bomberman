@@ -58,36 +58,8 @@ public class BomberMan extends Observable{
     
     public void colocarBomba() {
     	if (this.bombasDisp==0) return;
-    	boolean disp=false;
-    	//Comprobar casilla
-    	if (this.dir=='u') {
-    		//Comprobar casilla
-    		if (disp) { 
-    			//new Bomba()
-    			this.bombasDisp--;
-    		}
-    	}
-    	else if (this.dir=='d') {
-    		//Comprobar casilla
-    		if (disp) { 
-    			//new Bomba()
-    			this.bombasDisp--;
-    		}
-    	}
-    	else if (this.dir=='l') {
-    		//Comprobar casilla
-    		if (disp) { 
-    			//new Bomba()
-    			this.bombasDisp--;
-    		}
-    	}
-    	else if (this.dir=='r') {
-    		//Comprobar casilla
-    		if (disp) { 
-    			//new Bomba()
-    			this.bombasDisp--;
-    		}
-    	}
+    	//new Bomba()
+    	this.bombasDisp--;
     }
 	
 }
