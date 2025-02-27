@@ -1,62 +1,84 @@
 package viewController;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.GridLayout;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-public class Pantalla extends JFrame{
-	
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable(){
-			public void run() {
-				try {
-					Pantalla frame = new Pantalla();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+public class Pantalla extends JFrame {
 
-	 public Pantalla() {
-	        
-	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setBounds(100, 100, 800, 600); 
+    private static final long serialVersionUID = 1L;
 
-	        //  panel principal
-	        contentPane = new JPanel();
-	        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-	        setContentPane(contentPane);
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                Pantalla frame = new Pantalla();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-	   
-	        contentPane.setLayout(new GridLayout(11, 17, 0, 0));
+    public Pantalla() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 800, 600);
 
-	        for (int i = 0; i < 11; i++) { // Filas
-	            for (int j = 0; j < 17; j++) { // Columnas
-	                JPanel cell = new JPanel(); //los panels
-	                cell.setBackground(Color.BLACK); // Fondo negro por defecto
-	                cell.setOpaque(true); // pa que se vea
+        // FONDO
+        JPanel contentPane = new JPanel() {
+            private Image backgroundImage;
 
-	               
-	                if (i % 2 != 0 && j % 2 != 0) {
-	                    cell.setBackground(Color.GRAY); // Bloque duro
-	                } else if (i == 0 && j == 0) {
-	                    cell.setBackground(Color.BLUE); // BomberMan
-	                }
+            {
+                try {
+                    //  viewController.imagenes
+                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack1.png"));
+                } catch (IOException e) {
+                   
+                    e.printStackTrace();
+                }
+            }
 
-	                contentPane.add(cell); 
-	            }
-	        }
-	    } //stageBack1.png
-	}
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                // Dibujar la imagen de fondo 
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
+
+     
+        contentPane.setLayout(new GridLayout(11, 17, 0, 0));
+        setContentPane(contentPane);
+
+      
+        for (int i = 0; i < 11; i++) { // Filas
+            for (int j = 0; j < 17; j++) { 
+                final int row = i; 
+                final int col = j; 
+
+                JPanel cell = new JPanel() {
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                        super.paintComponent(g);
+
+                       
+                        if (row % 2 != 0 && col % 2 != 0) {
+                            g.setColor(Color.MAGENTA); 
+                            g.fillRect(0, 0, getWidth(), getHeight());
+                        } else if (row == 0 && col == 0) {
+                            g.setColor(Color.BLUE); 
+                            g.fillRect(0, 0, getWidth(), getHeight());
+                        }
+                    }
+                };
+
+                cell.setOpaque(false);
+                contentPane.add(cell);
+            }
+        }
+    }
+}
