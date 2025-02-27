@@ -1,4 +1,4 @@
-dpackage viewController;
+package viewController;
 
 import java.awt.GridBagLayout;
 
@@ -7,40 +7,34 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class BloqueBlando extends JPanel{
+	
+	private static final long serialVersionUID = 1L;
 	private int cordX;
 	private int cordY;
-	private boolean explotado = false;
-	private JLabel lblBloque;
+
+	private JLabel lblBloqueBlando;
 	
-	public BloqueBlando(int pCordX, int pCordY, boolean pExplotado) {
+	public BloqueBlando(int pCordX, int pCordY) {
 		super();
 		initialize();
 		this.cordX = pCordX;
 		this.cordY = pCordY;
-		this.explotado = pExplotado;
-		setBloque(pExplotado);
+		setBlando();
 	}
 		
 	private void initialize() {
 		this.setSize(getPreferredSize());
-		this.setLayout(new GridBagLayout());
 		this.add(getBloqueBlando());
 	}
 
 	private JLabel getBloqueBlando() {
-		if (lblBloque == null) {
-			lblBloque = new JLabel("");
+		if (lblBloqueBlando == null) {
+			lblBloqueBlando = new JLabel("");
 		}
-		return lblBloque;
+		return lblBloqueBlando;
 	}
 	
-	private void setBloque(boolean pExplotado) {
-
-		if (pExplotado) {
-			getBloqueBlando().setIcon(null);
-		}else {
-			getBloqueBlando().setIcon(new ImageIcon(this.getClass().getResource("soft4.png")));
-		}
-		
+	private void setBlando() {
+		getBloqueBlando().setIcon(new ImageIcon(this.getClass().getResource("soft4.png")));
 	}
 }

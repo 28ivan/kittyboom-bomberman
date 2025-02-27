@@ -11,6 +11,7 @@ public class BloqueDuro extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private int cordX;
 	private int cordY;
+	
 	private JLabel lblBloqueDuro;
 	
 	public BloqueDuro(int pCordX, int pCordY) {
@@ -23,7 +24,6 @@ public class BloqueDuro extends JPanel {
 	
 	private void initialize() {
 		this.setSize(getPreferredSize());
-		this.setLayout(new GridBagLayout());
 		this.add(getBloqueDuro());
 	}
 	

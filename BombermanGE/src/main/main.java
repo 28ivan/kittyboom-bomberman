@@ -8,8 +8,6 @@ public class main {
         JFrame frame = new JFrame("BomberMan - Pantalla Classic");
 
         //meto la pantalla classic
-        PantallaClassic pantallaClassic = new PantallaClassic();
-        frame.add(pantallaClassic);
 
         // Configuraci�n del JFrame
         frame.setSize(850, 550); // Tama�o de la ventana (ajustable)
