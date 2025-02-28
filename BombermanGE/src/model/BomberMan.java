@@ -35,22 +35,38 @@ public class BomberMan extends Observable{
     	if (pDir=='u') {
     		this.dir='u';
     		//Comprobar casilla
-    		if (disp) this.coordY--;
+    		if (disp) {
+    			this.coordY--;
+    			setChanged();
+    	    	notifyObservers(new Object[] {this.coordX,this.coordY});
+    		}
     	}
     	else if (pDir=='d') {
     		this.dir='d';
     		//Comprobar casilla
-    		if (disp) this.coordY++;
+    		if (disp) {
+    			this.coordY++;
+    			setChanged();
+    	    	notifyObservers(new Object[] {this.coordX,this.coordY,dir});
+    		}
     	}
     	else if (pDir=='l') {
     		this.dir='l';
     		//Comprobar casilla
-    		if (disp) this.coordX--;
+    		if (disp) {
+    			this.coordX--;
+    			setChanged();
+    	    	notifyObservers(new Object[] {this.coordX,this.coordY,dir});
+    		}
     	}
     	else if (pDir=='r') {
     		this.dir='r';
     		//Comprobar casilla
-    		if (disp) this.coordX++;
+    		if (disp) {
+    			this.coordX++;
+    			setChanged();
+    	    	notifyObservers(new Object[] {this.coordX,this.coordY,dir});
+    		}
     	}
     	setChanged();
     	notifyObservers(new Object[] {this.coordX,this.coordY,dir});
