@@ -45,7 +45,7 @@ public class Tablero extends JPanel {
     	}
     }
     
-    public Tablero getTablero() {
+    public static Tablero getTablero() {
     	if(miTablero==null) {
     		miTablero = new Tablero();
     	}
