@@ -32,7 +32,7 @@ public class Pantalla extends JFrame {
             {
                 try {
                     //  viewController.imagenes
-                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack1.png"));
+                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack3.png"));
                 } catch (IOException e) {
                    
                     e.printStackTrace();
@@ -57,27 +57,7 @@ public class Pantalla extends JFrame {
       
         for (int i = 0; i < 11; i++) { // Filas
             for (int j = 0; j < 17; j++) { 
-                final int row = i; 
-                final int col = j; 
-
-                JPanel cell = new JPanel() {
-                    @Override
-                    protected void paintComponent(Graphics g) {
-                        super.paintComponent(g);
-
-                       
-                        if (row % 2 != 0 && col % 2 != 0) {
-                            g.setColor(Color.MAGENTA); 
-                            g.fillRect(0, 0, getWidth(), getHeight());
-                        } else if (row == 0 && col == 0) {
-                            g.setColor(Color.BLUE); 
-                            g.fillRect(0, 0, getWidth(), getHeight());
-                        }
-                    }
-                };
-
-                cell.setOpaque(false);
-                contentPane.add(cell);
+            	contentPane.add(new JLabel());            	
             }
         }
     }
