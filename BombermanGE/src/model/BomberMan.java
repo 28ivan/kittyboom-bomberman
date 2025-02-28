@@ -18,7 +18,7 @@ public class BomberMan extends Observable{
 		
 	}
 	
-	public static BomberMan getGestorSemaforos() {
+	public static BomberMan getBomberMan() {
 		return miBM;
 	}
 	
@@ -60,6 +60,8 @@ public class BomberMan extends Observable{
     	if (this.bombasDisp==0) return;
     	//new Bomba()
     	this.bombasDisp--;
+    	setChanged();
+    	notifyObservers(new Object[] {this.coordX,this.coordY,'x'});
     }
 	
 }
