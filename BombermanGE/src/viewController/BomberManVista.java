@@ -44,7 +44,7 @@ public class BomberManVista extends JPanel implements Observer{
 	}
 	
 	private void setBomberManVista() {
-		getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("whitefront1.png")));
+		getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("/viewController/sprites_bomberman/Pantalla/whitefront1.png")));
 	}
 	
 	private class Controlador implements KeyListener {
@@ -80,21 +80,24 @@ public class BomberManVista extends JPanel implements Observer{
     public void update(Observable o, Object arg) {
 		if(o instanceof BomberMan) {
 			Object res[]=(Object[])arg;
-			char mov = (char) res[2];
-			if (mov=='x') {
-				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("whitewithbomb1.png")));
+			char mov = (char) res[0];
+			if (mov=='b') {
+				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("/viewController/sprites_bomberman/Pantalla/whitewithbomb1.png")));
+			}
+			else if (mov=='x') {
+				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("/viewController/sprites_bomberman/Pantalla/onfire2.png")));
 			}
 			else if (mov=='u') {
-				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("whiteup1.png")));
+				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("/viewController/sprites_bomberman/Pantalla/whiteup1.png")));
 			}
 			else if (mov=='d') {
-				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("whitedown1.png")));
+				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("/viewController/sprites_bomberman/Pantalla/whitedown1.png")));
 			}
 			else if (mov=='l') {
-				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("whiteleft1.png")));
+				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("/viewController/sprites_bomberman/Pantalla/whiteleft1.png")));
 			}
 			else if (mov=='r') {
-				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("whiteright1.png")));
+				getBomberManVista().setIcon(new ImageIcon(this.getClass().getResource("/viewController/sprites_bomberman/Pantalla/whiteright1.png")));
 			}
 		}
     }
