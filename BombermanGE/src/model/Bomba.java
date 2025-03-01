@@ -39,7 +39,9 @@ public class Bomba {
 	
 	private void explotar(){
 		if (!explotada)
-		explotada = true;	
+		explotada = true;
+		new Explosion(this.cordX, this.cordY, this.radio);		
+		
 	}
 	
 	public boolean haExplotado() {

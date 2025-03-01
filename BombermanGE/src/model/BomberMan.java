@@ -68,7 +68,8 @@ public class BomberMan extends Observable{
     
     public void colocarBomba() {
     	if (this.bombasDisp==0 || !vivo) return;
-    	//new Bomba()
+    	Bomba bomba = new Bomba(this.coordX, this.coordY, 2);
+    	bomba.activar();
     	this.bombasDisp--;
     	setChanged();
     	notifyObservers(new Object[] {'b',this.coordX,this.coordY});
