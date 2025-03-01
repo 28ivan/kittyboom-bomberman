@@ -9,6 +9,7 @@ public class BomberMan extends Observable{
 	private int coordY;
 	private char dir;
 	private int bombasDisp;
+	private boolean vivo;
 	
 	public BomberMan() {
 		this.coordX = 0;
@@ -31,14 +32,13 @@ public class BomberMan extends Observable{
     }
     
     public void mover(char pDir) {
+    	if (!vivo) return;
     	boolean disp=false;
     	if (pDir=='u') {
     		this.dir='u';
     		//Comprobar casilla
     		if (disp) {
     			this.coordY--;
-    			setChanged();
-    	    	notifyObservers(new Object[] {this.coordX,this.coordY});
     		}
     	}
     	else if (pDir=='d') {
@@ -46,8 +46,6 @@ public class BomberMan extends Observable{
     		//Comprobar casilla
     		if (disp) {
     			this.coordY++;
-    			setChanged();
-    	    	notifyObservers(new Object[] {this.coordX,this.coordY,dir});
     		}
     	}
     	else if (pDir=='l') {
@@ -55,8 +53,6 @@ public class BomberMan extends Observable{
     		//Comprobar casilla
     		if (disp) {
     			this.coordX--;
-    			setChanged();
-    	    	notifyObservers(new Object[] {this.coordX,this.coordY,dir});
     		}
     	}
     	else if (pDir=='r') {
@@ -64,20 +60,23 @@ public class BomberMan extends Observable{
     		//Comprobar casilla
     		if (disp) {
     			this.coordX++;
-    			setChanged();
-    	    	notifyObservers(new Object[] {this.coordX,this.coordY,dir});
     		}
     	}
     	setChanged();
-    	notifyObservers(new Object[] {this.coordX,this.coordY,dir});
+    	notifyObservers(new Object[] {dir,this.coordX,this.coordY});
     }
     
     public void colocarBomba() {
-    	if (this.bombasDisp==0) return;
+    	if (this.bombasDisp==0 || !vivo) return;
     	//new Bomba()
     	this.bombasDisp--;
     	setChanged();
-    	notifyObservers(new Object[] {this.coordX,this.coordY,'x'});
+    	notifyObservers(new Object[] {'b',this.coordX,this.coordY});
     }
 	
+    public void morir() {
+    	vivo=false;
+    	setChanged();
+    	notifyObservers(new Object[] {'x',this.coordX,this.coordY});
+    }
 }
