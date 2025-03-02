@@ -23,7 +23,7 @@ public class Pantalla extends JFrame {
 
     public Pantalla() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 600);
+        setBounds(100, 100, 666, 404);
 
         // FONDO
         JPanel contentPane = new JPanel() {
