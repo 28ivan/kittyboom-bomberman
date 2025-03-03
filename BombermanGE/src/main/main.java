@@ -10,5 +10,7 @@ public class main {
     	//MODELO//
     	Tablero.getTablero();
     	//VISTA//
+    	@SuppressWarnings("unused")
+    	Pantalla pantalla = new Pantalla();
     }
 }

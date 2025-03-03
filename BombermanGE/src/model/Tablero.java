@@ -7,9 +7,10 @@ import viewController.BloqueBlando;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Random;
 
-public class Tablero extends JPanel {
+public class Tablero extends Observable {
     /**
 	 * 
 	 */
@@ -78,11 +79,21 @@ public class Tablero extends JPanel {
     }
     
     public boolean esBloqueBlando( int pCordX, int pCordY) {
-    	if(matriz[pCordX][pCordY] instanceof BloqueBlando) { //falta la referencia de bloque blando
+    	if(matriz[pCordX][pCordY] instanceof BloqueBlando) { 
     		return true;
     	}
     	else {
     		return false;
     	}
+    }
+    
+    public boolean movimientoPosible( int pCordX, int pCordY) {
+    	boolean posible = true;
+    	if(pCordX<0 || pCordX >17 || pCordY<0 || pCordY>11 ) {
+    		posible = false;
+    	}else if(matriz[pCordX][pCordY] instanceof Bloque) {
+    		posible = false;
+    	}
+    	return posible;
     }
 }

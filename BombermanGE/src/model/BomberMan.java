@@ -48,15 +48,15 @@ public class BomberMan extends Observable{
     			this.coordY++;
     		}
     	}
-    	else if (pDir=='l') {
-    		this.dir='l';
+    	else if (pDir=='r') {
+    		this.dir='r';
     		//Comprobar casilla
     		if (disp) {
     			this.coordX--;
     		}
     	}
-    	else if (pDir=='r') {
-    		this.dir='r';
+    	else if (pDir=='l') {
+    		this.dir='l';
     		//Comprobar casilla
     		if (disp) {
     			this.coordX++;
