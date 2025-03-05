@@ -68,7 +68,8 @@ public class BomberMan extends Observable{
     
     public void colocarBomba() {
     	if (this.bombasDisp==0 || !vivo) return;
-    	Bomba bomba = new Bomba(this.coordX, this.coordY, 2);
+    	Bomba bomba = new Bomba(this.coordX, this.coordY);
+    	Tablero.getTablero().colocarBomba(this.coordX,this.coordY);
     	bomba.activar();
     	this.bombasDisp--;
     	setChanged();

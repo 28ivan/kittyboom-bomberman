@@ -8,16 +8,21 @@ public class Bomba {
 	private int cordY;
 	private boolean explotada;
 	private boolean activa;
-	private int radio;
 	private int tiempoExplosion;
 	private Timer timer = null;
 	
-	public Bomba(int pCordX, int pCordY, int pRadio) {
+	public int getCordX() {
+		return this.cordX;
+	}
+	public int getCordY() {
+		return this.cordY;
+	}
+	
+	public Bomba(int pCordX, int pCordY) {
 		this.cordX = pCordX;
 		this.cordY = pCordY;
 		this.explotada = false;
 		this.activa = false;
-		this.radio = pRadio;
 		this.tiempoExplosion = 3000;
 	}
 
@@ -40,8 +45,8 @@ public class Bomba {
 	private void explotar(){
 		if (!explotada)
 		explotada = true;
-		new Explosion(this.cordX, this.cordY, this.radio);		
-		
+		Explosion explosion = new Explosion(this.cordX, this.cordY);		
+		explosion.activarExplosion();
 	}
 	
 	public boolean haExplotado() {

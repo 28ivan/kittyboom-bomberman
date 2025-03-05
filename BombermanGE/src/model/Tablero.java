@@ -17,6 +17,7 @@ public class Tablero extends Observable {
 	private static final long serialVersionUID = 1L;
 	private static final int fila = 11; // Filas
     private static final int col = 17; // Columnas
+	private static final Object Bomba = null;
     private static Tablero miTablero = null;
     private Object[][] matriz = new Object[fila][col];
     
@@ -58,6 +59,14 @@ public class Tablero extends Observable {
     		miTablero = new Tablero();
     	}
     	return miTablero;
+    }
+    
+    public int getFila() { 
+    	return this.fila;
+    }
+    
+    public int getCol() { 
+    	return this.col;
     }
     
     public void destruirBloques(int pCordX, int pCordY) {
@@ -102,5 +111,25 @@ public class Tablero extends Observable {
     		posible = false;
     	}
     	return posible;
+    }
+    
+    public void colocarBomba(int pCordX, int pCordY) {
+    	matriz[pCordX][pCordY] = new Bomba(pCordX,pCordY);
+    }
+    
+    public void quitarBomba(int pCordX, int pCordY) {
+    	matriz[pCordX][pCordY] = null;
+    }
+    
+    public ArrayList<Bomba> getBombas() {
+    	ArrayList<Bomba> resul = new ArrayList<>();
+    	for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < col; j++) {
+            	if (i % 2 == 0 && j % 2 == 0 && matriz[i][j].equals(Bomba)) {
+            		resul.add((model.Bomba) matriz[i][j]);
+            	}
+            }
+    	}
+    	return resul;
     }
 }
