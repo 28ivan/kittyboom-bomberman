@@ -33,17 +33,24 @@ public class Tablero extends Observable {
             	boolean x =r.nextBoolean();
             	if(i==0 && j==0) {
             		matriz[0][0] = new BomberMan();
+            		setChanged();
+                	notifyObservers(new Object[] {"/viewController/sprites_bomberman/Pantalla/whitefront1.png",i,j});
             	}
             	else if (i % 2 != 0 && j % 2 != 0) {
-            		matriz[i][j] = new Duro(i, j); 
+            		matriz[i][j] = new Duro(i, j);
+            		setChanged();
+                	notifyObservers(new Object[] {"viewController/sprites_bomberman/Pantalla/objetos/hard5.png",i,j});
             	}
             	else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
             		if (x) {
-            			matriz[i][j] = new Blando(i, j); 
+            			matriz[i][j] = new Blando(i, j);
+            			setChanged();
+            	    	notifyObservers(new Object[] {"viewController/sprites_bomberman/Pantalla/objetos/soft4.png",i,j});
             		}
             	}
             }
     	}
+
     }
     
     public static Tablero getTablero() {
