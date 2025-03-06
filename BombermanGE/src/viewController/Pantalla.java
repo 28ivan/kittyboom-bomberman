@@ -84,7 +84,7 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
     }
 	
 	  public void setLabel(int pCordX, int pCordY, String pTipo) {
-	    	PanelCord panel = (PanelCord) contentPane.getComponent(pCordX*16+pCordY);
+	    	PanelCord panel = (PanelCord) contentPane.getComponent(pCordY*17+pCordX);
 	    	JLabel label = panel.getLblNewLabel();
 	    	label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
 	    }
