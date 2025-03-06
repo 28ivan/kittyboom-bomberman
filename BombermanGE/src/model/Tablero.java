@@ -78,7 +78,7 @@ public class Tablero extends Observable {
     
     //BOMBA
     public void colocarBomba(int pI, int pJ) {
-    	matriz[pI][pJ] = new Bomba(pI,pJ,1);
+    	matriz[pI][pJ] = new Bomba(pI,pJ);
     }
     
     public void quitarBomba(int pI, int pJ) {

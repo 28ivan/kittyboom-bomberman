@@ -32,6 +32,10 @@ public class BomberMan extends Observable{
     }
     
     public void mover(char pDir) {
+    	if (vivo) {
+    	Tablero.getTablero().moverBomberman();
+    	}
+    	
     	if (!vivo) return;
     	boolean disp=false;
     	if (pDir=='u') {
@@ -62,6 +66,7 @@ public class BomberMan extends Observable{
     			this.coordX++;
     		}
     	}
+    	
     	setChanged();
     	notifyObservers(new Object[] {dir,this.coordX,this.coordY});
     }
