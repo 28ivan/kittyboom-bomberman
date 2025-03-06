@@ -43,18 +43,18 @@ public class Tablero extends Observable {
     	
     	//Colocar Bloques y enemigos
     	Random r = new Random();
-    	for (int i = 0; i < fila; i++) {
-            for (int j = 0; j < col; j++) {
-            	boolean x =r.nextBoolean();
-            	if((i== 0 && j== 0)||(i== 0 && j== 1)||(i== 1 && j== 0)) {
+    	for (int i = 0;  i< fila; i++) {	//filas
+            for (int j = 0; j < col; j++) {	//columnas
+            	boolean random =r.nextBoolean();
+            	if((i==0 && j==0)||(i==0 && j==1)||(i==1 && j==0)) {
             	}else {
-            		if (i % 2 != 0 && j % 2 != 0) {
+            		if (i%2!=0 && j%2!=0) {
             			matriz[i][j] = new Duro(i, j);
             			setChanged();
             			notifyObservers(new Object[] {"/viewController/Objetos/hard5.png",i,j});
             		}
             		else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
-            			if (x) {
+            			if (random) {
             				matriz[i][j] = new Blando(i, j);
             				setChanged();
             				notifyObservers(new Object[] {"/viewController/Objetos/soft4.png",i,j});
@@ -66,30 +66,30 @@ public class Tablero extends Observable {
     }
     
     //MOVIMIENTO
-    public boolean movimientoPosible( int pCordX, int pCordY) {
+    public boolean movimientoPosible( int pI, int pJ) {
     	boolean posible = true;
-    	if(pCordX<0 || pCordX >=17 || pCordY<0 || pCordY>=11 ) {
+    	if(pI<0 || pI >=11 || pJ<0 || pJ>=17 ) {
     		posible = false;
-    	}else if(matriz[pCordX][pCordY] instanceof Bloque) {
+    	}else if(matriz[pI][pJ] instanceof Bloque) {
     		posible = false;
     	}
     	return posible;
     }
     
     //BOMBA
-    public void colocarBomba(int pCordX, int pCordY) {
-    	matriz[pCordX][pCordY] = new Bomba(pCordX,pCordY);
+    public void colocarBomba(int pI, int pJ) {
+    	matriz[pI][pJ] = new Bomba(pI,pJ,1);
     }
     
-    public void quitarBomba(int pCordX, int pCordY) {
-    	matriz[pCordX][pCordY] = null;
+    public void quitarBomba(int pI, int pJ) {
+    	matriz[pI][pJ] = null;
     }
     
     public ArrayList<Bomba> getBombas() {
     	ArrayList<Bomba> resul = new ArrayList<>();
     	for (int i = 0; i < fila; i++) {
             for (int j = 0; j < col; j++) {
-            	if (i % 2 == 0 && j % 2 == 0 && matriz[i][j].equals(Bomba)) {
+            	if (i % 2 == 0 && j % 2 == 0 && matriz[i][j] instanceof Bomba) {
             		resul.add((model.Bomba) matriz[i][j]);
             	}
             }
@@ -98,33 +98,34 @@ public class Tablero extends Observable {
     }
     
     //EXPLOSION
-    public void destruirBloques(int pCordX, int pCordY) {
-    	if( pCordX>=0 && pCordX <17 && pCordY>=0 && pCordY < 11) {
-    		if(pCordX-1>=0) {
-    			if (esBloqueBlando(pCordX, pCordY)) {
-					matriz[pCordX-1][pCordY] = null;
+    public void destruirBloques(int pI, int pJ) {
+    	if( pI>=0 && pI <11 && pJ>=0 && pJ < 17) {
+    		if(pI-1>=0) {
+    			if (esBloqueBlando(pI-1, pJ)) {
+					matriz[pI-1][pJ] = null;
     			}
 			}
-			if(pCordX+1<fila) {
-				if (esBloqueBlando(pCordX, pCordY)) {
-					matriz[pCordX+1][pCordY] = null;
+			if(pI+1<fila) {
+				if (esBloqueBlando(pI+1, pJ)) {
+					matriz[pI+1][pJ] = null;
 				}
 			}
-			if(pCordY-1>=0) {
-				if (esBloqueBlando(pCordX, pCordY)) {
-					matriz[pCordX][pCordY-1] = null;
+			if(pJ-1>=0) {
+				if (esBloqueBlando(pI, pJ-1)) {
+					matriz[pI][pJ-1] = null;
 				}
 			}
-			if(pCordY+1<col) {
-				if (esBloqueBlando(pCordX, pCordY)) {
-					matriz[pCordX][pCordY+1] = null;
+			if(pJ+1<col) {
+				if (esBloqueBlando(pI, pJ+1)) {
+					matriz[pI][pJ+1] = null;
 				}
 			}
     	}
     }
+	
     
-    public boolean esBloqueBlando( int pCordX, int pCordY) {
-    	if(matriz[pCordX][pCordY] instanceof Blando) { 
+    public boolean esBloqueBlando( int pI, int pJ) {
+    	if(matriz[pI][pJ] instanceof Blando) { 
     		return true;
     	}
     	else {
