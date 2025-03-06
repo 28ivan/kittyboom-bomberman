@@ -68,7 +68,7 @@ public class Tablero extends Observable {
     //MOVIMIENTO
     public boolean movimientoPosible( int pCordX, int pCordY) {
     	boolean posible = true;
-    	if(pCordX<0 || pCordX >17 || pCordY<0 || pCordY>11 ) {
+    	if(pCordX<0 || pCordX >=17 || pCordY<0 || pCordY>=11 ) {
     		posible = false;
     	}else if(matriz[pCordX][pCordY] instanceof Bloque) {
     		posible = false;
@@ -99,7 +99,7 @@ public class Tablero extends Observable {
     
     //EXPLOSION
     public void destruirBloques(int pCordX, int pCordY) {
-    	if( pCordX>=0 && pCordX <=11 && pCordY>=0 && pCordY <= 17) {
+    	if( pCordX>=0 && pCordX <17 && pCordY>=0 && pCordY < 11) {
     		if(pCordX-1>=0) {
     			if (esBloqueBlando(pCordX, pCordY)) {
 					matriz[pCordX-1][pCordY] = null;
