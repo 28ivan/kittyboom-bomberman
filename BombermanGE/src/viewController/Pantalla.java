@@ -1,38 +1,43 @@
 package viewController;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import model.Blando;
 import model.BomberMan;
-import model.Duro;
 import model.Tablero;
 
-public class Pantalla extends JFrame implements Observer{
+public class Pantalla extends JFrame implements Observer,KeyListener{
 
     private static final long serialVersionUID = 1L;
-    private JPanel contentPane=null;
+    private JPanel contentPane;
+	private Controlador controlador;
 
     public Pantalla() {
+    	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 666, 404);
-        setVisible(true);
-        
         Tablero.getTablero().addObserver(this);
-
+        getControlador().actionPerformed(null);
+    }
+    
+    private void initialize() {
+        setBounds(100, 100, 666, 404);
+        setLocationRelativeTo(null);
+        addKeyListener(this);
+        setVisible(true);
+     
         // FONDO
         contentPane = new JPanel() {
-            private Image backgroundImage;
-
+        	private Image backgroundImage;
             {
                 try {
                     //  viewController.imagenes
@@ -53,25 +58,18 @@ public class Pantalla extends JFrame implements Observer{
                 }
             }
         };
-
-     
+        // TABLERO
         contentPane.setLayout(new GridLayout(11, 17, 0, 0));
         setContentPane(contentPane);
-
-      
-        for (int i = 0; i < 11; i++) { // Filas
+        for (int i = 0; i < 11; i++) { 
             for (int j = 0; j < 17; j++) { 
             	contentPane.add(new PanelCord(i,j));
             }
         }
+
     }
 
-    public void setLabel(int pCordX, int pCordY, String pTipo) {
-    	PanelCord panel = (PanelCord) contentPane.getComponent(pCordX*16+pCordY);
-    	JLabel label = panel.getLblNewLabel();
-    	label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
-    }
-    
+
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
@@ -84,32 +82,64 @@ public class Pantalla extends JFrame implements Observer{
 
 		}
     }
-	private class Controlador implements KeyListener {
-		@Override
-		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode()==KeyEvent.VK_UP || e.getKeyCode()==KeyEvent.VK_W) {
+	
+	  public void setLabel(int pCordX, int pCordY, String pTipo) {
+	    	PanelCord panel = (PanelCord) contentPane.getComponent(pCordX*16+pCordY);
+	    	JLabel label = panel.getLblNewLabel();
+	    	label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
+	    }
+	    
+	
+	//CONTROLADOR
+	private Controlador getControlador() {
+		if (controlador == null) {
+			controlador = new Controlador();
+		}
+		return controlador;
+	}
+
+	private class Controlador implements ActionListener {
+		
+		public void gestionar(int pKey) {
+			if (pKey==KeyEvent.VK_UP || pKey==KeyEvent.VK_W) {
 				BomberMan.getBomberMan().mover('u');
 	        }
-			else if (e.getKeyCode()==KeyEvent.VK_DOWN || e.getKeyCode()==KeyEvent.VK_S) {
+			else if (pKey==KeyEvent.VK_DOWN || pKey==KeyEvent.VK_S) {
 				BomberMan.getBomberMan().mover('d');
 	        }
-			else if (e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_A) {
+			else if (pKey==KeyEvent.VK_LEFT || pKey==KeyEvent.VK_A) {
 				BomberMan.getBomberMan().mover('l');
 	        }
-			else if (e.getKeyCode()==KeyEvent.VK_RIGHT || e.getKeyCode()==KeyEvent.VK_D) {
+			else if (pKey==KeyEvent.VK_RIGHT || pKey==KeyEvent.VK_D) {
 				BomberMan.getBomberMan().mover('r');
 	        }
-			else if (e.getKeyCode()==KeyEvent.VK_SPACE) {
+			else if (pKey==KeyEvent.VK_SPACE) {
 				BomberMan.getBomberMan().colocarBomba();
 	        }
 	    }
-		
-		@Override
-	    public void keyTyped(KeyEvent e) {
-	    }
 
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-	    }
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Tablero.getTablero().initializeTablero();
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		getControlador().gestionar(key);
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -21,9 +21,9 @@ public class PanelCord extends JPanel {
 		this.cordY = pCordY;
 		this.setOpaque(false);
 		add(getLblNewLabel());
+		this.setSize(getPreferredSize());
 		
 	}
-	
 	
 	public int getCordX() {
 		return this.cordX;
@@ -33,13 +33,9 @@ public class PanelCord extends JPanel {
 		return this.cordY;
 	}
 	
-	/*public void setIcon(String pRuta){
-		lblPanel.setIcon(new ImageIcon(this.getClass().getResource("/viewController/sprites_bomberman/Pantalla/whitedown1.png")));
-	}*/
 	public JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("");
-			lblNewLabel.setIcon(new ImageIcon(PanelCord.class.getResource("/viewController/sprites_bomberman/Pantalla/whitedown1.png")));
 		}
 		return lblNewLabel;
 	}

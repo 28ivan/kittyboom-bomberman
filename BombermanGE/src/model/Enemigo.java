@@ -18,7 +18,8 @@ public class Enemigo {
 	
 	    Random random = new Random();
 	    boolean movimientoValido = false;
-	
+	    
+	    // este metodo esta ya implementado en Tablero llamalo desde ahi
 	    while (!movimientoValido) {
 	        int direccion = random.nextInt(4); 
 	        switch (direccion) {

@@ -1,11 +1,5 @@
 package model;
 
-
-import javax.swing.*;
-
-import viewController.BloqueBlando;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
@@ -22,36 +16,6 @@ public class Tablero extends Observable {
     private Object[][] matriz = new Object[fila][col];
     
     private Tablero() {
-        initialize();
-    }
-    
-    private void initialize() {
-    	
-    	Random r = new Random();
-
-    	for (int i = 0; i < fila; i++) {
-            for (int j = 0; j < col; j++) {
-            	boolean x =r.nextBoolean();
-            	if(i==0 && j==0) {
-            		matriz[0][0] = new BomberMan();
-            		setChanged();
-                	notifyObservers(new Object[] {"/viewController/sprites_bomberman/Pantalla/whitefront1.png",i,j});
-            	}
-            	else if (i % 2 != 0 && j % 2 != 0) {
-            		matriz[i][j] = new Duro(i, j);
-            		setChanged();
-                	notifyObservers(new Object[] {"viewController/sprites_bomberman/Pantalla/objetos/hard5.png",i,j});
-            	}
-            	else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
-            		if (x) {
-            			matriz[i][j] = new Blando(i, j);
-            			setChanged();
-            	    	notifyObservers(new Object[] {"viewController/sprites_bomberman/Pantalla/objetos/soft4.png",i,j});
-            		}
-            	}
-            }
-    	}
-
     }
     
     public static Tablero getTablero() {
@@ -69,6 +33,71 @@ public class Tablero extends Observable {
     	return this.col;
     }
     
+    
+    
+    public void initializeTablero() {
+    	//Colocar Bomberman
+    	matriz[0][0] = new BomberMan();
+		setChanged();
+    	notifyObservers(new Object[] {"/viewController/Bomberman/whitefront1.png",0,0});
+    	
+    	//Colocar Bloques y enemigos
+    	Random r = new Random();
+    	for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < col; j++) {
+            	boolean x =r.nextBoolean();
+            	if((i== 0 && j== 0)||(i== 0 && j== 1)||(i== 1 && j== 0)) {
+            	}else {
+            		if (i % 2 != 0 && j % 2 != 0) {
+            			matriz[i][j] = new Duro(i, j);
+            			setChanged();
+            			notifyObservers(new Object[] {"/viewController/Objetos/hard5.png",i,j});
+            		}
+            		else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
+            			if (x) {
+            				matriz[i][j] = new Blando(i, j);
+            				setChanged();
+            				notifyObservers(new Object[] {"/viewController/Objetos/soft4.png",i,j});
+            			}
+            		}
+            	}
+            }
+    	}
+    }
+    
+    //MOVIMIENTO
+    public boolean movimientoPosible( int pCordX, int pCordY) {
+    	boolean posible = true;
+    	if(pCordX<0 || pCordX >17 || pCordY<0 || pCordY>11 ) {
+    		posible = false;
+    	}else if(matriz[pCordX][pCordY] instanceof Bloque) {
+    		posible = false;
+    	}
+    	return posible;
+    }
+    
+    //BOMBA
+    public void colocarBomba(int pCordX, int pCordY) {
+    	matriz[pCordX][pCordY] = new Bomba(pCordX,pCordY);
+    }
+    
+    public void quitarBomba(int pCordX, int pCordY) {
+    	matriz[pCordX][pCordY] = null;
+    }
+    
+    public ArrayList<Bomba> getBombas() {
+    	ArrayList<Bomba> resul = new ArrayList<>();
+    	for (int i = 0; i < fila; i++) {
+            for (int j = 0; j < col; j++) {
+            	if (i % 2 == 0 && j % 2 == 0 && matriz[i][j].equals(Bomba)) {
+            		resul.add((model.Bomba) matriz[i][j]);
+            	}
+            }
+    	}
+    	return resul;
+    }
+    
+    //EXPLOSION
     public void destruirBloques(int pCordX, int pCordY) {
     	if( pCordX>=0 && pCordX <=11 && pCordY>=0 && pCordY <= 17) {
     		if(pCordX-1>=0) {
@@ -95,41 +124,11 @@ public class Tablero extends Observable {
     }
     
     public boolean esBloqueBlando( int pCordX, int pCordY) {
-    	if(matriz[pCordX][pCordY] instanceof BloqueBlando) { 
+    	if(matriz[pCordX][pCordY] instanceof Blando) { 
     		return true;
     	}
     	else {
     		return false;
     	}
-    }
-    
-    public boolean movimientoPosible( int pCordX, int pCordY) {
-    	boolean posible = true;
-    	if(pCordX<0 || pCordX >17 || pCordY<0 || pCordY>11 ) {
-    		posible = false;
-    	}else if(matriz[pCordX][pCordY] instanceof Bloque) {
-    		posible = false;
-    	}
-    	return posible;
-    }
-    
-    public void colocarBomba(int pCordX, int pCordY) {
-    	matriz[pCordX][pCordY] = new Bomba(pCordX,pCordY);
-    }
-    
-    public void quitarBomba(int pCordX, int pCordY) {
-    	matriz[pCordX][pCordY] = null;
-    }
-    
-    public ArrayList<Bomba> getBombas() {
-    	ArrayList<Bomba> resul = new ArrayList<>();
-    	for (int i = 0; i < fila; i++) {
-            for (int j = 0; j < col; j++) {
-            	if (i % 2 == 0 && j % 2 == 0 && matriz[i][j].equals(Bomba)) {
-            		resul.add((model.Bomba) matriz[i][j]);
-            	}
-            }
-    	}
-    	return resul;
     }
 }
