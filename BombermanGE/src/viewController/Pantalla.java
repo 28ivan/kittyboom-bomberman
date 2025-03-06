@@ -76,15 +76,15 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 		if(o instanceof Tablero) {
 			Object res[]=(Object[])arg;
 			String tipo = (String) res[0];
-			int cordX = (int) res[1];
-			int cordY = (int) res[2];
-			setLabel(cordX,cordY, tipo);
+			int i = (int) res[1];
+			int j = (int) res[2];
+			setLabel(i,j, tipo);
 
 		}
     }
 	
-	  public void setLabel(int pCordX, int pCordY, String pTipo) {
-	    	PanelCord panel = (PanelCord) contentPane.getComponent(pCordY*17+pCordX);
+	  public void setLabel(int pI, int pJ, String pTipo) {
+	    	PanelCord panel = (PanelCord) contentPane.getComponent(pI*17+pJ);
 	    	JLabel label = panel.getLblNewLabel();
 	    	label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
 	    }
