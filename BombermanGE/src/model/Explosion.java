@@ -5,42 +5,42 @@ import java.util.Iterator;
 import java.util.Observable;
 
 public class Explosion extends Observable{
-	private int cordX;
-	private int cordY;
+	private int i;
+	private int j;
 	
-	public Explosion(int pCordX, int pCordY) {
-		this.cordX = pCordX;
-		this.cordY = pCordY;
+	public Explosion(int pI, int pJ) {
+		this.i = pI;
+		this.j = pJ;
 		activarExplosion();
 	}
 	
 	public void activarExplosion() {
-		int xB= BomberMan.getBomberMan().getCordX();
-		int yB= BomberMan.getBomberMan().getCordY();
+		int iB= BomberMan.getBomberMan().getI();
+		int jB= BomberMan.getBomberMan().getJ();
 		int fila= Tablero.getTablero().getFila();
 		int col= Tablero.getTablero().getCol();
-		Tablero.getTablero().destruirBloques(this.cordX,this.cordY);
+		Tablero.getTablero().destruirBloques(this.i,this.j);
 		ArrayList<Bomba> listaBombas = Tablero.getTablero().getBombas();
 		Iterator<Bomba> itr = listaBombas.iterator();
 		//bomberman dentro de rango de explosion
-		if( this.cordX>=0 && this.cordX <=11 && this.cordY>=0 && this.cordY <= 17) {
-    		if(this.cordX-1>=0) {
-    			if (this.cordX-1==xB && this.cordY==yB) {
+		if( this.i>=0 && this.i <=11 && this.j>=0 && this.j <= 17) {
+    		if(this.i-1>=0) {
+    			if (this.i-1==iB && this.j==jB) {
 					BomberMan.getBomberMan().morir();
     			}
 			}
-			if(this.cordX+1<fila) {
-				if (this.cordX+1==xB && this.cordY==yB) {
+			if(this.i+1<fila) {
+				if (this.i+1==iB && this.j==jB) {
 					BomberMan.getBomberMan().morir();
 				}
 			}
-			if(this.cordY-1>=0) {
-				if (this.cordX==xB && this.cordY-1==yB) {
+			if(this.j-1>=0) {
+				if (this.i==iB && this.j-1==jB) {
 					BomberMan.getBomberMan().morir();
 				}
 			}
-			if(this.cordY+1<col) {
-				if (this.cordX==xB && this.cordY-1==yB) {
+			if(this.j+1<col) {
+				if (this.i==iB && this.j-1==jB) {
 					BomberMan.getBomberMan().morir();
 				}
 			}
@@ -48,26 +48,26 @@ public class Explosion extends Observable{
 		//concatenar bombas
 		while(itr.hasNext()) {
 			Bomba bomba = itr.next();
-			int x= bomba.getCordX();
-			int y=bomba.getCordY();
-			if( this.cordX>=0 && this.cordX <=11 && this.cordY>=0 && this.cordY <= 17) {
-	    		if(this.cordX-1>=0) {
-	    			if (this.cordX-1==x && this.cordY==y) {
+			int iX=bomba.getI();
+			int jX=bomba.getJ();
+			if( this.i>=0 && this.i <=11 && this.j>=0 && this.j <= 17) {
+	    		if(this.i-1>=0) {
+	    			if (this.i-1==iX && this.j==jX) {
 						bomba.activar();
 	    			}
 				}
-				if(this.cordX+1<fila) {
-					if (this.cordX+1==x && this.cordY==y) {
+				if(this.i+1<fila) {
+					if (this.i+1==iX && this.j==jX) {
 						bomba.activar();
 					}
 				}
-				if(this.cordY-1>=0) {
-					if (this.cordX==x && this.cordY-1==y) {
+				if(this.j-1>=0) {
+					if (this.i==iX && this.j-1==jX) {
 						bomba.activar();
 					}
 				}
-				if(this.cordY+1<col) {
-					if (this.cordX==x && this.cordY-1==y) {
+				if(this.j+1<col) {
+					if (this.i==iX && this.j-1==jX) {
 						bomba.activar();
 					}
 				}
