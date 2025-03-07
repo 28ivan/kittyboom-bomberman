@@ -80,27 +80,65 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 			Object res[]=(Object[])arg;
 			int pI = (int) res[1];
 			int pJ = (int) res[2];
-			int opcion = (int) res[0];
+			String opcion = (String) res[0];
 			switch (opcion) {
-            case 1:
+            case "u":
+            	setLabel("/viewController/Bomberman/whiteup1.png",pI,pJ);
+            	break;
+            case "d":
             	setLabel("/viewController/Bomberman/whitefront1.png",pI,pJ);
             	break;
-            case 2:
+            case "l":
+            	setLabel("/viewController/Bomberman/whiteleft1.png",pI,pJ);
+            	break;
+            case "r":
+            	setLabel("/viewController/Bomberman/whiteright1.png",pI,pJ);
+            	break;
+            case "bmBomba":
+            	setLabel("/viewController/Bomberman/whitewithbomb1.png",pI,pJ);
+            	break;
+            case "bomba":
+                setLabel("/viewController/Objetos/bomb1.png", pI, pJ);
+                break;
+            case "duro":
             	setLabel("/viewController/Objetos/hard5.png",pI,pJ);
             	break;
-            case 3:
+            case "blando":
             	setLabel("/viewController/Objetos/soft4.png",pI,pJ);
+            	break;
+            case "delete":
+            	clearLabel(pI,pJ);
             	break;
             default:
 			}
 		}
     }
 	
-	  public void setLabel( String pTipo, int pI, int pJ) {
-	    	PanelCord panel = (PanelCord) contentPane.getComponent(pI*17+pJ);
-	    	JLabel label = panel.getLblNewLabel();
-	    	label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
+	public boolean conBomba(int pI, int pJ) {
+	    PanelCord panel = (PanelCord) contentPane.getComponent(pI * 17 + pJ);
+	    JLabel label = panel.getLabel();
+	    Icon iconoActual = label.getIcon();
+	    if (iconoActual instanceof ImageIcon) {
+	        ImageIcon imgIcon = (ImageIcon) iconoActual;
+	        if (imgIcon.getDescription() != null && imgIcon.getDescription().equals("/viewController/Bomberman/whitewithbomb1.png")) {
+	            return true;
+	        }
 	    }
+	    return false;
+	}
+
+	
+	public void setLabel(String pTipo, int pI, int pJ) {
+		PanelCord panel = (PanelCord) contentPane.getComponent(pI*17+pJ);
+		JLabel label = panel.getLabel();
+		label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
+	}
+	
+	public void clearLabel(int pI, int pJ) {
+		PanelCord panel = (PanelCord) contentPane.getComponent(pI*17+pJ);
+		JLabel label = panel.getLabel();
+		label.setIcon(null);
+	}
 	    
 	
 	//CONTROLADOR
@@ -127,7 +165,7 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 				Tablero.getTablero().moverBomberman('r');
 	        }
 			else if (pKey==KeyEvent.VK_SPACE) {
-				Tablero.getTablero().colocarBomba(BomberMan.getBomberMan().getCordX(),BomberMan.getBomberMan().getCordY());
+				Tablero.getTablero().colocarBomba(BomberMan.getBomberMan().getI(),BomberMan.getBomberMan().getJ());
 	        }
 	    }
 
