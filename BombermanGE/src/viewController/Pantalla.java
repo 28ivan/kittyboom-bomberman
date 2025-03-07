@@ -75,15 +75,25 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 		// TODO Auto-generated method stub
 		if(o instanceof Tablero) {
 			Object res[]=(Object[])arg;
-			String tipo = (String) res[0];
-			int i = (int) res[1];
-			int j = (int) res[2];
-			setLabel(i,j, tipo);
-
+			int pI = (int) res[1];
+			int pJ = (int) res[2];
+			int opcion = (int) res[0];
+			switch (opcion) {
+            case 1:
+            	setLabel("/viewController/Bomberman/whitefront1.png",pI,pJ);
+            	break;
+            case 2:
+            	setLabel("/viewController/Objetos/hard5.png",pI,pJ);
+            	break;
+            case 3:
+            	setLabel("/viewController/Objetos/soft4.png",pI,pJ);
+            	break;
+            default:
+			}
 		}
     }
 	
-	  public void setLabel(int pI, int pJ, String pTipo) {
+	  public void setLabel( String pTipo, int pI, int pJ) {
 	    	PanelCord panel = (PanelCord) contentPane.getComponent(pI*17+pJ);
 	    	JLabel label = panel.getLblNewLabel();
 	    	label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
@@ -100,21 +110,21 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 
 	private class Controlador implements ActionListener {
 		
-		public void gestionar(int pKey) {
+		public void handleKeyPressed(int pKey) {
 			if (pKey==KeyEvent.VK_UP || pKey==KeyEvent.VK_W) {
-				BomberMan.getBomberMan().mover('u');
+				Tablero.getTablero().moverBomberman('u');
 	        }
 			else if (pKey==KeyEvent.VK_DOWN || pKey==KeyEvent.VK_S) {
-				BomberMan.getBomberMan().mover('d');
+				Tablero.getTablero().moverBomberman('d');
 	        }
 			else if (pKey==KeyEvent.VK_LEFT || pKey==KeyEvent.VK_A) {
-				BomberMan.getBomberMan().mover('l');
+				Tablero.getTablero().moverBomberman('l');
 	        }
 			else if (pKey==KeyEvent.VK_RIGHT || pKey==KeyEvent.VK_D) {
-				BomberMan.getBomberMan().mover('r');
+				Tablero.getTablero().moverBomberman('r');
 	        }
 			else if (pKey==KeyEvent.VK_SPACE) {
-				BomberMan.getBomberMan().colocarBomba();
+				Tablero.getTablero().colocarBomba(BomberMan.getBomberMan().getCordX(),BomberMan.getBomberMan().getCordY());
 	        }
 	    }
 
@@ -133,7 +143,7 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		getControlador().gestionar(key);
+		getControlador().handleKeyPressed(key);
 		
 	}
 

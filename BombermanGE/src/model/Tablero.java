@@ -39,7 +39,7 @@ public class Tablero extends Observable {
     	//Colocar Bomberman
     	matriz[0][0] = new BomberMan();
 		setChanged();
-    	notifyObservers(new Object[] {"/viewController/Bomberman/whitefront1.png",0,0});
+    	notifyObservers(new Object[] {1,0,0});
     	
     	//Colocar Bloques y enemigos
     	Random r = new Random();
@@ -51,13 +51,13 @@ public class Tablero extends Observable {
             		if (i%2!=0 && j%2!=0) {
             			matriz[i][j] = new Duro(i, j);
             			setChanged();
-            			notifyObservers(new Object[] {"/viewController/Objetos/hard5.png",i,j});
+            			notifyObservers(new Object[] {2,i,j});
             		}
             		else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
             			if (random) {
             				matriz[i][j] = new Blando(i, j);
             				setChanged();
-            				notifyObservers(new Object[] {"/viewController/Objetos/soft4.png",i,j});
+            				notifyObservers(new Object[] {3,i,j});
             			}
             		}
             	}
@@ -66,6 +66,51 @@ public class Tablero extends Observable {
     }
     
     //MOVIMIENTO
+    public void moverBomberman(char pDir) {
+    	if (BomberMan.getBomberMan().getEstado()) {
+    		
+    		int pI = BomberMan.getBomberMan().getCordX();
+    		int pJ = BomberMan.getBomberMan().getCordX();
+    		
+    		if (pDir=='u') {
+        		if(movimientoPosible(pI-1,pJ)) {
+        			pI = pI-1;
+        			BomberMan.getBomberMan().mover(pI-1,pJ);
+        			matriz[pI][pJ] = null;
+        			matriz[pI-1][pJ] = BomberMan.getBomberMan();
+        		}
+        	}
+        	else if (pDir=='d') {
+        		if(movimientoPosible(pI+1,pJ)) {
+        			pI = pI+1;
+        			BomberMan.getBomberMan().mover(pI+1,pJ);
+        			matriz[pI][pJ] = null;
+        			matriz[pI+1][pJ] = BomberMan.getBomberMan();
+        		}
+        	}
+        	else if (pDir=='r') {
+        		if(movimientoPosible(pI,pJ+1)) {
+        			pJ = pJ+1;
+        			BomberMan.getBomberMan().mover(pI,pJ+1);
+        			matriz[pI][pJ] = null;
+        			matriz[pI][pJ+1] = BomberMan.getBomberMan();
+        		}
+        	}
+        	else if (pDir=='l') {
+        		if(movimientoPosible(pI,pJ-1)) {
+        			pJ = pJ-1;
+        			BomberMan.getBomberMan().mover(pI,pJ-1);
+        			matriz[pI][pJ] = null;
+        			matriz[pI][pJ-1] = BomberMan.getBomberMan();
+        		}
+        	}
+    		
+    		setChanged();
+        	notifyObservers(new Object[] {1,pI,pJ});
+    	}
+    	
+    }
+    
     public boolean movimientoPosible( int pI, int pJ) {
     	boolean posible = true;
     	if(pI<0 || pI >=11 || pJ<0 || pJ>=17 ) {

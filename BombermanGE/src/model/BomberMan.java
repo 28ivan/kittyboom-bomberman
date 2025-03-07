@@ -1,89 +1,59 @@
 package model;
 
-import java.util.Observable;
-
-@SuppressWarnings("deprecation")
-public class BomberMan extends Observable{
-	private static BomberMan miBM = new BomberMan();
-	private int coordX;
-	private int coordY;
+public class BomberMan {
+	private static BomberMan miBM ;
+	private int cordX;
+	private int cordY;
 	private char dir;
 	private int bombasDisp;
 	private boolean vivo;
 	
 	public BomberMan() {
-		this.coordX = 0;
-		this.coordY = 0;
+		this.cordX = 0;
+		this.cordY = 0;
 		this.dir='d';
 		this.bombasDisp=10;
+		this.vivo = true;
 		
 	}
 	
 	public static BomberMan getBomberMan() {
+		if(miBM==null) {
+			miBM = new BomberMan();
+    	}
 		return miBM;
 	}
 	
 	public int getCordX() {
-        return coordX;
+        return cordX;
     }
 
     public int getCordY() {
-        return coordY;
+        return cordY;
     }
     
-    public void mover(char pDir) {
-    	if (vivo) {
-    	Tablero.getTablero().moverBomberman();
-    	}
-    	
-    	if (!vivo) return;
-    	boolean disp=false;
-    	if (pDir=='u') {
-    		this.dir='u';
-    		//Comprobar casilla
-    		if (disp) {
-    			this.coordY--;
-    		}
-    	}
-    	else if (pDir=='d') {
-    		this.dir='d';
-    		//Comprobar casilla
-    		if (disp) {
-    			this.coordY++;
-    		}
-    	}
-    	else if (pDir=='r') {
-    		this.dir='r';
-    		//Comprobar casilla
-    		if (disp) {
-    			this.coordX--;
-    		}
-    	}
-    	else if (pDir=='l') {
-    		this.dir='l';
-    		//Comprobar casilla
-    		if (disp) {
-    			this.coordX++;
-    		}
-    	}
-    	
-    	setChanged();
-    	notifyObservers(new Object[] {dir,this.coordX,this.coordY});
+    public boolean getEstado() {
+    	return vivo;
+    }
+    
+    public void mover(int pI, int pJ) {
+    	cordX = pI;
+    	cordY = pJ;
     }
     
     public void colocarBomba() {
     	if (this.bombasDisp==0 || !vivo) return;
-    	Bomba bomba = new Bomba(this.coordX, this.coordY);
-    	Tablero.getTablero().colocarBomba(this.coordX,this.coordY);
+    	Bomba bomba = new Bomba(this.cordX, this.cordY);
+    	Tablero.getTablero().colocarBomba(this.cordX,this.cordY);
     	bomba.activar();
     	this.bombasDisp--;
-    	setChanged();
-    	notifyObservers(new Object[] {'b',this.coordX,this.coordY});
+    	//setChanged();
+    	//notifyObservers(new Object[] {'b',this.cordX,this.cordY});
     }
 	
     public void morir() {
     	vivo=false;
-    	setChanged();
-    	notifyObservers(new Object[] {'x',this.coordX,this.coordY});
+    	//setChanged();
+    	//notifyObservers(new Object[] {'x',this.cordX,this.cordY});
     }
 }
