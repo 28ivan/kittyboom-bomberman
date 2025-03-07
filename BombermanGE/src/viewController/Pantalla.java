@@ -69,7 +69,10 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 
     }
 
-
+    //UPDATE OBSERVER
+    //1- Movimiento
+    //2- Bloque duro
+    //3- Bloque Blando
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
