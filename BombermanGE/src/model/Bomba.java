@@ -4,23 +4,23 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Bomba {
-	private int cordX;
-	private int cordY;
+	private int i;
+	private int j;
 	private boolean explotada;
 	private boolean activa;
 	private int tiempoExplosion;
 	private Timer timer = null;
 	
-	public int getCordX() {
-		return this.cordX;
+	public int getI() {
+		return this.i;
 	}
-	public int getCordY() {
-		return this.cordY;
+	public int getJ() {
+		return this.j;
 	}
 	
-	public Bomba(int pCordX, int pCordY) {
-		this.cordX = pCordX;
-		this.cordY = pCordY;
+	public Bomba(int pI, int pJ) {
+		this.i = pI;
+		this.j = pJ;
 		this.explotada = false;
 		this.activa = false;
 		this.tiempoExplosion = 3000;
@@ -45,7 +45,7 @@ public class Bomba {
 	private void explotar(){
 		if (!explotada)
 		explotada = true;
-		Explosion explosion = new Explosion(this.cordX, this.cordY);		
+		Explosion explosion = new Explosion(this.i, this.j);		
 		explosion.activarExplosion();
 	}
 	
