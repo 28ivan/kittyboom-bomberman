@@ -1,20 +1,20 @@
 package model;
 
 public abstract class Bloque {
-	private int cordX;
-	private int cordY;
+	private int i;
+	private int j;
 	
-	public Bloque(int pCordX, int pCordY){
-		this.cordX = pCordX;
-		this.cordY = pCordY; 
+	public Bloque(int pI, int pJ){
+		this.i = pI;
+		this.j = pJ; 
 	}
 	
-	public int getCordX() {
-		return cordX;
+	public int getI() {
+		return i;
 	}	
 	
-	public int getCordY() {
-		return cordY;
+	public int getJ() {
+		return j;
 	}
 
 }
