@@ -39,7 +39,7 @@ public class Tablero extends Observable {
     	//Colocar Bomberman
     	matriz[0][0] = new BomberMan();
 		setChanged();
-    	notifyObservers(new Object[] {1,0,0});
+    	notifyObservers(new Object[] {"d",0,0});
     	
     	//Colocar Bloques y enemigos
     	Random r = new Random();
@@ -51,13 +51,13 @@ public class Tablero extends Observable {
             		if (i%2!=0 && j%2!=0) {
             			matriz[i][j] = new Duro(i, j);
             			setChanged();
-            			notifyObservers(new Object[] {2,i,j});
+            			notifyObservers(new Object[] {"duro",i,j});
             		}
             		else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
             			if (random) {
             				matriz[i][j] = new Blando(i, j);
             				setChanged();
-            				notifyObservers(new Object[] {3,i,j});
+            				notifyObservers(new Object[] {"blando",i,j});
             			}
             		}
             	}
@@ -69,44 +69,65 @@ public class Tablero extends Observable {
     public void moverBomberman(char pDir) {
     	if (BomberMan.getBomberMan().getEstado()) {
     		
-    		int pI = BomberMan.getBomberMan().getCordX();
-    		int pJ = BomberMan.getBomberMan().getCordX();
+    		int pI = BomberMan.getBomberMan().getI();
+    		int pJ = BomberMan.getBomberMan().getJ();
+    		int prevI = pI;
+    		int prevJ = pJ;
     		
     		if (pDir=='u') {
         		if(movimientoPosible(pI-1,pJ)) {
-        			pI = pI-1;
         			BomberMan.getBomberMan().mover(pI-1,pJ);
-        			matriz[pI][pJ] = null;
+        			if (!(matriz[pI][pJ] instanceof Bomba)) {
+        				matriz[pI][pJ] = null;
+        			}
         			matriz[pI-1][pJ] = BomberMan.getBomberMan();
+        			setChanged();
+                	notifyObservers(new Object[] {"delete",pI,pJ});
+           			pI--;
         		}
         	}
         	else if (pDir=='d') {
         		if(movimientoPosible(pI+1,pJ)) {
-        			pI = pI+1;
         			BomberMan.getBomberMan().mover(pI+1,pJ);
-        			matriz[pI][pJ] = null;
+        			if (!(matriz[pI][pJ] instanceof Bomba)) {
+        				matriz[pI][pJ] = null;
+        			}
         			matriz[pI+1][pJ] = BomberMan.getBomberMan();
+        			setChanged();
+                	notifyObservers(new Object[] {"delete",pI,pJ});
+        			pI++;
         		}
         	}
         	else if (pDir=='r') {
         		if(movimientoPosible(pI,pJ+1)) {
-        			pJ = pJ+1;
         			BomberMan.getBomberMan().mover(pI,pJ+1);
-        			matriz[pI][pJ] = null;
+        			if (!(matriz[pI][pJ] instanceof Bomba)) {
+        				matriz[pI][pJ] = null;
+        			}
         			matriz[pI][pJ+1] = BomberMan.getBomberMan();
+        			setChanged();
+                	notifyObservers(new Object[] {"delete",pI,pJ});
+        			pJ++;
         		}
         	}
         	else if (pDir=='l') {
         		if(movimientoPosible(pI,pJ-1)) {
-        			pJ = pJ-1;
         			BomberMan.getBomberMan().mover(pI,pJ-1);
-        			matriz[pI][pJ] = null;
+        			if (!(matriz[pI][pJ] instanceof Bomba)) {
+        				matriz[pI][pJ] = null;
+        			}
         			matriz[pI][pJ-1] = BomberMan.getBomberMan();
+        			setChanged();
+                	notifyObservers(new Object[] {"delete",pI,pJ});
+        			pJ--;
         		}
         	}
-    		
+    		if (matriz[prevI][prevJ] instanceof Bomba && (prevI!=pI || prevJ!=pJ)) {
+                setChanged();
+                notifyObservers(new Object[]{"bomba", prevI, prevJ});
+            }
     		setChanged();
-        	notifyObservers(new Object[] {1,pI,pJ});
+        	notifyObservers(new Object[] {String.valueOf(pDir),pI,pJ});
     	}
     	
     }
@@ -115,7 +136,7 @@ public class Tablero extends Observable {
     	boolean posible = true;
     	if(pI<0 || pI >=11 || pJ<0 || pJ>=17 ) {
     		posible = false;
-    	}else if(matriz[pI][pJ] instanceof Bloque) {
+    	}else if(matriz[pI][pJ] instanceof Bloque || matriz[pI][pJ] instanceof Bomba) {
     		posible = false;
     	}
     	return posible;
@@ -123,7 +144,14 @@ public class Tablero extends Observable {
     
     //BOMBA
     public void colocarBomba(int pI, int pJ) {
-    	matriz[pI][pJ] = new Bomba(pI,pJ);
+        if (BomberMan.getBomberMan().puedeColocarBomba()) {
+            if (matriz[pI][pJ] instanceof Bomba) {
+                return;
+            }
+            matriz[pI][pJ] = new Bomba(pI, pJ);
+            setChanged();
+            notifyObservers(new Object[] { "bmBomba", pI, pJ });
+        }
     }
     
     public void quitarBomba(int pI, int pJ) {
