@@ -1,8 +1,8 @@
 package model;
 
 public class Duro extends Bloque{
-	public Duro(int pCordX, int pCordY) {
-		super(pCordX, pCordY);
+	public Duro(int pI, int pJ) {
+		super(pI, pJ);
 	}
 
 }
