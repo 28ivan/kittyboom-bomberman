@@ -2,15 +2,15 @@ package model;
 
 public class BomberMan {
 	private static BomberMan miBM ;
-	private int cordX;
-	private int cordY;
+	private int i;
+	private int j;
 	private char dir;
 	private int bombasDisp;
 	private boolean vivo;
 	
 	public BomberMan() {
-		this.cordX = 0;
-		this.cordY = 0;
+		this.i = 0;
+		this.j = 0;
 		this.dir='d';
 		this.bombasDisp=10;
 		this.vivo = true;
@@ -24,12 +24,12 @@ public class BomberMan {
 		return miBM;
 	}
 	
-	public int getCordX() {
-        return cordX;
+	public int getI() {
+        return i;
     }
 
-    public int getCordY() {
-        return cordY;
+    public int getJ() {
+        return j;
     }
     
     public boolean getEstado() {
@@ -37,18 +37,16 @@ public class BomberMan {
     }
     
     public void mover(int pI, int pJ) {
-    	cordX = pI;
-    	cordY = pJ;
+    	i = pI;
+    	j = pJ;
     }
     
-    public void colocarBomba() {
-    	if (this.bombasDisp==0 || !vivo) return;
-    	Bomba bomba = new Bomba(this.cordX, this.cordY);
-    	Tablero.getTablero().colocarBomba(this.cordX,this.cordY);
-    	bomba.activar();
-    	this.bombasDisp--;
-    	//setChanged();
-    	//notifyObservers(new Object[] {'b',this.cordX,this.cordY});
+    public boolean puedeColocarBomba() {
+    	if (this.bombasDisp==0 || !vivo) return false;
+    	else {
+    		this.bombasDisp--;
+    		return true;
+    	}
     }
 	
     public void morir() {
