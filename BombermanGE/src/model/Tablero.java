@@ -122,12 +122,22 @@ public class Tablero extends Observable {
         			pJ--;
         		}
         	}
-    		if (matriz[prevI][prevJ] instanceof Bomba && (prevI!=pI || prevJ!=pJ)) {
-                setChanged();
-                notifyObservers(new Object[]{"bomba", prevI, prevJ});
+    		if (matriz[prevI][prevJ] instanceof Bomba) {
+    			if (prevI!=pI || prevJ!=pJ) {
+    				setChanged();
+    				notifyObservers(new Object[]{"bomba", prevI, prevJ});
+    				setChanged();
+    	        	notifyObservers(new Object[] {String.valueOf(pDir),pI,pJ});
+    			}
+    			else {
+    				setChanged();
+    				notifyObservers(new Object[]{"bmBomba", prevI, prevJ});
+    			}
             }
-    		setChanged();
-        	notifyObservers(new Object[] {String.valueOf(pDir),pI,pJ});
+    		else {
+    			setChanged();
+            	notifyObservers(new Object[] {String.valueOf(pDir),pI,pJ});
+    		}
     	}
     	
     }
