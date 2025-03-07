@@ -12,31 +12,31 @@ public class PanelCord extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int cordX;
-	private int cordY;
-	private JLabel lblNewLabel;
+	private int i;
+	private int j;
+	private JLabel Label;
 
-	public PanelCord(int pCordX, int pCordY) {
-		this.cordX = pCordX;
-		this.cordY = pCordY;
+	public PanelCord(int pI, int pJ) {
+		this.i = pJ;
+		this.j = pJ;
 		this.setOpaque(false);
-		add(getLblNewLabel());
+		add(getLabel());
 		this.setSize(getPreferredSize());
 		
 	}
 	
-	public int getCordX() {
-		return this.cordX;
+	public int getI() {
+		return this.i;
 	}
 	
-	public int getCordY() {
-		return this.cordY;
+	public int getJ() {
+		return this.j;
 	}
 	
-	public JLabel getLblNewLabel() {
-		if (lblNewLabel == null) {
-			lblNewLabel = new JLabel("");
+	public JLabel getLabel() {
+		if (Label == null) {
+			Label = new JLabel("");
 		}
-		return lblNewLabel;
+		return Label;
 	}
 }
