@@ -122,6 +122,8 @@ public class Tablero extends Observable {
         			pJ--;
         		}
         	}
+    		
+    		
     		if (matriz[prevI][prevJ] instanceof Bomba) {
     			if (prevI!=pI || prevJ!=pJ) {
     				setChanged();
@@ -159,6 +161,8 @@ public class Tablero extends Observable {
                 return;
             }
             matriz[pI][pJ] = new Bomba(pI, pJ);
+            Bomba bomba = (model.Bomba) matriz[pI][pJ];
+            //bomba.activar(); habria q activar la bomba en algun momento
             setChanged();
             notifyObservers(new Object[] { "bmBomba", pI, pJ });
         }
@@ -203,6 +207,8 @@ public class Tablero extends Observable {
 					matriz[pI][pJ+1] = null;
 				}
 			}
+//			setChanged();
+//            notifyObservers(new Object[] { "delete", pI, pJ });
     	}
     }
 	
