@@ -63,6 +63,7 @@ public class Tablero extends Observable {
             	}
             }
     	}
+    	return;
     }
     
     //MOVIMIENTO
@@ -141,7 +142,7 @@ public class Tablero extends Observable {
             	notifyObservers(new Object[] {String.valueOf(pDir),pI,pJ});
     		}
     	}
-    	
+    	return;
     }
     
     public boolean movimientoPosible( int pI, int pJ) {
@@ -162,14 +163,17 @@ public class Tablero extends Observable {
             }
             matriz[pI][pJ] = new Bomba(pI, pJ);
             Bomba bomba = (model.Bomba) matriz[pI][pJ];
-            //bomba.activar(); habria q activar la bomba en algun momento
             setChanged();
-            notifyObservers(new Object[] { "bmBomba", pI, pJ });
+            notifyObservers(new Object[] {"bmBomba", pI, pJ });
         }
+        return;
     }
     
     public void quitarBomba(int pI, int pJ) {
     	matriz[pI][pJ] = null;
+    	setChanged();
+        notifyObservers(new Object[] {"delete", pI, pJ });
+        return;
     }
     
     public ArrayList<Bomba> getBombas() {
@@ -186,39 +190,73 @@ public class Tablero extends Observable {
     
     //EXPLOSION
     public void destruirBloques(int pI, int pJ) {
-    	if( pI>=0 && pI <11 && pJ>=0 && pJ < 17) {
-    		if(pI-1>=0) {
-    			if (esBloqueBlando(pI-1, pJ)) {
-					matriz[pI-1][pJ] = null;
-    			}
-			}
-			if(pI+1<fila) {
-				if (esBloqueBlando(pI+1, pJ)) {
-					matriz[pI+1][pJ] = null;
-				}
-			}
-			if(pJ-1>=0) {
-				if (esBloqueBlando(pI, pJ-1)) {
-					matriz[pI][pJ-1] = null;
-				}
-			}
-			if(pJ+1<col) {
-				if (esBloqueBlando(pI, pJ+1)) {
-					matriz[pI][pJ+1] = null;
-				}
-			}
-//			setChanged();
-//            notifyObservers(new Object[] { "delete", pI, pJ });
-    	}
+        quitarBomba(pI, pJ);
+        generarExplosion(pI, pJ);
+        procesarExplosion(pI - 1, pJ);
+        procesarExplosion(pI + 1, pJ);
+        procesarExplosion(pI, pJ - 1);
+        procesarExplosion(pI, pJ + 1);
+        return;
+    }
+    
+    private void procesarExplosion(int pI, int pJ) {
+    	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
+        if (esBloqueBlando(pI, pJ)) {
+        	setChanged();
+            notifyObservers(new Object[] {"delete", pI, pJ});
+            generarExplosion(pI, pJ);
+        } else if (esBomba(pI, pJ)) {
+            Bomba bomba = (Bomba) matriz[pI][pJ];
+            bomba.explotar();
+        } else if (esBomberMan(pI, pJ)) {
+            BomberMan.getBomberMan().morir();
+            setChanged();
+            notifyObservers(new Object[] {"muerto", pI, pJ});
+        } else if (matriz[pI][pJ] == null) {
+            generarExplosion(pI, pJ);
+        }
+        return;
+    }
+    
+    private void generarExplosion(int pI, int pJ) {
+        if (matriz[pI][pJ] instanceof Explosion) {
+        	Tablero.getTablero().apagar(pI, pJ);
+        }
+        matriz[pI][pJ] = new Explosion(pI, pJ);
+        setChanged();
+        notifyObservers(new Object[] {"explosion", pI, pJ});
+        return;
     }
 	
+    public void apagar(int pI, int pJ) {
+    	matriz[pI][pJ]=null;
+		setChanged();
+        notifyObservers(new Object[] {"delete", pI, pJ});
+        return;
+    }
     
-    public boolean esBloqueBlando( int pI, int pJ) {
+    public boolean esBloqueBlando(int pI, int pJ) {
     	if(matriz[pI][pJ] instanceof Blando) { 
     		return true;
     	}
     	else {
     		return false;
     	}
+    }
+    
+    public boolean esBomba(int pI, int pJ) {
+    	if(matriz[pI][pJ] instanceof Bomba) { 
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    public boolean esBomberMan(int pI, int pJ) {
+    	if (BomberMan.getBomberMan().getI()==pI && BomberMan.getBomberMan().getJ()==pJ) {
+    		return true;
+    	}
+    	return false;
     }
 }
