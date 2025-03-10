@@ -104,6 +104,12 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
             case "blando":
             	setLabel("/viewController/Objetos/soft4.png",pI,pJ);
             	break;
+            case "explosion":
+            	setLabel("/viewController/Objetos/kabomb5.png",pI,pJ);
+            	break;
+            case "muerto":
+            	setLabel("/viewController/Bomberman/onfire2.png",pI,pJ);
+            	break;
             case "delete":
             	clearLabel(pI,pJ);
             	break;
@@ -111,20 +117,6 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 			}
 		}
     }
-	
-	public boolean conBomba(int pI, int pJ) {
-	    PanelCord panel = (PanelCord) contentPane.getComponent(pI * 17 + pJ);
-	    JLabel label = panel.getLabel();
-	    Icon iconoActual = label.getIcon();
-	    if (iconoActual instanceof ImageIcon) {
-	        ImageIcon imgIcon = (ImageIcon) iconoActual;
-	        if (imgIcon.getDescription() != null && imgIcon.getDescription().equals("/viewController/Bomberman/whitewithbomb1.png")) {
-	            return true;
-	        }
-	    }
-	    return false;
-	}
-
 	
 	public void setLabel(String pTipo, int pI, int pJ) {
 		PanelCord panel = (PanelCord) contentPane.getComponent(pI*17+pJ);
