@@ -51,7 +51,5 @@ public class BomberMan {
 	
     public void morir() {
     	vivo=false;
-    	//setChanged();
-    	//notifyObservers(new Object[] {'x',this.cordX,this.cordY});
     }
 }
