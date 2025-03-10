@@ -24,12 +24,12 @@ public class Bomba {
 		this.explotada = false;
 		this.activa = false;
 		this.tiempoExplosion = 3000;
+		activar();
 	}
 
 	public void activar() {
 		if (!activa) {
 			activa=true;
-			//se ha colocado la bomba
 			TimerTask timerTask = new TimerTask(){
 				@Override
 				public void run() {
@@ -42,11 +42,10 @@ public class Bomba {
 		}
 	}
 	
-	private void explotar(){
+	public void explotar(){
 		if (!explotada)
 		explotada = true;
-		Explosion explosion = new Explosion(this.i, this.j);		
-		explosion.activarExplosion();
+		Tablero.getTablero().destruirBloques(i, j);
 	}
 	
 	public boolean haExplotado() {
