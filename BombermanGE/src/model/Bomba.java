@@ -38,7 +38,6 @@ public class Bomba {
 			};
 			timer = new Timer();
 			timer.schedule(timerTask, tiempoExplosion);
-			//el timer esta hecho como en gestorSemaforos
 		}
 	}
 	

@@ -159,21 +159,20 @@ public class Tablero extends Observable {
     public void colocarBomba(int pI, int pJ) {
         if (BomberMan.getBomberMan().puedeColocarBomba()) {
             if (matriz[pI][pJ] instanceof Bomba) {
-                return;
-            }
+             
+            }else {
             matriz[pI][pJ] = new Bomba(pI, pJ);
-            Bomba bomba = (model.Bomba) matriz[pI][pJ];
+            Bomba bomba = (Bomba) matriz[pI][pJ];
             setChanged();
             notifyObservers(new Object[] {"bmBomba", pI, pJ });
+            }
         }
-        return;
     }
     
     public void quitarBomba(int pI, int pJ) {
     	matriz[pI][pJ] = null;
     	setChanged();
         notifyObservers(new Object[] {"delete", pI, pJ });
-        return;
     }
     
     public ArrayList<Bomba> getBombas() {
@@ -181,7 +180,7 @@ public class Tablero extends Observable {
     	for (int i = 0; i < fila; i++) {
             for (int j = 0; j < col; j++) {
             	if (i % 2 == 0 && j % 2 == 0 && matriz[i][j] instanceof Bomba) {
-            		resul.add((model.Bomba) matriz[i][j]);
+            		resul.add((Bomba) matriz[i][j]);
             	}
             }
     	}
