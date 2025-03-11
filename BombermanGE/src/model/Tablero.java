@@ -82,8 +82,6 @@ public class Tablero extends Observable {
         				matriz[pI][pJ] = null;
         			}
         			matriz[pI-1][pJ] = BomberMan.getBomberMan();
-        			setChanged();
-                	notifyObservers(new Object[] {"delete",pI,pJ});
            			pI--;
         		}
         	}
@@ -94,8 +92,6 @@ public class Tablero extends Observable {
         				matriz[pI][pJ] = null;
         			}
         			matriz[pI+1][pJ] = BomberMan.getBomberMan();
-        			setChanged();
-                	notifyObservers(new Object[] {"delete",pI,pJ});
         			pI++;
         		}
         	}
@@ -106,8 +102,6 @@ public class Tablero extends Observable {
         				matriz[pI][pJ] = null;
         			}
         			matriz[pI][pJ+1] = BomberMan.getBomberMan();
-        			setChanged();
-                	notifyObservers(new Object[] {"delete",pI,pJ});
         			pJ++;
         		}
         	}
@@ -118,12 +112,12 @@ public class Tablero extends Observable {
         				matriz[pI][pJ] = null;
         			}
         			matriz[pI][pJ-1] = BomberMan.getBomberMan();
-        			setChanged();
-                	notifyObservers(new Object[] {"delete",pI,pJ});
         			pJ--;
         		}
         	}
     		
+    		setChanged();
+        	notifyObservers(new Object[] {"delete",prevI,prevJ});
     		
     		if (matriz[prevI][prevJ] instanceof Bomba) {
     			if (prevI!=pI || prevJ!=pJ) {
