@@ -44,6 +44,7 @@ public class Bomba {
 	public void explotar(){
 		if (!explotada)
 		explotada = true;
+		BomberMan.getBomberMan().bombaExplotada();
 		Tablero.getTablero().destruirBloques(i, j);
 	}
 	

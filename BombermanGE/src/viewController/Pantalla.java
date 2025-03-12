@@ -16,7 +16,7 @@ import javax.swing.*;
 import model.BomberMan;
 import model.Tablero;
 
-public class Pantalla extends JFrame implements Observer,KeyListener{
+public class Pantalla extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -32,7 +32,7 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
     private void initialize() {
         setBounds(100, 100, 666, 404);
         setLocationRelativeTo(null);
-        addKeyListener(this);
+        addKeyListener(getControlador());
         setVisible(true);
      
         // FONDO
@@ -81,7 +81,7 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 			String opcion = (String) res[0];
 			switch (opcion) {
             case "u":
-            	setLabel("/viewController/Bomberman/whiteup1.png",pI,pJ);
+            	setLabel("/viewController/Bomberman/whiteup.png",pI,pJ);
             	break;
             case "d":
             	setLabel("/viewController/Bomberman/whitefront1.png",pI,pJ);
@@ -139,7 +139,7 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 		return controlador;
 	}
 
-	private class Controlador implements ActionListener {
+	private class Controlador implements ActionListener,KeyListener {
 		
 		public void handleKeyPressed(int pKey) {
 			if (pKey==KeyEvent.VK_UP || pKey==KeyEvent.VK_W) {
@@ -163,24 +163,23 @@ public class Pantalla extends JFrame implements Observer,KeyListener{
 		public void actionPerformed(ActionEvent e) {
 			Tablero.getTablero().initializeTablero();
 		}
-	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		getControlador().handleKeyPressed(key);
-		
-	}
+		@Override
+		public void keyPressed(KeyEvent e) {
+			int key = e.getKeyCode();
+			getControlador().handleKeyPressed(key);
+		}
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }

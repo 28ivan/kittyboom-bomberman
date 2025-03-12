@@ -37,7 +37,7 @@ public class Tablero extends Observable {
     
     public void initializeTablero() {
     	//Colocar Bomberman
-    	matriz[0][0] = new BomberMan();
+    	matriz[0][0] = BomberMan.getBomberMan();
 		setChanged();
     	notifyObservers(new Object[] {"d",0,0});
     	
@@ -78,12 +78,12 @@ public class Tablero extends Observable {
     		
     		if (pDir=='u') {
         		if(movimientoPosible(pI-1,pJ)) {
+        			BomberMan.getBomberMan().mover(pI-1,pJ);
         			if (matriz[pI-1][pJ] instanceof Explosion) {
         				BomberMan.getBomberMan().morir();
         				accion="muerto";
         			}
         			else {
-	        			BomberMan.getBomberMan().mover(pI-1,pJ);
 	        			if (!(matriz[pI][pJ] instanceof Bomba)) {
 	        				matriz[pI][pJ] = null;
 	        			}
@@ -96,12 +96,12 @@ public class Tablero extends Observable {
         	}
         	else if (pDir=='d') {
         		if(movimientoPosible(pI+1,pJ)) {
+        			BomberMan.getBomberMan().mover(pI+1,pJ);
         			if (matriz[pI+1][pJ] instanceof Explosion) {
         				BomberMan.getBomberMan().morir();
         				accion="muerto";
         			}
         			else {
-	        			BomberMan.getBomberMan().mover(pI+1,pJ);
 	        			if (!(matriz[pI][pJ] instanceof Bomba)) {
 	        				matriz[pI][pJ] = null;
 	        			}
@@ -114,12 +114,12 @@ public class Tablero extends Observable {
         	}
         	else if (pDir=='r') {
         		if(movimientoPosible(pI,pJ+1)) {
+        			BomberMan.getBomberMan().mover(pI,pJ+1);
         			if (matriz[pI][pJ+1] instanceof Explosion) {
         				BomberMan.getBomberMan().morir();
         				accion="muerto";
         			}
         			else {
-	        			BomberMan.getBomberMan().mover(pI,pJ+1);
 	        			if (!(matriz[pI][pJ] instanceof Bomba)) {
 	        				matriz[pI][pJ] = null;
 	        			}
@@ -132,12 +132,12 @@ public class Tablero extends Observable {
         	}
         	else if (pDir=='l') {
         		if(movimientoPosible(pI,pJ-1)) {
+        			BomberMan.getBomberMan().mover(pI,pJ-1);
         			if (matriz[pI][pJ-1] instanceof Explosion) {
         				BomberMan.getBomberMan().morir();
         				accion="muerto";
         			}
         			else {
-	        			BomberMan.getBomberMan().mover(pI,pJ-1);
 	        			if (!(matriz[pI][pJ] instanceof Bomba)) {
 	        				matriz[pI][pJ] = null;
 	        			}
@@ -165,7 +165,6 @@ public class Tablero extends Observable {
             	notifyObservers(new Object[] {accion,pI,pJ});
     		}
     	}
-    	return;
     }
     
     public boolean movimientoPosible( int pI, int pJ) {
@@ -189,14 +188,12 @@ public class Tablero extends Observable {
             setChanged();
             notifyObservers(new Object[] {"bmBomba", pI, pJ });
         }
-        return;
     }
     
     public void quitarBomba(int pI, int pJ) {
     	matriz[pI][pJ] = null;
     	setChanged();
         notifyObservers(new Object[] {"delete", pI, pJ });
-        return;
     }
     
     public ArrayList<Bomba> getBombas() {
@@ -219,7 +216,6 @@ public class Tablero extends Observable {
         procesarExplosion(pI + 1, pJ);
         procesarExplosion(pI, pJ - 1);
         procesarExplosion(pI, pJ + 1);
-        return;
     }
     
     private void procesarExplosion(int pI, int pJ) {
@@ -248,7 +244,6 @@ public class Tablero extends Observable {
         matriz[pI][pJ] = new Explosion(pI, pJ);
         setChanged();
         notifyObservers(new Object[] {"explosion", pI, pJ});
-        return;
     }
 	
     public void apagar(int pI, int pJ) {
@@ -258,7 +253,6 @@ public class Tablero extends Observable {
     	matriz[pI][pJ]=null;
 		setChanged();
         notifyObservers(new Object[] {"delete", pI, pJ});
-        return;
     }
     
     public boolean esBloqueBlando(int pI, int pJ) {

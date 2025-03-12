@@ -5,14 +5,14 @@ public class BomberMan {
 	private int i;
 	private int j;
 	private char dir;
-	private int bombasDisp;
+	private int bombas;
 	private boolean vivo;
 	
 	public BomberMan() {
 		this.i = 0;
 		this.j = 0;
 		this.dir='d';
-		this.bombasDisp=10;
+		this.bombas = 0;
 		this.vivo = true;
 		
 	}
@@ -42,14 +42,20 @@ public class BomberMan {
     }
     
     public boolean puedeColocarBomba() {
-    	if (this.bombasDisp==0 || !vivo) return false;
+    	if (this.bombas==10 || !vivo) {
+    		return false;
+    	}
     	else {
-    		this.bombasDisp--;
+    		this.bombas++;
     		return true;
     	}
     }
 	
     public void morir() {
     	vivo=false;
+    }
+    
+    public void bombaExplotada() {
+    	bombas--;
     }
 }
