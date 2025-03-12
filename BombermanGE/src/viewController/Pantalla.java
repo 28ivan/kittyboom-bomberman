@@ -30,7 +30,8 @@ public class Pantalla extends JFrame implements Observer{
     }
     
     private void initialize() {
-        setBounds(100, 100, 666, 404);
+        setBounds(100, 100, 840, 520);
+        setResizable(false);
         setLocationRelativeTo(null);
         addKeyListener(getControlador());
         setVisible(true);
@@ -81,7 +82,7 @@ public class Pantalla extends JFrame implements Observer{
 			String opcion = (String) res[0];
 			switch (opcion) {
             case "u":
-            	setLabel("/viewController/Bomberman/whiteup.png",pI,pJ);
+            	setLabel("/viewController/Bomberman/whiteup1.png",pI,pJ);
             	break;
             case "d":
             	setLabel("/viewController/Bomberman/whitefront1.png",pI,pJ);
