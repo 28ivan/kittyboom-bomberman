@@ -87,7 +87,7 @@ public class Tablero extends Observable {
 	        			if (!(matriz[pI][pJ] instanceof Bomba)) {
 	        				matriz[pI][pJ] = null;
 	        			}
-        			}
+        			} 
 	        		matriz[pI-1][pJ] = BomberMan.getBomberMan();
 	        		setChanged();
 	                notifyObservers(new Object[] {"delete",pI,pJ});
