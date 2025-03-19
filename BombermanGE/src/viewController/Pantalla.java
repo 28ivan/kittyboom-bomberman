@@ -72,6 +72,7 @@ public class Pantalla extends JFrame implements Observer{
 
     //UPDATE OBSERVER
  ///hola estoy probando si me funciona el commit
+ /////estoy volviendo a probar si funciona
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
