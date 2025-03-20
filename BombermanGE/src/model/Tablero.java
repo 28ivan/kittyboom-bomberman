@@ -49,13 +49,13 @@ public class Tablero extends Observable {
             	if((i==0 && j==0)||(i==0 && j==1)||(i==1 && j==0)) {
             	}else {
             		if (i%2!=0 && j%2!=0) {
-            			matriz[i][j] = new Duro(i, j);
+            			matriz[i][j] = new Duro();
             			setChanged();
             			notifyObservers(new Object[] {"duro",i,j});
             		}
             		else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
             			if (random) {
-            				matriz[i][j] = new Blando(i, j);
+            				matriz[i][j] = new Blando();
             				setChanged();
             				notifyObservers(new Object[] {"blando",i,j});
             			}
@@ -183,8 +183,8 @@ public class Tablero extends Observable {
             if (matriz[pI][pJ] instanceof Bomba) {
                 return;
             }
-            matriz[pI][pJ] = new Bomba(pI, pJ);
-            Bomba bomba = (model.Bomba) matriz[pI][pJ];
+            matriz[pI][pJ] = new BSuper(pI, pJ);
+            Bomba Bsuper = (model.Bomba) matriz[pI][pJ];
             setChanged();
             notifyObservers(new Object[] {"bmBomba", pI, pJ });
         }

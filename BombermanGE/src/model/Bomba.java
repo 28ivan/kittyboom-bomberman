@@ -3,7 +3,7 @@ package model;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Bomba {
+public abstract class Bomba {
 	private int i;
 	private int j;
 	private boolean explotada;
