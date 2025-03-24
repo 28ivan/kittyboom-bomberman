@@ -238,14 +238,15 @@ public class Tablero extends Observable {
     }
     
     private void generarExplosion(int pI, int pJ) {
-        if (matriz[pI][pJ] instanceof Explosion) {
-        	Tablero.getTablero().apagar(pI, pJ);
-        }
+    	 if (matriz[pI][pJ] instanceof Explosion) {
+         	Tablero.getTablero().apagar(pI, pJ);
+         }
         matriz[pI][pJ] = new Explosion(pI, pJ);
         setChanged();
         notifyObservers(new Object[] {"explosion", pI, pJ});
     }
-	
+    
+
     public void apagar(int pI, int pJ) {
     	if (!(matriz[pI][pJ] instanceof Explosion)) {
         	return;
