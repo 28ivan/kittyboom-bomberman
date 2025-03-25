@@ -1,27 +1,20 @@
 package model;
 
-public class BomberMan {
-	private static BomberMan miBM ;
-	private int i;
-	private int j;
-	private char dir;
-	private int bombas;
-	private boolean vivo;
+public abstract class BomberMan implements Casilla {
+	protected static BomberMan miBM ;
+	protected int i;
+	protected int j;
+	protected char dir;
+	protected int bombas;
+	protected boolean vivo;
 	
-	public BomberMan() {
+	protected BomberMan() {
 		this.i = 0;
 		this.j = 0;
 		this.dir='d';
 		this.bombas = 0;
 		this.vivo = true;
 		
-	}
-	
-	public static BomberMan getBomberMan() {
-		if(miBM==null) {
-			miBM = new BomberMan();
-    	}
-		return miBM;
 	}
 	
 	public int getI() {
@@ -58,4 +51,17 @@ public class BomberMan {
     public void bombaExplotada() {
     	bombas--;
     }
+	@Override
+	public boolean puedeMoverse() {
+		return false;
+	}
+
+	@Override
+	public boolean esObjeto(String pTipo) {
+		if(pTipo.equals("BomberMan")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

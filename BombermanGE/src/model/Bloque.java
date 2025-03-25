@@ -1,8 +1,8 @@
 package model;
 
-public abstract class Bloque {
+public abstract class Bloque implements Casilla {
 	
-	public Bloque(){
+	protected Bloque(){
 			
 	}
 

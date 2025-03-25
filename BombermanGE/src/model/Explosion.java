@@ -6,7 +6,7 @@ import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Explosion extends Observable{
+public class Explosion implements Casilla{
 	private int i;
 	private int j;
 	boolean activa;
@@ -37,6 +37,20 @@ public class Explosion extends Observable{
 	        timer.schedule(timerTask, tiempoExplosion);
 	    }
 	    return;
+	}
+
+	@Override
+	public boolean puedeMoverse() {
+		return true;
+	}
+
+	@Override
+	public boolean esObjeto(String pTipo) {
+		if(pTipo.equals("Explosion")) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 }

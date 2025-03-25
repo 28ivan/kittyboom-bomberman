@@ -3,7 +3,7 @@ package model;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class Bomba {
+public abstract class Bomba implements Casilla{
 	private int i;
 	private int j;
 	private boolean explotada;
@@ -44,7 +44,7 @@ public abstract class Bomba {
 	public void explotar(){
 		if (!explotada)
 		explotada = true;
-		BomberMan.getBomberMan().bombaExplotada();
+		BomberManBlanco.getBomberMan().bombaExplotada();
 		Tablero.getTablero().destruirBloques(i, j);
 	}
 	

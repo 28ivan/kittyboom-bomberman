@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import model.BomberMan;
+import model.BomberManBlanco;
 import model.Tablero;
 
 public class Pantalla extends JFrame implements Observer{
@@ -156,7 +157,7 @@ public class Pantalla extends JFrame implements Observer{
 				Tablero.getTablero().moverBomberman('r');
 	        }
 			else if (pKey==KeyEvent.VK_SPACE) {
-				Tablero.getTablero().colocarBomba(BomberMan.getBomberMan().getI(),BomberMan.getBomberMan().getJ());
+				Tablero.getTablero().colocarBomba(BomberManBlanco.getBomberMan().getI(),BomberManBlanco.getBomberMan().getJ());
 	        }
 	    }
 
