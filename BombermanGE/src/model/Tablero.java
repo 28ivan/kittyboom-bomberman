@@ -249,7 +249,7 @@ public class Tablero extends Observable {
     	if (c.esObjeto("Explosion")) {
          	Tablero.getTablero().apagar(pI, pJ);
         }
-        matriz[pI][pJ] = new Explosion(pI, pJ);
+        matriz[pI][pJ] = new Explosion(pI,pJ);
         setChanged();
         notifyObservers(new Object[] {"explosion", pI, pJ});
     }

@@ -11,13 +11,6 @@ public abstract class Bomba implements Casilla{
 	private int tiempoExplosion;
 	private Timer timer = null;
 	
-	public int getI() {
-		return this.i;
-	}
-	public int getJ() {
-		return this.j;
-	}
-	
 	public Bomba(int pI, int pJ) {
 		this.i = pI;
 		this.j = pJ;

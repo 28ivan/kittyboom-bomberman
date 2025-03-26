@@ -4,13 +4,9 @@ import java.util.Random;
 import java.util.Timer;
 
 public class Enemigo {
-    private int cordX; 
-    private int cordY; 
     private boolean vivo; 
     
-    public Enemigo(int pCordX, int pCordY) {
-        this.cordX = pCordX;
-        this.cordY = pCordY;
+    public Enemigo() {
         this.vivo = true;
     }
 	public void mover(int[][] tablero) {
