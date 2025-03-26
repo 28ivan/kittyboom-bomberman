@@ -1,6 +1,6 @@
 package model;
 
-public class Vacio implements Casilla {
+public class Vacio extends Bloque {
 
 	public Vacio() {
 	}

@@ -22,6 +22,8 @@ public class Pantalla extends JFrame implements Observer{
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 	private Controlador controlador;
+	private char dir = 'd' ;
+	private int num = 0;
 
     public Pantalla() {
     	initialize();
@@ -83,16 +85,56 @@ public class Pantalla extends JFrame implements Observer{
 			String opcion = (String) res[0];
 			switch (opcion) {
             case "u":
-            	setLabel("/viewController/Bomberman/whiteup1.png",pI,pJ);
+            	if(dir!='u') {
+            		dir = 'u';
+            		num = 1;
+            	}else {
+            		if(num == 5) {
+            			num = 1;
+            		}else {
+            			num = num + 1;
+            		}
+            	}
+            	setLabel("/viewController/Bomberman/whiteup"+num+".png",pI,pJ);
             	break;
             case "d":
-            	setLabel("/viewController/Bomberman/whitefront1.png",pI,pJ);
+            	if(dir!='d') {
+            		dir = 'd';
+            		num = 1;
+            	}else {
+            		if(num == 5) {
+            			num = 1;
+            		}else {
+            			num = num + 1;
+            		}
+            	}
+            	setLabel("/viewController/Bomberman/whitedown"+num+".png",pI,pJ);
             	break;
             case "l":
-            	setLabel("/viewController/Bomberman/whiteleft1.png",pI,pJ);
+            	if(dir!='l') {
+            		dir = 'l';
+            		num = 1;
+            	}else {
+            		if(num == 5) {
+            			num = 1;
+            		}else {
+            			num = num + 1;
+            		}
+            	}
+            	setLabel("/viewController/Bomberman/whiteleft"+num+".png",pI,pJ);
             	break;
             case "r":
-            	setLabel("/viewController/Bomberman/whiteright1.png",pI,pJ);
+            	if(dir!='r') {
+            		dir = 'r';
+            		num = 1;
+            	}else {
+            		if(num == 5) {
+            			num = 1;
+            		}else {
+            			num = num + 1;
+            		}
+            	}
+            	setLabel("/viewController/Bomberman/whiteright"+num+".png",pI,pJ);
             	break;
             case "bmBomba":
             	setLabel("/viewController/Bomberman/whitewithbomb1.png",pI,pJ);

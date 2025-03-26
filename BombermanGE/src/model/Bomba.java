@@ -52,7 +52,19 @@ public abstract class Bomba implements Casilla{
 		return explotada;
 	}
 
+	@Override
+	public boolean puedeMoverse() {
+		return false;
+	}
 
+	@Override
+	public boolean esObjeto(String pTipo) {
+		if(pTipo.equals("Bomba")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 
 }

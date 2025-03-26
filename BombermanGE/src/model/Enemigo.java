@@ -20,7 +20,7 @@ public class Enemigo {
 	    boolean movimientoValido = false;
 	    
 	    // este metodo esta ya implementado en Tablero llamalo desde ahi
-	    while (!movimientoValido) {
+	   /* while (!movimientoValido) {
 	        int direccion = random.nextInt(4); 
 	        switch (direccion) {
 	            case 0: // Arriba
@@ -49,7 +49,7 @@ public class Enemigo {
 	               
 	        }
 	
-	    }
+	    }*/
 	}
 	
 	
