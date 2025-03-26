@@ -199,7 +199,7 @@ public class Pantalla extends JFrame implements Observer{
 				Tablero.getTablero().moverBomberman('r');
 	        }
 			else if (pKey==KeyEvent.VK_SPACE) {
-				Tablero.getTablero().colocarBomba(BomberManBlanco.getBomberMan().getI(),BomberManBlanco.getBomberMan().getJ());
+				Tablero.getTablero().colocarBomba();
 	        }
 	    }
 

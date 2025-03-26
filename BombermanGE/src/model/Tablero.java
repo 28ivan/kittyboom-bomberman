@@ -181,7 +181,9 @@ public class Tablero extends Observable {
     }
     
     //BOMBA
-    public void colocarBomba(int pI, int pJ) {
+    public void colocarBomba() {
+    	int pI = BomberManBlanco.getBomberMan().getI();
+    	int pJ = BomberManBlanco.getBomberMan().getJ();
         if (BomberManBlanco.getBomberMan().puedeColocarBomba()) {
         	Casilla c = matriz[pI][pJ];
             if (c.esObjeto("Bomba")) {
@@ -215,6 +217,7 @@ public class Tablero extends Observable {
     
     //EXPLOSION
     public void destruirBloques(int pI, int pJ) {
+		BomberManBlanco.getBomberMan().bombaExplotada();
         quitarBomba(pI, pJ);
         procesarExplosion(pI, pJ);
         procesarExplosion(pI - 1, pJ);

@@ -37,7 +37,6 @@ public abstract class Bomba implements Casilla{
 	public void explotar(){
 		if (!explotada)
 		explotada = true;
-		BomberManBlanco.getBomberMan().bombaExplotada();
 		Tablero.getTablero().destruirBloques(i, j);
 	}
 	
