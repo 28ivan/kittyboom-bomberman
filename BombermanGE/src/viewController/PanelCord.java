@@ -1,16 +1,10 @@
 package viewController;
 
-import java.awt.Color;
-
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PanelCord extends JPanel {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int i;
 	private int j;

@@ -3,12 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
+@SuppressWarnings({"deprecation"})
 
 public class Tablero extends Observable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	private static final int fila = 11; // Filas
     private static final int col = 17; // Columnas
     private static Tablero miTablero = null;
@@ -37,20 +35,20 @@ public class Tablero extends Observable {
             for (int j = 0; j < col; j++) {	//columnas
             	boolean random =r.nextBoolean();
             	if((i==0 && j==1)||(i==1 && j==0)) {
-            		matriz[i][j] = new Vacio();
+            		matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Vacio");
             	}else {
             		if (i%2!=0 && j%2!=0) {
-            			matriz[i][j] = new Duro();
+            			matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Duro");
             			setChanged();
             			notifyObservers(new Object[] {"duro",i,j});
             		}
             		else if((i!=0 && j!=1) || (i!=1 && j!=0)) {
             			if (random) {
-            				matriz[i][j] = new Blando();
+            				matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Blando");
             				setChanged();
             				notifyObservers(new Object[] {"blando",i,j});
             			}else {
-            				matriz[i][j] = new Vacio();
+            				matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Vacio");
             			}
             		}
             	}
@@ -80,7 +78,7 @@ public class Tablero extends Observable {
         			else {
         				c = matriz[pI][pJ];
 	        			if (!c.esObjeto("Bomba")) {
-	        				matriz[pI][pJ] = new Vacio();
+	        				matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
 	        			}
         			} 
 	        		matriz[pI-1][pJ] = BomberManBlanco.getBomberMan();
@@ -100,7 +98,7 @@ public class Tablero extends Observable {
         			else {
         				c = matriz[pI][pJ];
 	        			if ((!c.esObjeto("Bomba"))) {
-	        				matriz[pI][pJ] = new Vacio();
+	        				matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
 	        			}
         			}
 	        		matriz[pI+1][pJ] = BomberManBlanco.getBomberMan();
@@ -120,7 +118,7 @@ public class Tablero extends Observable {
         			else {
         				c = matriz[pI][pJ];
 	        			if (!c.esObjeto("Bomba")) {
-	        				matriz[pI][pJ] = new Vacio();
+	        				matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
 	        			}
         			}	
 	        		matriz[pI][pJ+1] = BomberManBlanco.getBomberMan();
@@ -140,7 +138,7 @@ public class Tablero extends Observable {
         			else {
         				c = matriz[pI][pJ];
 	        			if (!c.esObjeto("Bomba")) {
-	        				matriz[pI][pJ] = new Vacio();
+	        				matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
 	        			}
         			}
 	        		matriz[pI][pJ-1] = BomberManBlanco.getBomberMan();
@@ -196,7 +194,7 @@ public class Tablero extends Observable {
     }
     
     public void quitarBomba(int pI, int pJ) {
-		matriz[pI][pJ] = new Vacio();
+		matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
     	setChanged();
         notifyObservers(new Object[] {"delete", pI, pJ });
     }
@@ -233,7 +231,7 @@ public class Tablero extends Observable {
         	setChanged();
             notifyObservers(new Object[] {"delete", pI, pJ});
             generarExplosion(pI, pJ);
-            matriz[pI][pJ] = new Vacio();
+            matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
         } else if (c.esObjeto("Bomba")) {
             Bomba bomba = (Bomba) matriz[pI][pJ];
             bomba.explotar();
@@ -263,7 +261,7 @@ public class Tablero extends Observable {
     	if (!c.esObjeto("Explosion")) {
         	return;
         }
-		matriz[pI][pJ] = new Vacio();
+		matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
 		setChanged();
         notifyObservers(new Object[] {"delete", pI, pJ});
     }

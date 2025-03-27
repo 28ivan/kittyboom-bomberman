@@ -12,10 +12,9 @@ import java.util.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import model.BomberMan;
-import model.BomberManBlanco;
 import model.Tablero;
+
+@SuppressWarnings({"deprecation"})
 
 public class Pantalla extends JFrame implements Observer{
 
@@ -38,39 +37,39 @@ public class Pantalla extends JFrame implements Observer{
         setLocationRelativeTo(null);
         addKeyListener(getControlador());
         setVisible(true);
-     
-        // FONDO
-        contentPane = new JPanel() {
-        	private Image backgroundImage;
-            {
-                try {
-                    //  viewController.imagenes
-                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack3.png"));
-                } catch (IOException e) {
-                   
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-
-                // Dibujar la imagen de fondo 
-                if (backgroundImage != null) {
-                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                }
-            }
-        };
-        // TABLERO
-        contentPane.setLayout(new GridLayout(11, 17, 0, 0));
-        setContentPane(contentPane);
+        setContentPane(getContentPane());
         for (int i = 0; i < 11; i++) { 
             for (int j = 0; j < 17; j++) { 
             	contentPane.add(new PanelCord(i,j));
             }
         }
-
+    }
+   
+ // FONDO
+    public JPanel getContentPane() {
+    	if(contentPane == null) {
+	        contentPane = new JPanel() {
+	        private static final long serialVersionUID = 1L;
+			private Image backgroundImage;
+	            @Override
+	            protected void paintComponent(Graphics g) {
+	                super.paintComponent(g);
+	                try {
+	                    //  viewController.imagenes
+	                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack3.png"));
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	                // Dibujar la imagen de fondo 
+	                if (backgroundImage != null) {
+	                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+	                }
+	            }
+	        };
+	        // TABLERO
+	        contentPane.setLayout(new GridLayout(11, 17, 0, 0));
+    	}
+        return contentPane;
     }
 
     //UPDATE OBSERVER
