@@ -12,7 +12,7 @@
 	    private String colorBomberMan; 
 
 	    public PantallaDeInicio() {
-	        setTitle("BomberMan - Configuración");
+	        setTitle("BomberMan - Configuraciï¿½n");
 	        setSize(400, 300);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setLayout(new GridLayout(5, 1)); 
@@ -39,7 +39,7 @@
 	            }
 	        });
 
-	        // Botón para iniciar el juego
+	        // Botï¿½n para iniciar el juego
 	        JButton btnIniciar = new JButton("Iniciar Partida");
 	        btnIniciar.addActionListener(new ActionListener() {
 	            @Override
@@ -72,13 +72,13 @@
 	        System.out.println("BomberMan seleccionado: " + colorBomberMan);
 
 	       
-	        if (tipoPantalla.equals("Classic")) {
-	            new ClassicScreen(colorBomberMan);
-	        } else if (tipoPantalla.equals("Soft")) {
-	            new SoftScreen(colorBomberMan);
-	        } else if (tipoPantalla.equals("Empty")) {
-	            new EmptyScreen(colorBomberMan); 
-	        }
+//	        if (tipoPantalla.equals("Classic")) {
+//	            new ClassicScreen(colorBomberMan);
+//	        } else if (tipoPantalla.equals("Soft")) {
+//	            new SoftScreen(colorBomberMan);
+//	        } else if (tipoPantalla.equals("Empty")) {
+//	            new EmptyScreen(colorBomberMan); 
+//	        }
 	    }
 
 	    public static void main(String[] args) {

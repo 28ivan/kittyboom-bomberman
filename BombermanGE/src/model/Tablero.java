@@ -235,7 +235,7 @@ public class Tablero extends Observable {
         } else if (c.esObjeto("Bomba")) {
             Bomba bomba = (Bomba) matriz[pI][pJ];
             bomba.explotar();
-        } else if (c.esObjeto("Bomberman")){
+        } else if (c.esObjeto("BomberMan")||esBomberMan(pI, pJ)){
         	BomberManBlanco.getBomberMan().morir();
             setChanged();
             notifyObservers(new Object[] {"muerto", pI, pJ});
@@ -244,6 +244,7 @@ public class Tablero extends Observable {
         }
         return;
     }
+    
     
     private void generarExplosion(int pI, int pJ) {
     	Casilla c = matriz[pI][pJ];

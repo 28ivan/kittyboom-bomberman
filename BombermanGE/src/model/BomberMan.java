@@ -1,7 +1,7 @@
 package model;
 
 public abstract class BomberMan implements Casilla {
-	protected static BomberMan miBM ;
+	protected static BomberMan miBM = null;
 	protected int i;
 	protected int j;
 	protected char dir;
@@ -55,7 +55,15 @@ public abstract class BomberMan implements Casilla {
 	public boolean puedeMoverse() {
 		return false;
 	}
-
+	
+	public boolean esBomberMan(int pI, int pJ) {
+		if (this.i==pI&&this.j==pJ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	@Override
 	public boolean esObjeto(String pTipo) {
 		if(pTipo.equals("BomberMan")) {
