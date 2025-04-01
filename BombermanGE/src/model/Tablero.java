@@ -9,6 +9,7 @@ public class Tablero extends Observable {
 
 	private static final int fila = 11; // Filas
     private static final int col = 17; // Columnas
+    private ArrayList<Enemigo> enemigos = new ArrayList<>();    
     private static Tablero miTablero = null;
     private Casilla[][] matriz = new Casilla[fila][col];
     
@@ -54,6 +55,7 @@ public class Tablero extends Observable {
             			}
             			 if (enemColocados < 10 && matriz[i][j].esObjeto("Vacio") && !(i == 0 && (j == 0 || j == 1)) && !(i == 1 && j == 0)) {
             	                Enemigo enemigo = new Enemigo(i, j); 
+            	                enemigos.add(enemigo);
             	                enemColocados++; 
             	                matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Vacio");
             	                setChanged();
@@ -65,8 +67,47 @@ public class Tablero extends Observable {
     }
     }
 
- 
+    public void moverEnemigos() {
+        Random random = new Random();
+        for (Enemigo enemigo : enemigos) {
+            if (enemigo.isVivo()) {
+                
+                String[] direcciones = {"arriba", "abajo", "izquierda", "derecha"};
+                String direccion = direcciones[random.nextInt(4)];
 
+                
+                int nuevoI = enemigo.getI();
+                int nuevoJ = enemigo.getJ();
+
+                
+                if (direccion.equals("arriba") && nuevoI > 0 && movimientoPosible(nuevoI - 1, nuevoJ)) {
+                    nuevoI--;
+                }
+               
+                else if (direccion.equals("abajo") && nuevoI < fila - 1 && movimientoPosible(nuevoI + 1, nuevoJ)) {
+                    nuevoI++;
+                }
+               
+                else if (direccion.equals("izquierda") && nuevoJ > 0 && movimientoPosible(nuevoI, nuevoJ - 1)) {
+                    nuevoJ--;
+                }
+               
+                else if (direccion.equals("derecha") && nuevoJ < col - 1 && movimientoPosible(nuevoI, nuevoJ + 1)) {
+                    nuevoJ++;
+                }
+                if (nuevoI != enemigo.getI() || nuevoJ != enemigo.getJ()) { //se ha movido
+                    // Limpiar la antigua casilla
+                    matriz[enemigo.getI()][enemigo.getJ()] = BloqueFactory.getBloqueFactory().generate("Vacio");
+                    enemigo.setI(nuevoI);
+                    enemigo.setJ(nuevoJ);
+                    // Colocar al enemigo en la nueva casilla
+                    matriz[nuevoI][nuevoJ] = BloqueFactory.getBloqueFactory().generate("Vacio"); 
+                    setChanged();
+                    notifyObservers(new Object[] {"enemigo", nuevoI, nuevoJ}); 
+                }
+            }
+        }
+    }
     
     //MOVIMIENTO
     public void moverBomberman(char pDir) {
