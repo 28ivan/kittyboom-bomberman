@@ -156,6 +156,11 @@ public class Pantalla extends JFrame implements Observer{
             case "delete":
             	clearLabel(pI,pJ);
             	break;
+            case "enemigo":
+                setLabel("/viewController/Objetos/baloon1.png", pI,pJ); 
+                break;
+
+            	
             default:
 			}
 		}
@@ -200,6 +205,7 @@ public class Pantalla extends JFrame implements Observer{
 			else if (pKey==KeyEvent.VK_SPACE) {
 				Tablero.getTablero().colocarBomba();
 	        }
+			
 	    }
 
 		@Override

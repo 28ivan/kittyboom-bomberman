@@ -8,8 +8,7 @@ import java.util.Random;
 public class Tablero extends Observable {
 
 	private static final int fila = 11; // Filas
-    private static final int col = 17; // Columnas
-    private ArrayList<Enemigo> enemigos = new ArrayList<>();    
+    private static final int col = 17; // Columnas  
     private static Tablero miTablero = null;
     private Casilla[][] matriz = new Casilla[fila][col];
     
@@ -33,10 +32,12 @@ public class Tablero extends Observable {
     	    
     	//Inicializar pantalla con todos los objetos necesarios
     	Random r = new Random();
+    	Random r2 = new Random();
     	int enemColocados = 0;
     	for (int i = 0;  i< fila; i++) {	//filas
             for (int j = 0; j < col; j++) {	//columnas
             	boolean random =r.nextBoolean();
+            	boolean random2 =r2.nextBoolean();
             	if((i==0 && j==1)||(i==1 && j==0)) {
             		matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Vacio");
             	}else {
@@ -50,26 +51,24 @@ public class Tablero extends Observable {
             				matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Blando");
             				setChanged();
             				notifyObservers(new Object[] {"blando",i,j});
-            			}else {
+            			}else if (random2){
+            				Enemigo enemigo = new Enemigo(i, j);
+            				enemigo.empezarTimer();
+        	                enemColocados++; 
+        	                setChanged();
+        	                notifyObservers(new Object[] {"enemigo", i, j}); 
+            			} else {
             				matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Vacio");
             			}
-            			 if (enemColocados < 10 && matriz[i][j].esObjeto("Vacio") && !(i == 0 && (j == 0 || j == 1)) && !(i == 1 && j == 0)) {
-            	                Enemigo enemigo = new Enemigo(i, j); 
-            	                enemigos.add(enemigo);
-            	                enemColocados++; 
-            	                matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Vacio");
-            	                setChanged();
-            	                notifyObservers(new Object[] {"enemigo", i, j});  
-            		} 
             	} 
             }
     	}
     }
     }
-
-    public void moverEnemigos() {
+	public void moverEnemigo(int i, int j) {
+		
+		Enemigo enemigo = (Enemigo) matriz[i][j];
         Random random = new Random();
-        for (Enemigo enemigo : enemigos) {
             if (enemigo.isVivo()) {
                 
                 String[] direcciones = {"arriba", "abajo", "izquierda", "derecha"};
@@ -97,17 +96,28 @@ public class Tablero extends Observable {
                 }
                 if (nuevoI != enemigo.getI() || nuevoJ != enemigo.getJ()) { //se ha movido
                     // Limpiar la antigua casilla
+                	if (matriz[nuevoI][nuevoJ].esObjeto("Vacio")) {
                     matriz[enemigo.getI()][enemigo.getJ()] = BloqueFactory.getBloqueFactory().generate("Vacio");
                     enemigo.setI(nuevoI);
                     enemigo.setJ(nuevoJ);
                     // Colocar al enemigo en la nueva casilla
-                    matriz[nuevoI][nuevoJ] = BloqueFactory.getBloqueFactory().generate("Vacio"); 
+                   
                     setChanged();
                     notifyObservers(new Object[] {"enemigo", nuevoI, nuevoJ}); 
                 }
-            }
+                	 else {
+                         // casilla no vacia
+                		 enemigo.setI(enemigo.getI());
+                         enemigo.setJ(enemigo.getJ());
+          
+                }
         }
     }
+	}
+	
+
+
+
     
     //MOVIMIENTO
     public void moverBomberman(char pDir) {
@@ -327,4 +337,6 @@ public class Tablero extends Observable {
     	}
     	return false;
     }
+
+
 }
