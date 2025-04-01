@@ -29,8 +29,10 @@ public class Tablero extends Observable {
 		setChanged();
     	notifyObservers(new Object[] {"d",0,0});
     	
+    	    
     	//Inicializar pantalla con todos los objetos necesarios
     	Random r = new Random();
+    	int enemColocados = 0;
     	for (int i = 0;  i< fila; i++) {	//filas
             for (int j = 0; j < col; j++) {	//columnas
             	boolean random =r.nextBoolean();
@@ -50,11 +52,21 @@ public class Tablero extends Observable {
             			}else {
             				matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Vacio");
             			}
-            		}
-            	}
+            			 if (enemColocados < 10 && matriz[i][j].esObjeto("Vacio") && !(i == 0 && (j == 0 || j == 1)) && !(i == 1 && j == 0)) {
+            	                Enemigo enemigo = new Enemigo(i, j); 
+            	                enemColocados++; 
+            	                matriz[i][j] = BloqueFactory.getBloqueFactory().generate("Vacio");
+            	                setChanged();
+            	                notifyObservers(new Object[] {"enemigo", i, j});  
+            		} 
+            	} 
             }
     	}
     }
+    }
+
+ 
+
     
     //MOVIMIENTO
     public void moverBomberman(char pDir) {
