@@ -3,10 +3,9 @@ package model;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Enemigo {
+public class Enemigo implements Casilla{
     private int i, j;
     private boolean vivo;
-    private boolean menosDe1s;
     private Timer timer = null;
     private int tiempoMovimiento;
     
@@ -14,8 +13,7 @@ public class Enemigo {
         this.i = i;
         this.j = j;
         this.vivo = true;
-        this.menosDe1s = false;
-        this.tiempoMovimiento = 1000;
+        this.tiempoMovimiento = 2000;
     }
 
     public void morir() {
@@ -43,19 +41,33 @@ public class Enemigo {
     }
 
     public void empezarTimer() {
-        if (!menosDe1s) {
-            menosDe1s = true;
+        if (timer == null) {
+            timer = new Timer();
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    int i = getI();
-                    int j = getJ();
-                    
-                    Tablero.getTablero().moverEnemigo(i, j);
+                    if (vivo) {
+                        Tablero.getTablero().moverEnemigo(i, j);
+                    } else {
+                        timer.cancel();
+                    }
                 }
             };
-            timer = new Timer();
-            timer.schedule(timerTask, tiempoMovimiento);
+            timer.scheduleAtFixedRate(timerTask, 0, tiempoMovimiento);
         }
     }
+    
+	@Override
+	public boolean puedeMoverse() {
+		return true;
+	}
+
+	@Override
+	public boolean esObjeto(String pTipo) {
+		if(pTipo.equals("Enemigo")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
