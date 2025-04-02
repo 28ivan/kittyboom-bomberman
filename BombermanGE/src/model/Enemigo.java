@@ -18,7 +18,10 @@ public class Enemigo implements Casilla{
 
     public void morir() {
         this.vivo = false;
-    }
+        if (timer != null) {
+            timer.cancel();
+        }
+        }
 
     public boolean isVivo() {
         return vivo;

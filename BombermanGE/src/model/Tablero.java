@@ -313,7 +313,14 @@ public class Tablero extends Observable {
             notifyObservers(new Object[] {"muerto", pI, pJ});
         } else if (c.esObjeto("Vacio")) {
             generarExplosion(pI, pJ);
+        }else if (c.esObjeto("Enemigo")) {
+            Enemigo enemigo = (Enemigo) c;
+            enemigo.morir();
+            matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
+            setChanged();
+            notifyObservers(new Object[] {"delete", pI, pJ});
         }
+
         return;
     }
     
