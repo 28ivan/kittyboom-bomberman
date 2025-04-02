@@ -23,7 +23,8 @@ public class Pantalla extends JFrame implements Observer{
 	private Controlador controlador;
 	private char dir = 'd' ;
 	private int num = 0;
-
+	private boolean alternarBaloon = false;
+	
     public Pantalla() {
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,10 +158,12 @@ public class Pantalla extends JFrame implements Observer{
             	clearLabel(pI,pJ);
             	break;
             case "enemigo":
-                setLabel("/viewController/Objetos/baloon1.png", pI,pJ); 
+                String rutaBaloon = alternarBaloon
+                    ? "/viewController/Objetos/baloon1.png"
+                    : "/viewController/Objetos/baloon2.png";
+                setLabel(rutaBaloon, pI, pJ);
+                alternarBaloon = !alternarBaloon;
                 break;
-
-            	
             default:
 			}
 		}
