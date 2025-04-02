@@ -25,7 +25,7 @@ public class Tablero extends Observable {
     
     public void initializeTablero() {
     	//Colocar Bomberman
-    	matriz[0][0] = BomberManBlanco.getBomberMan();
+    	matriz[0][0] = BomberManFactory.getBomberManFactory().generate("BomberManBlanco");
 		setChanged();
     	notifyObservers(new Object[] {"d",0,0});
     	
@@ -250,7 +250,7 @@ public class Tablero extends Observable {
             if (c.esObjeto("Bomba")) {
                 return;
             }
-            matriz[pI][pJ] = new BSuper(pI, pJ);
+            matriz[pI][pJ] = BombaFactory.getBombaFactory().generate("BSuper",pI,pJ);
             setChanged();
             notifyObservers(new Object[] {"bmBomba", pI, pJ });
         }
