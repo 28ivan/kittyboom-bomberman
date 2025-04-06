@@ -13,7 +13,7 @@ public class Enemigo implements Casilla{
         this.i = i;
         this.j = j;
         this.vivo = true;
-        this.tiempoMovimiento = 2000;
+        this.tiempoMovimiento = 3000;
     }
 
     public void morir() {
