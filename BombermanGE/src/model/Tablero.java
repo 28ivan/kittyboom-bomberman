@@ -94,19 +94,19 @@ public class Tablero extends Observable {
                 int nuevoJ = enemigo.getJ();
 
                 
-                if (direccion.equals("arriba") && movimientoPosible(nuevoI - 1, nuevoJ)) {
+                if (direccion.equals("arriba") && movimientoEnemigoPosible(nuevoI - 1, nuevoJ)) {
                     nuevoI--;
                 }
                
-                else if (direccion.equals("abajo") && movimientoPosible(nuevoI + 1, nuevoJ)) {
+                else if (direccion.equals("abajo") && movimientoEnemigoPosible(nuevoI + 1, nuevoJ)) {
                     nuevoI++;
                 }
                
-                else if (direccion.equals("izquierda") && movimientoPosible(nuevoI, nuevoJ - 1)) {
+                else if (direccion.equals("izquierda") && movimientoEnemigoPosible(nuevoI, nuevoJ - 1)) {
                     nuevoJ--;
                 }
                
-                else if (direccion.equals("derecha") && movimientoPosible(nuevoI, nuevoJ + 1)) {
+                else if (direccion.equals("derecha") && movimientoEnemigoPosible(nuevoI, nuevoJ + 1)) {
                     nuevoJ++;
                 }
                 if (nuevoI != enemigo.getI() || nuevoJ != enemigo.getJ()) { //se ha movido
@@ -250,6 +250,17 @@ public class Tablero extends Observable {
     	return posible;
     }
     
+    public boolean movimientoEnemigoPosible( int pI, int pJ) {
+    	boolean posible = true;
+    	if(pI<0 || pI >=11 || pJ<0 || pJ>=17) {
+    		posible = false;
+    	}else{
+    		Casilla c = matriz[pI][pJ];
+    		posible = c.esObjeto("Vacio");
+    	}
+    	return posible;
+    }
+    
     //BOMBA
     public void colocarBomba() {
     	int pI = BomberManBlanco.getBomberMan().getI();
@@ -299,28 +310,18 @@ public class Tablero extends Observable {
     private void procesarExplosion(int pI, int pJ) {
     	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
     	Casilla c = matriz[pI][pJ];
-        if (c.esObjeto("Blando")) {
-        	setChanged();
-            notifyObservers(new Object[] {"delete", pI, pJ});
-            generarExplosion(pI, pJ);
-            matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
-        } else if (c.esObjeto("Bomba")) {
+        if (c.esObjeto("Bomba")) {
             Bomba bomba = (Bomba) matriz[pI][pJ];
             bomba.explotar();
         } else if (c.esObjeto("BomberMan")||esBomberMan(pI, pJ)){
         	BomberManBlanco.getBomberMan().morir();
             setChanged();
             notifyObservers(new Object[] {"muerto", pI, pJ});
-        } else if (c.esObjeto("Vacio")) {
-            generarExplosion(pI, pJ);
         }else if (c.esObjeto("Enemigo")) {
             Enemigo enemigo = (Enemigo) c;
             enemigo.morir();
-            matriz[pI][pJ] = BloqueFactory.getBloqueFactory().generate("Vacio");
-            setChanged();
-            notifyObservers(new Object[] {"delete", pI, pJ});
         }
-
+        generarExplosion(pI, pJ);
         return;
     }
     
