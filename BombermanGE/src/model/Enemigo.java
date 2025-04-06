@@ -46,11 +46,12 @@ public class Enemigo implements Casilla{
     public void empezarTimer() {
         if (timer == null) {
             timer = new Timer();
+            Enemigo thisEnemigo = this;  
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
                     if (vivo) {
-                        Tablero.getTablero().moverEnemigo(i, j);
+                        Tablero.getTablero().moverEnemigo(thisEnemigo.getI(), thisEnemigo.getJ());
                     } else {
                         timer.cancel();
                     }
@@ -59,6 +60,7 @@ public class Enemigo implements Casilla{
             timer.scheduleAtFixedRate(timerTask, 0, tiempoMovimiento);
         }
     }
+
     
 	@Override
 	public boolean puedeMoverse() {
