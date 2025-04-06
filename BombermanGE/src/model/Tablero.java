@@ -310,21 +310,23 @@ public class Tablero extends Observable {
     private void procesarExplosion(int pI, int pJ) {
     	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
     	Casilla c = matriz[pI][pJ];
-        if (c.esObjeto("Bomba")) {
+    	if (c.esObjeto("Duro")) return;
+    	else if (c.esObjeto("Bomba")) {
             Bomba bomba = (Bomba) matriz[pI][pJ];
             bomba.explotar();
-        } else if (c.esObjeto("BomberMan")||esBomberMan(pI, pJ)){
+        } else if (c.esObjeto("BomberMan")||esBomberMan(pI, pJ)) {
         	BomberManBlanco.getBomberMan().morir();
             setChanged();
             notifyObservers(new Object[] {"muerto", pI, pJ});
-        }else if (c.esObjeto("Enemigo")) {
-            Enemigo enemigo = (Enemigo) c;
-            enemigo.morir();
+        } else {
+        	if (c.esObjeto("Enemigo")) {
+        		Enemigo enemigo = (Enemigo) c;
+        		enemigo.morir();
+        	}
+        	generarExplosion(pI, pJ);
         }
-        generarExplosion(pI, pJ);
         return;
     }
-    
     
     private void generarExplosion(int pI, int pJ) {
     	Casilla c = matriz[pI][pJ];
