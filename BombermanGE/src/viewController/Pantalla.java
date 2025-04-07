@@ -84,6 +84,22 @@ public class Pantalla extends JFrame implements Observer{
 			int pJ = (int) res[2];
 			String opcion = (String) res[0];
 			switch (opcion) {
+			 case "muerto":
+	                setLabel("/viewController/Bomberman/onfire2.png", pI, pJ);  
+	                break;
+
+	            case "delete":
+	                clearLabel(pI, pJ);
+	                break;
+
+	            case "enemigo":
+	                String rutaen = alternarBaloon
+	                    ? "/viewController/Objetos/baloon1.png"
+	                    : "/viewController/Objetos/baloon2.png";
+	                setLabel(rutaen, pI, pJ);
+	                alternarBaloon = !alternarBaloon;
+	                break;
+
             case "u":
             	if(dir!='u') {
             		dir = 'u';
@@ -151,19 +167,7 @@ public class Pantalla extends JFrame implements Observer{
             case "explosion":
             	setLabel("/viewController/Objetos/miniBlast1.gif",pI,pJ);
             	break;
-            case "muerto":
-            	setLabel("/viewController/Bomberman/onfire2.png",pI,pJ);
-            	break;
-            case "delete":
-            	clearLabel(pI,pJ);
-            	break;
-            case "enemigo":
-                String rutaBaloon = alternarBaloon
-                    ? "/viewController/Objetos/baloon1.png"
-                    : "/viewController/Objetos/baloon2.png";
-                setLabel(rutaBaloon, pI, pJ);
-                alternarBaloon = !alternarBaloon;
-                break;
+         
 			}
 		}
     }

@@ -53,7 +53,7 @@ public class Enemigo implements Casilla{
                     if (vivo) {
                         Tablero.getTablero().moverEnemigo(thisEnemigo.getI(), thisEnemigo.getJ());
                     } else {
-                        timer.cancel();
+                        timer.cancel(); 
                     }
                 }
             };
