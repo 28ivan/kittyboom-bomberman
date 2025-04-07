@@ -53,7 +53,7 @@ public abstract class BomberMan implements Casilla {
     }
 	@Override
 	public boolean puedeMoverse() {
-		return false;
+		return true;
 	}
 	
 	public boolean esBomberMan(int pI, int pJ) {

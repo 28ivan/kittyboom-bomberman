@@ -164,7 +164,6 @@ public class Pantalla extends JFrame implements Observer{
                 setLabel(rutaBaloon, pI, pJ);
                 alternarBaloon = !alternarBaloon;
                 break;
-            default:
 			}
 		}
     }
