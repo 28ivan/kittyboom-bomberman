@@ -19,4 +19,8 @@ public class Blando extends Bloque {
 		return false;
 	}
 	
+	@Override
+	public void destruir(CasillaTablero pC) {
+		pC.cambiarCasilla("Vacio");
+	}
 }
