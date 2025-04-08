@@ -50,4 +50,12 @@ public class Explosion implements Casilla{
 		}
 	}
 	
+	@Override
+	public void destruir(CasillaTablero pC) {
+	}
+	
+	@Override
+	public boolean isVivo() {
+    	return false;
+    }
 }
