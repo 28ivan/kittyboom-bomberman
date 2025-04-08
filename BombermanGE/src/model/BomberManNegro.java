@@ -11,4 +11,8 @@ public class BomberManNegro extends BomberMan{
     	}
 		return miBM;
 	}
+	
+	@Override
+	public void destruir(CasillaTablero pC) {
+	}
 }
