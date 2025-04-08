@@ -6,30 +6,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
 
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import model.Tablero;
 
-@SuppressWarnings({"deprecation"})
-
-public class Pantalla extends JFrame implements Observer{
+public class Pantalla extends JFrame{
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 	private Controlador controlador;
-	private char dir = 'd' ;
-	private int num = 0;
-	private boolean alternarBaloon = false;
 	
     public Pantalla() {
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Tablero.getTablero().addObserver(this);
-        getControlador().actionPerformed(null);
+        setObservers();
+    	getControlador().actionPerformed(null);
     }
     
     private void initialize() {
@@ -42,6 +35,15 @@ public class Pantalla extends JFrame implements Observer{
         for (int i = 0; i < 11; i++) { 
             for (int j = 0; j < 17; j++) { 
             	contentPane.add(new PanelCord(i,j));
+            }
+        }
+    }
+    
+    private void setObservers() {
+    	for (int i = 0; i < 11; i++) { 
+            for (int j = 0; j < 17; j++) { 
+            	PanelCord panel = (PanelCord) contentPane.getComponent(i*17+j);
+        		panel.setObserver(i,j);
             }
         }
     }
@@ -71,119 +73,7 @@ public class Pantalla extends JFrame implements Observer{
 	        contentPane.setLayout(new GridLayout(11, 17, 0, 0));
     	}
         return contentPane;
-    }
-
-    //UPDATE OBSERVER
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		if(o instanceof Tablero) {
-			Object res[]=(Object[])arg;
-			int pI = (int) res[1];
-			int pJ = (int) res[2];
-			String opcion = (String) res[0];
-			switch (opcion) {
-			 case "muerto":
-	                setLabel("/viewController/Bomberman/onfire2.png", pI, pJ);  
-	                break;
-
-	            case "delete":
-	                clearLabel(pI, pJ);
-	                break;
-
-	            case "enemigo":
-	                String rutaen = alternarBaloon
-	                    ? "/viewController/Objetos/baloon1.png"
-	                    : "/viewController/Objetos/baloon2.png";
-	                setLabel(rutaen, pI, pJ);
-	                alternarBaloon = !alternarBaloon;
-	                break;
-
-            case "u":
-            	if(dir!='u') {
-            		dir = 'u';
-            		num = 1;
-            	}else {
-            		if(num == 5) {
-            			num = 1;
-            		}else {
-            			num = num + 1;
-            		}
-            	}
-            	setLabel("/viewController/Bomberman/whiteup"+num+".png",pI,pJ);
-            	break;
-            case "d":
-            	if(dir!='d') {
-            		dir = 'd';
-            		num = 1;
-            	}else {
-            		if(num == 5) {
-            			num = 1;
-            		}else {
-            			num = num + 1;
-            		}
-            	}
-            	setLabel("/viewController/Bomberman/whitedown"+num+".png",pI,pJ);
-            	break;
-            case "l":
-            	if(dir!='l') {
-            		dir = 'l';
-            		num = 1;
-            	}else {
-            		if(num == 5) {
-            			num = 1;
-            		}else {
-            			num = num + 1;
-            		}
-            	}
-            	setLabel("/viewController/Bomberman/whiteleft"+num+".png",pI,pJ);
-            	break;
-            case "r":
-            	if(dir!='r') {
-            		dir = 'r';
-            		num = 1;
-            	}else {
-            		if(num == 5) {
-            			num = 1;
-            		}else {
-            			num = num + 1;
-            		}
-            	}
-            	setLabel("/viewController/Bomberman/whiteright"+num+".png",pI,pJ);
-            	break;
-            case "bmBomba":
-            	setLabel("/viewController/Bomberman/whitewithbomb1.png",pI,pJ);
-            	break;
-            case "bomba":
-                setLabel("/viewController/Objetos/bomb1.png", pI, pJ);
-                break;
-            case "duro":
-            	setLabel("/viewController/Objetos/hard5.png",pI,pJ);
-            	break;
-            case "blando":
-            	setLabel("/viewController/Objetos/soft4.png",pI,pJ);
-            	break;
-            case "explosion":
-            	setLabel("/viewController/Objetos/miniBlast1.gif",pI,pJ);
-            	break;
-         
-			}
-		}
-    }
-	
-	public void setLabel(String pTipo, int pI, int pJ) {
-		PanelCord panel = (PanelCord) contentPane.getComponent(pI*17+pJ);
-		JLabel label = panel.getLabel();
-		label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
-	}
-	
-	public void clearLabel(int pI, int pJ) {
-		PanelCord panel = (PanelCord) contentPane.getComponent(pI*17+pJ);
-		JLabel label = panel.getLabel();
-		label.setIcon(null);
-	}
-	    
+    }   
 	
 	//CONTROLADOR
 	private Controlador getControlador() {
