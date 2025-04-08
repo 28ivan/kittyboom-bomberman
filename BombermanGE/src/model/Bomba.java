@@ -57,6 +57,18 @@ public abstract class Bomba implements Casilla{
 			return false;
 		}
 	}
+	
+	@Override
+	public void destruir(CasillaTablero pC) {
+		if (!explotada)
+			explotada = true;
+			Tablero.getTablero().destruirBloques(i, j);
+			pC.cambiarCasilla("Explosion");
+	}
 
+	@Override
+	public boolean isVivo() {
+    	return false;
+    }
 
 }
