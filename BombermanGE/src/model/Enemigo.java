@@ -14,14 +14,8 @@ public class Enemigo implements Casilla{
         this.j = j;
         this.vivo = true;
         this.tiempoMovimiento = 2000;
+        empezarTimer();
     }
-
-    public void morir() {
-        this.vivo = false;
-        if (timer != null) {
-            timer.cancel();
-        }
-        }
 
     public boolean isVivo() {
         return vivo;
@@ -46,12 +40,11 @@ public class Enemigo implements Casilla{
     public void empezarTimer() {
         if (timer == null) {
             timer = new Timer();
-            Enemigo thisEnemigo = this;  
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
                     if (vivo) {
-                        Tablero.getTablero().moverEnemigo(thisEnemigo.getI(), thisEnemigo.getJ());
+                        Tablero.getTablero().moverEnemigo(i, j);
                     } else {
                         timer.cancel(); 
                     }
@@ -74,5 +67,13 @@ public class Enemigo implements Casilla{
 		}else {
 			return false;
 		}
+	}
+	
+	@Override
+	public void destruir(CasillaTablero pC) {
+		this.vivo = false;
+        if (timer != null) {
+            timer.cancel();
+        }
 	}
 }
