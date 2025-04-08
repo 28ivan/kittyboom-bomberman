@@ -19,5 +19,7 @@ public class Vacio extends Bloque {
 		}
 	}
 
-	
+	@Override
+	public void destruir(CasillaTablero pC) {
+	}
 }
