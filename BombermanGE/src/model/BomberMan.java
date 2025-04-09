@@ -33,7 +33,7 @@ public abstract class BomberMan implements Casilla {
     
     public void ponerBomba() {
     	conBomba=true;
-    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new BSuper(i,j));
+    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BSuper", i, j));
     }
     
     public boolean conBomba() {
@@ -120,7 +120,7 @@ public abstract class BomberMan implements Casilla {
     			antiguaBomba=false;
     		}
     		else {
-    			c.cambiarCasilla(new Vacio());
+    			c.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
     		}
     	}
     	i = pI;

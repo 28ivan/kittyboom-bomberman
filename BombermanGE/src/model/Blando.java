@@ -22,7 +22,7 @@ public class Blando extends Bloque {
 	
 	@Override
 	public void destruir(CasillaTablero pC) {
-		pC.cambiarCasilla(new Vacio());
+		pC.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
 	}
 	
 	@Override

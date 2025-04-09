@@ -67,7 +67,7 @@ public class Enemigo implements Casilla{
         if (timer != null) {
             timer.cancel();
         }
-        pC.cambiarCasilla(new Vacio());
+        pC.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
 	}
 	
 	@Override
@@ -75,7 +75,7 @@ public class Enemigo implements Casilla{
 		if (i!=pI || j!=pJ) {
     		CasillaTablero c=Tablero.getTablero().getCasilla(pI, pJ);
     		c.cambiarCasilla(this);
-    		Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new Vacio());
+    		Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
     	}
     	i = pI;
     	j = pJ;

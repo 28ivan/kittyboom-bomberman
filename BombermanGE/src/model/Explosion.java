@@ -57,7 +57,7 @@ public class Explosion implements Casilla{
 	
 	@Override
 	public void destruir(CasillaTablero pC) {
-		pC.cambiarCasilla(new Vacio());
+		pC.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
 	}
 	
 	@Override

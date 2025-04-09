@@ -14,7 +14,7 @@ public class stBloquesSoft implements StrategyBloques{
 	            	boolean random =r.nextBoolean();
 	            	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
 		            	if (random) {
-		            		tablero.matriz[i][j].cambiarCasilla("Blando");
+		            		tablero.matriz[i][j].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Blando"));
 	            		}
 	            	}
 	            }

@@ -9,6 +9,8 @@ public class Tablero {
     private static Tablero miTablero = null;
     public CasillaTablero[][] matriz = new CasillaTablero[fila][col];
     private StrategyBloques stBloques;
+    private StrategyBombas stBombas;
+    private int numEnemigos;
     
     private Tablero() {
     	for (int i = 0;  i< fila; i++) {
@@ -36,7 +38,7 @@ public class Tablero {
     
     public void colocarBomberMan() {
     	//Colocar Bomberman
-    	matriz[0][0].cambiarCasilla(BomberManBlanco.getBomberMan());
+    	matriz[0][0].cambiarCasilla(BomberManFactory.getBomberManFactory().generate("BomberManBlanco"));
     }
     
     public void colocarBloquesDuros() {
@@ -44,7 +46,7 @@ public class Tablero {
             for (int j = 0; j < col; j++) {	//columnas
             	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
             		if (i%2!=0 && j%2!=0) {
-            			matriz[i][j].cambiarCasilla(new Duro());
+            			matriz[i][j].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Duro"));
             		} 
             	}
             }
@@ -63,7 +65,7 @@ public class Tablero {
             	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
             		if (i%2!=0 && j%2!=0) {
             		}else if (random) {
-            			matriz[i][j].cambiarCasilla(new Blando());
+            			matriz[i][j].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Blando"));
             		}
             	}
             }
@@ -75,10 +77,9 @@ public class Tablero {
     }
 
     public void colocarEnemigos() {
-	    int enemigosColocados = 0;
 		Random r = new Random();
 	
-		while (enemigosColocados < 8) {
+		while (numEnemigos < 8) {
 		    int i = r.nextInt(fila);
 		    int j = r.nextInt(col);
 	
@@ -86,7 +87,7 @@ public class Tablero {
 		    if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)
 		        && matriz[i][j].esObjeto("Vacio")) {
 		    	matriz[i][j].cambiarCasilla(new Enemigo(i,j));
-		        enemigosColocados++;
+		    	numEnemigos++;
 		    }
 		}
 	}
@@ -171,7 +172,6 @@ public class Tablero {
 		                } else if (c.esObjeto("Enemigo")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
-		                	System.out.println("hola");
 		                	BomberManBlanco.getBomberMan().setDir(pDir);
 		                	cB.mover(pI + 1, pJ);
 		                }
@@ -279,6 +279,7 @@ public class Tablero {
         } else {
         	if (c.esObjeto("Enemigo")) {
         		c.destruir();
+        		numEnemigos--;
         	}
         	c.cambiarCasilla(new Explosion(pI,pJ));
         }
