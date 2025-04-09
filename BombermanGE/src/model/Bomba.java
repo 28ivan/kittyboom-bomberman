@@ -60,10 +60,7 @@ public abstract class Bomba implements Casilla{
 	
 	@Override
 	public void destruir(CasillaTablero pC) {
-		if (!explotada)
-			explotada = true;
-			Tablero.getTablero().destruirBloques(i, j);
-			pC.cambiarCasilla("Explosion");
+		pC.cambiarCasilla(new Vacio());
 	}
 
 	@Override
@@ -71,4 +68,7 @@ public abstract class Bomba implements Casilla{
     	return false;
     }
 
+	@Override
+	public void mover(int pI, int pJ) {
+	}
 }
