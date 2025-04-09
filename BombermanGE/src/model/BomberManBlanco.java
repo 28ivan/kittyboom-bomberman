@@ -11,4 +11,9 @@ public class BomberManBlanco extends BomberMan{
     	}
 		return miBM;
 	}
+    
+    public void ponerBomba() {
+    	conBomba=true;
+    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BSuper", i, j));
+    }
 }

@@ -195,11 +195,11 @@ public class PantallaInicio extends JFrame implements Observer{
 	        	setPane(BMSelec-1);
 	        	clearPane((BMSelec)*10);
 	        	break;
-	        case 4:
+	        case 3:
 	        	setVisible(false);
 	        	@SuppressWarnings("unused")
 		    	Pantalla pantalla1 = new Pantalla(2);
-				
+	        	break;
 	        default:
 			}
 		}

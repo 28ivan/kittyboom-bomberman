@@ -7,7 +7,7 @@ public class Tablero {
 	private static final int fila = 11; // Filas
     private static final int col = 17; // Columnas  
     private static Tablero miTablero = null;
-    public CasillaTablero[][] matriz = new CasillaTablero[fila][col];
+    private CasillaTablero[][] matriz = new CasillaTablero[fila][col];
     private StrategyBloques stBloques;
     private StrategyBombas stBombas;
     private int numEnemigos;

@@ -67,7 +67,7 @@ public class Seleccion extends Observable{
 		        notifyObservers(0);
 			} else {
 				setChanged();
-		        notifyObservers(4);
+		        notifyObservers(3);
 			}
 	    	
 		}

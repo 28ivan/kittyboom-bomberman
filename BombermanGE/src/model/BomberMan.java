@@ -31,11 +31,6 @@ public abstract class BomberMan implements Casilla {
     	if (num==6) num=1;
     }
     
-    public void ponerBomba() {
-    	conBomba=true;
-    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BSuper", i, j));
-    }
-    
     public boolean conBomba() {
     	return conBomba;
     }
