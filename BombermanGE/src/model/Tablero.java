@@ -171,7 +171,6 @@ public class Tablero {
 		                } else if (c.esObjeto("Enemigo")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
-		                	System.out.println("hola");
 		                	BomberManBlanco.getBomberMan().setDir(pDir);
 		                	cB.mover(pI + 1, pJ);
 		                }
