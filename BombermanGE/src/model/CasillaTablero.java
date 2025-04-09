@@ -7,7 +7,6 @@ public class CasillaTablero extends Observable {
 	private Casilla c;
 	private int i;
 	private int j;
-	private int n=1;
 	
 	public CasillaTablero(int pI, int pJ) {
 		c=BloqueFactory.getBloqueFactory().generate("Vacio");;
@@ -15,42 +14,51 @@ public class CasillaTablero extends Observable {
 		j=pJ;
 	}
 	
-	public void cambiarCasilla(String pSt) {
-		if (pSt=="Vacio") {
-			c=BloqueFactory.getBloqueFactory().generate("Vacio");
+	public void cambiarCasilla(Casilla pC) {
+		String st=null;
+		int n=0;
+		if (pC.esObjeto("BomberMan")) {
+			BomberMan bm=BomberManBlanco.getBomberMan();
+			if (bm.isVivo()) {
+				if (bm.antiguaBomba()) {
+					st="Bomba";
+				}
+				else if (bm.conBomba()) {
+					st="BmBomba";
+				}
+				else {
+					st=String.valueOf(bm.getDir());
+					n=bm.getNum();
+					c=pC;
+				}
+			}
+			else {
+				st="Morir";
+			}
 		}
-		else if (pSt=="Duro") {
-			c=BloqueFactory.getBloqueFactory().generate("Duro");
-		}
-		else if (pSt=="Blando") {
-			c=BloqueFactory.getBloqueFactory().generate("Blando");
-		}
-		else if (pSt=="Explosion") {
-			c=new Explosion(i,j);
-		}
-		else if (pSt=="BSuper") {
-			c=BombaFactory.getBombaFactory().generate(pSt, i, j);
-			pSt="BmBomba";
-		}
-		else if (pSt=="BUltra") {
-			c=BombaFactory.getBombaFactory().generate(pSt, i, j);
-			pSt="BmBomba";
-		}
-		else if (pSt=="BomberMan") {
-			c=BomberManBlanco.getBomberMan();
-			pSt="d";
-		}
-		else if (pSt.equals("u") || pSt.equals("d") || pSt.equals("l") || pSt.equals("r")) {
-			c=BomberManBlanco.getBomberMan();
-			BomberManBlanco.getBomberMan().setDir(pSt.charAt(0));
-			BomberManBlanco.getBomberMan().aumentarNum();
-			n=BomberManBlanco.getBomberMan().getNum();
-		}
-		else if (pSt=="Enemigo") {
-			c=new Enemigo(i,j);
+		else {
+			if (pC.esObjeto("Vacio")) {
+				st="Vacio";
+			}
+			else if (pC.esObjeto("Duro")) {
+				st="Duro";
+			}
+			else if (pC.esObjeto("Blando")) {
+				st="Blando";
+			}
+			else if (pC.esObjeto("Bomba")) {
+				st="BmBomba";
+			}
+			else if (pC.esObjeto("Explosion")) {
+				st="Explosion";
+			}
+			else if (pC.esObjeto("Enemigo")) {
+				st="Enemigo";
+			}
+			c=pC;
 		}
 		setChanged();
-		notifyObservers(new Object[] {pSt,n});
+		notifyObservers(new Object[] {st,n});
 	}
 	
 	public void destruir() {
@@ -75,5 +83,9 @@ public class CasillaTablero extends Observable {
     
     public boolean puedeMoverse() {
         return c.puedeMoverse();
+    }
+    
+    public void mover(int pI, int pJ) {
+        c.mover(pI,pJ);
     }
 }
