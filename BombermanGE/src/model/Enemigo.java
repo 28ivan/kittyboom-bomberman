@@ -29,14 +29,6 @@ public class Enemigo implements Casilla{
         return j;
     }
 
-    public void setI(int i) {
-        this.i = i;
-    }
-
-    public void setJ(int j) {
-        this.j = j;
-    }
-
     public void empezarTimer() {
         if (timer == null) {
             timer = new Timer();
@@ -75,5 +67,17 @@ public class Enemigo implements Casilla{
         if (timer != null) {
             timer.cancel();
         }
+        pC.cambiarCasilla(new Vacio());
+	}
+	
+	@Override
+	public void mover(int pI, int pJ) {
+		if (i!=pI || j!=pJ) {
+    		CasillaTablero c=Tablero.getTablero().getCasilla(pI, pJ);
+    		c.cambiarCasilla(this);
+    		Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new Vacio());
+    	}
+    	i = pI;
+    	j = pJ;
 	}
 }
