@@ -2,19 +2,16 @@ package model;
 
 public abstract class BomberMan implements Casilla {
 	protected static BomberMan miBM = null;
-	protected int i;
-	protected int j;
-	protected int bombas;
-	protected boolean vivo;
+	protected int i=0;
+	protected int j=0;
+	protected int bombas=0;
+	protected boolean vivo=true;
+	protected boolean conBomba=false;
+	protected boolean antiguaBomba=false;
 	protected char dir = 'd' ;
 	protected int num = 1;
 	
 	protected BomberMan() {
-		this.i = 0;
-		this.j = 0;
-		this.bombas = 0;
-		this.vivo = true;
-		
 	}
 	
 	public int getI() {
@@ -34,16 +31,24 @@ public abstract class BomberMan implements Casilla {
     	if (num==6) num=1;
     }
     
+    public void ponerBomba() {
+    	conBomba=true;
+    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new BSuper(i,j));
+    }
+    
+    public boolean conBomba() {
+    	return conBomba;
+    }
+    
+    public char getDir() {
+    	return dir;
+    }
+    
     public void setDir(char pD) {
     	if (pD!=dir) {
     		dir=pD;
     		num=0;
     	}
-    }
-    
-    public void mover(int pI, int pJ) {
-    	i = pI;
-    	j = pJ;
     }
     
     public boolean puedeColocarBomba() {
@@ -54,10 +59,6 @@ public abstract class BomberMan implements Casilla {
     		this.bombas++;
     		return true;
     	}
-    }
-	
-    public void morir() {
-    	vivo=false;
     }
     
     public void bombaExplotada() {
@@ -70,6 +71,13 @@ public abstract class BomberMan implements Casilla {
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean antiguaBomba() {
+		if (antiguaBomba) {
+			return true;
+		}
+		else return false;
 	}
 	
 	@Override
@@ -88,10 +96,35 @@ public abstract class BomberMan implements Casilla {
 	
 	@Override
 	public void destruir(CasillaTablero pC) {
+		vivo=false;
+		pC.cambiarCasilla(miBM);
 	}
 	
     @Override
     public boolean isVivo() {
     	return vivo;
     }
+
+	
+	@Override
+	public void mover(int pI, int pJ) {
+		if (conBomba) {
+    		conBomba=false;
+    	}
+    	BomberManBlanco.getBomberMan().aumentarNum();
+    	if (i!=pI || j!=pJ) {
+    		CasillaTablero c=Tablero.getTablero().getCasilla(i, j);
+    		if (c.esObjeto("Bomba")) {
+    			antiguaBomba=true;
+    			c.cambiarCasilla(miBM);
+    			antiguaBomba=false;
+    		}
+    		else {
+    			c.cambiarCasilla(new Vacio());
+    		}
+    	}
+    	i = pI;
+    	j = pJ;
+    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(miBM);
+	}
 }
