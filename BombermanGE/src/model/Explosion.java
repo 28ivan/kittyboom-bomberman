@@ -51,11 +51,16 @@ public class Explosion implements Casilla{
 	}
 	
 	@Override
-	public void destruir(CasillaTablero pC) {
-	}
-	
-	@Override
 	public boolean isVivo() {
     	return false;
     }
+	
+	@Override
+	public void destruir(CasillaTablero pC) {
+		pC.cambiarCasilla(new Vacio());
+	}
+	
+	@Override
+	public void mover(int pI, int pJ) {
+	}
 }
