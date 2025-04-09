@@ -18,9 +18,11 @@ public class Duro extends Bloque{
 			return false;
 		}
 	}
-	
 	@Override
 	public void destruir(CasillaTablero pC) {
 	}
-
+	
+	@Override
+	public void mover(int pI, int pJ) {
+	}
 }
