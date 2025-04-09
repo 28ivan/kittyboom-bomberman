@@ -13,6 +13,7 @@ public class Tablero {
     private int numEnemigos;
     private static int bMSelec;
     private static String bMColor;
+    private static int pantalla;
     
     private Tablero() {
     	for (int i = 0;  i< fila; i++) {
@@ -22,12 +23,20 @@ public class Tablero {
     	}
     }
     
-    public static void setTablero(int pBMSelec ,int pPantalla) {
+    public void setTablero(int pBMSelec ,int pPantalla) {
 		bMSelec=pBMSelec;
+		pantalla=pPantalla;
     	if (bMSelec==1) {
     		bMColor="Negro";
     	}else {
     		bMColor="Blanco";
+    	}
+    	if (pantalla==1) {
+    		crearClassic();
+    	} else if(pantalla==2) {
+    		crearSoft();
+    	}else if(pantalla==3) {
+    		crearEmpty();
     	}
 	}
     
