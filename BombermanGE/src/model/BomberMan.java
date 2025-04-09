@@ -68,6 +68,9 @@ public abstract class BomberMan implements Casilla {
 		}
 	}
 	
+    public void ponerBomba() {
+    }
+	
 	public boolean antiguaBomba() {
 		if (antiguaBomba) {
 			return true;

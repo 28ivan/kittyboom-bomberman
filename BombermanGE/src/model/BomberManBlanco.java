@@ -11,6 +11,7 @@ public class BomberManBlanco extends BomberMan{
     	}
 		return miBM;
 	}
+	
     
     public void ponerBomba() {
     	conBomba=true;

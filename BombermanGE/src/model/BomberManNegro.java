@@ -11,12 +11,6 @@ public class BomberManNegro extends BomberMan{
     	}
 		return miBM;
 	}
-	
-	@Override
-	public void destruir(CasillaTablero pC) {
-	}
-	
-    
     public void ponerBomba() {
     	conBomba=true;
     	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BUltra", i, j));

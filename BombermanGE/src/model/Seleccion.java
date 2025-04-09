@@ -59,8 +59,9 @@ public class Seleccion extends Observable{
 	public void inicializarTablero() {
 		
 		if (yaSeleccionado) {
+			//Pasar un set bomberman y pantalla seleccionada
+			Tablero.getTablero().setTablero(BMSelec,1);;
 			
-			Tablero.getTableroBM(BMSelec);
 	    	//VISTA//
 			if (BMSelec==1) {
 				setChanged();

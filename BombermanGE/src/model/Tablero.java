@@ -21,8 +21,8 @@ public class Tablero {
             }
     	}
     }
-    public static void getTableroBM(int pBMSelec) {
-		Tablero.getTablero();
+    
+    public static void setTablero(int pBMSelec ,int pPantalla) {
 		bMSelec=pBMSelec;
     	if (bMSelec==1) {
     		bMColor="Negro";
@@ -30,6 +30,7 @@ public class Tablero {
     		bMColor="Blanco";
     	}
 	}
+    
     public static Tablero getTablero() {
     	if(miTablero==null) {
     		miTablero = new Tablero();
@@ -45,6 +46,30 @@ public class Tablero {
     	colocarBloquesBlandos();
     	colocarEnemigos();
     }
+    
+    //pPantalla = 1
+	public void crearClassic() {
+		changeStrategy(new stBloquesClassic());
+		colocarBomberMan();
+		colocarEnemigos();
+		colocarBloquesBlandos();
+		colocarBloquesDuros();
+	}
+	
+    //pPantalla = 2
+	public void crearSoft() {
+		changeStrategy(new stBloquesSoft());
+		colocarBomberMan();
+		colocarEnemigos();
+		colocarBloquesBlandos();
+		colocarBloquesDuros();
+	}
+	
+    //pPantalla = 3
+	public void crearEmpty() {
+		colocarBomberMan();
+		colocarEnemigos();
+	}
     
     public void colocarBomberMan() {
     	//Colocar Bomberman
@@ -67,20 +92,9 @@ public class Tablero {
     	stBloques.colocarBloquesBlandos();
     }
     
-	public void colocarBloquesBlandosC() {
-    	Random r = new Random();
-    	for (int i = 0;  i< fila; i++) {	//filas
-            for (int j = 0; j < col; j++) {	//columnas
-            	boolean random =r.nextBoolean();
-            	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
-            		if (i%2!=0 && j%2!=0) {
-            		}else if (random) {
-            			matriz[i][j].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Blando"));
-            		}
-            	}
-            }
-    	}
-	 }
+    public void setBloqueBlando(int pI, int pJ) {
+    	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Blando"));
+    }
     
     public void changeStrategy(StrategyBloques stB){
     	stBloques = stB;
@@ -102,6 +116,14 @@ public class Tablero {
 		}
 	}
     
+    public BomberMan getBomberman() {
+    	if(bMSelec==1) {
+    		return BomberManFactory.getBomberManFactory().generate("BomberManNegro");
+    	}else {
+    		return BomberManFactory.getBomberManFactory().generate("BomberManBlanco");
+    	}
+    }
+    
     public void moverEnemigo(int pI, int pJ) {
         if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
         if (!matriz[pI][pJ].esObjeto("Enemigo")) return;
@@ -112,8 +134,8 @@ public class Tablero {
         int nuevoI = c.getI();
         int nuevoJ = c.getJ();
 
-        int bombermanI = BomberManBlanco.getBomberMan().getI();
-        int bombermanJ = BomberManBlanco.getBomberMan().getJ();
+        int bombermanI = getBomberman().getI();
+        int bombermanJ = getBomberman().getJ();
 
         if (bombermanI == nuevoI - 1 && bombermanJ == nuevoJ && movimientoEnemigo(nuevoI - 1, nuevoJ)) {
             nuevoI--; 
@@ -149,12 +171,12 @@ public class Tablero {
     
     //MOVIMIENTO
 	public void moverBomberman(char pDir) {
-	    if (BomberManBlanco.getBomberMan().isVivo()) {
-	        int pI = BomberManBlanco.getBomberMan().getI();
-	        int pJ = BomberManBlanco.getBomberMan().getJ();
+	    if (getBomberman().isVivo()) {
+	        int pI = getBomberman().getI();
+	        int pJ = getBomberman().getJ();
 	        int prevI=pI;
 	        int prevJ=pJ;
-	        BomberMan cB = BomberManBlanco.getBomberMan();
+	        BomberMan cB = getBomberman();
 	        CasillaTablero c;
 	        
 	        if (pDir == 'u') {
@@ -167,7 +189,7 @@ public class Tablero {
 		                } else if (c.esObjeto("Enemigo")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
-		                	BomberManBlanco.getBomberMan().setDir(pDir);
+		                	getBomberman().setDir(pDir);
 		                	cB.mover(pI - 1, pJ);
 		                }
 		            }
@@ -182,7 +204,7 @@ public class Tablero {
 		                } else if (c.esObjeto("Enemigo")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
-		                	BomberManBlanco.getBomberMan().setDir(pDir);
+		                	getBomberman().setDir(pDir);
 		                	cB.mover(pI + 1, pJ);
 		                }
 		            }
@@ -197,7 +219,7 @@ public class Tablero {
 		                } else if (c.esObjeto("Enemigo")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
-		                	BomberManBlanco.getBomberMan().setDir(pDir);
+		                	getBomberman().setDir(pDir);
 		                	cB.mover(pI, pJ + 1);
 		                }
 		            }
@@ -212,14 +234,14 @@ public class Tablero {
 		                } else if (c.esObjeto("Enemigo")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
-		                	BomberManBlanco.getBomberMan().setDir(pDir);
+		                	getBomberman().setDir(pDir);
 		                	cB.mover(pI, pJ - 1);
 		                }
 		            }
 	        	}
 	        }
-	        if (prevI==BomberManBlanco.getBomberMan().getI() && prevJ==BomberManBlanco.getBomberMan().getJ()) {
-            	BomberManBlanco.getBomberMan().setDir(pDir);
+	        if (prevI==getBomberman().getI() && prevJ==getBomberman().getJ()) {
+            	getBomberman().setDir(pDir);
             	cB.mover(pI, pJ);
             }
 	    }
@@ -252,24 +274,24 @@ public class Tablero {
     
     //BOMBA
     public void colocarBomba() {
-    	int pI = BomberManBlanco.getBomberMan().getI();
-    	int pJ = BomberManBlanco.getBomberMan().getJ();
-        if (BomberManBlanco.getBomberMan().puedeColocarBomba()) {
+    	int pI = getBomberman().getI();
+    	int pJ = getBomberman().getJ();
+        if (getBomberman().puedeColocarBomba()) {
         	CasillaTablero c = matriz[pI][pJ];
             if (c.esObjeto("Bomba")) {
                 return;
             }
-            BomberManBlanco.getBomberMan().ponerBomba();
+            getBomberman().ponerBomba();
         }
     }
-    
+
     public void quitarBomba(int pI, int pJ) {
 		matriz[pI][pJ].destruir();
     }
     
     //EXPLOSION
     public void destruirBloques(int pI, int pJ) {
-		BomberManBlanco.getBomberMan().bombaExplotada();
+		getBomberman().bombaExplotada();
         quitarBomba(pI, pJ);
         procesarExplosion(pI, pJ);
         procesarExplosion(pI - 1, pJ);
@@ -306,7 +328,7 @@ public class Tablero {
     
     
     public boolean esBomberMan(int pI, int pJ) {
-    	if (BomberManBlanco.getBomberMan().getI()==pI && BomberManBlanco.getBomberMan().getJ()==pJ) {
+    	if (getBomberman().getI()==pI && getBomberman().getJ()==pJ) {
     		return true;
     	}
     	return false;
