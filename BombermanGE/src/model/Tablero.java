@@ -36,7 +36,7 @@ public class Tablero {
     
     public void colocarBomberMan() {
     	//Colocar Bomberman
-    	matriz[0][0].cambiarCasilla("BomberMan");
+    	matriz[0][0].cambiarCasilla(BomberManBlanco.getBomberMan());
     }
     
     public void colocarBloquesDuros() {
@@ -44,7 +44,7 @@ public class Tablero {
             for (int j = 0; j < col; j++) {	//columnas
             	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
             		if (i%2!=0 && j%2!=0) {
-            			matriz[i][j].cambiarCasilla("Duro");
+            			matriz[i][j].cambiarCasilla(new Duro());
             		} 
             	}
             }
@@ -63,7 +63,7 @@ public class Tablero {
             	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
             		if (i%2!=0 && j%2!=0) {
             		}else if (random) {
-            			matriz[i][j].cambiarCasilla("Blando");
+            			matriz[i][j].cambiarCasilla(new Blando());
             		}
             	}
             }
@@ -85,17 +85,11 @@ public class Tablero {
 		    // Asegúrate de que no está en zona prohibida y que la casilla es "Vacio"
 		    if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)
 		        && matriz[i][j].esObjeto("Vacio")) {
-		    	matriz[i][j].cambiarCasilla("Enemigo");
+		    	matriz[i][j].cambiarCasilla(new Enemigo(i,j));
 		        enemigosColocados++;
 		    }
 		}
 	}
-    
-    
-    
-    
-    
-    
     
     public void moverEnemigo(int pI, int pJ) {
         if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
@@ -110,42 +104,34 @@ public class Tablero {
         int bombermanI = BomberManBlanco.getBomberMan().getI();
         int bombermanJ = BomberManBlanco.getBomberMan().getJ();
 
-        if (bombermanI == nuevoI - 1 && bombermanJ == nuevoJ && movimientoPosible(nuevoI - 1, nuevoJ)) {
+        if (bombermanI == nuevoI - 1 && bombermanJ == nuevoJ && movimientoEnemigo(nuevoI - 1, nuevoJ)) {
             nuevoI--; 
-        } else if (bombermanI == nuevoI + 1 && bombermanJ == nuevoJ && movimientoPosible(nuevoI + 1, nuevoJ)) {
+        } else if (bombermanI == nuevoI + 1 && bombermanJ == nuevoJ && movimientoEnemigo(nuevoI + 1, nuevoJ)) {
             nuevoI++; 
-        } else if (bombermanI == nuevoI && bombermanJ == nuevoJ - 1 && movimientoPosible(nuevoI, nuevoJ - 1)) {
+        } else if (bombermanI == nuevoI && bombermanJ == nuevoJ - 1 && movimientoEnemigo(nuevoI, nuevoJ - 1)) {
             nuevoJ--; 
-        } else if (bombermanI == nuevoI && bombermanJ == nuevoJ + 1 && movimientoPosible(nuevoI, nuevoJ + 1)) {
+        } else if (bombermanI == nuevoI && bombermanJ == nuevoJ + 1 && movimientoEnemigo(nuevoI, nuevoJ + 1)) {
             nuevoJ++; 
         } else {
            
             Random random = new Random();
             String[] direcciones = {"arriba", "abajo", "izquierda", "derecha"};
             String direccion = direcciones[random.nextInt(4)];
-            if (direccion.equals("arriba") && movimientoPosible(nuevoI - 1, nuevoJ) && movimientoEnemigo(nuevoI - 1, nuevoJ)) {
+            if (direccion.equals("arriba") && movimientoEnemigo(nuevoI - 1, nuevoJ)) {
                 nuevoI--;
-            } else if (direccion.equals("abajo") && movimientoPosible(nuevoI + 1, nuevoJ) && movimientoEnemigo(nuevoI + 1, nuevoJ)) {
+            } else if (direccion.equals("abajo") && movimientoEnemigo(nuevoI + 1, nuevoJ)) {
                 nuevoI++;
-            } else if (direccion.equals("izquierda") && movimientoPosible(nuevoI, nuevoJ - 1) && movimientoEnemigo(nuevoI, nuevoJ - 1)) {
+            } else if (direccion.equals("izquierda") && movimientoEnemigo(nuevoI, nuevoJ - 1)) {
                 nuevoJ--;
-            } else if (direccion.equals("derecha") && movimientoPosible(nuevoI, nuevoJ + 1) && movimientoEnemigo(nuevoI, nuevoJ + 1)) {
+            } else if (direccion.equals("derecha") && movimientoEnemigo(nuevoI, nuevoJ + 1)) {
                 nuevoJ++;
             }
-        }
-
-       
+        }       
         if (nuevoI == bombermanI && nuevoJ == bombermanJ) {
-            // Matar a Bomberman
-            BomberManBlanco.getBomberMan().morir();
-            c.cambiarCasilla("Morir");
-
-            // Eliminar al enemigo
+            matriz[bombermanI][bombermanJ].destruir();
             c.destruir();
-            matriz[c.getI()][c.getJ()].cambiarCasilla("Vacio");
         } else if (nuevoI != c.getI() || nuevoJ != c.getJ()) { // Movimiento normal
-            matriz[c.getI()][c.getJ()].cambiarCasilla("Vacio");
-            matriz[nuevoI][nuevoJ].cambiarCasilla("Enemigo");
+        	c.mover(nuevoI,nuevoJ);
         }
     }
 
@@ -155,89 +141,77 @@ public class Tablero {
 	    if (BomberManBlanco.getBomberMan().isVivo()) {
 	        int pI = BomberManBlanco.getBomberMan().getI();
 	        int pJ = BomberManBlanco.getBomberMan().getJ();
-	        int prevI = pI;
-	        int prevJ = pJ;
+	        int prevI=pI;
+	        int prevJ=pJ;
+	        BomberMan cB = BomberManBlanco.getBomberMan();
 	        CasillaTablero c;
 	        
 	        if (pDir == 'u') {
 	        	if (!(pI-1<0)) {
 		            if (movimientoPosible(pI - 1, pJ) || matriz[pI - 1][pJ].esObjeto("Enemigo")) {
-		                BomberManBlanco.getBomberMan().mover(pI - 1, pJ);
 		                c = matriz[pI - 1][pJ];
-		                if (c.esObjeto("Explosion") || c.esObjeto("Enemigo")) {
-		                    BomberManBlanco.getBomberMan().morir();
-		                    matriz[pI][pJ].cambiarCasilla("Morir");
+		                if (c.esObjeto("Explosion")) {
+		                	cB.mover(pI - 1, pJ);
+		                    matriz[pI - 1][pJ].destruir();
+		                } else if (c.esObjeto("Enemigo")) {
+		                	matriz[pI][pJ].destruir();
 		                } else {
-		                    c = matriz[pI][pJ];
-		                    if (!c.esObjeto("Bomba")) {
-		                        matriz[pI][pJ].cambiarCasilla("Vacio");
-		                    }
+		                	BomberManBlanco.getBomberMan().setDir(pDir);
+		                	cB.mover(pI - 1, pJ);
 		                }
-		                pI--;
 		            }
 	        	}
 	        } else if (pDir == 'd') {
 	        	if (!(pI+1>10)) {
 		            if (movimientoPosible(pI + 1, pJ) || matriz[pI + 1][pJ].esObjeto("Enemigo")) {
-			                BomberManBlanco.getBomberMan().mover(pI + 1, pJ);
-			                c = matriz[pI + 1][pJ];
-			                if (c.esObjeto("Explosion") || c.esObjeto("Enemigo")) {
-			                    BomberManBlanco.getBomberMan().morir();
-			                    matriz[pI][pJ].cambiarCasilla("Morir");
-			                } else {
-			                    c = matriz[pI][pJ];
-			                    if (!c.esObjeto("Bomba")) {
-			                    	matriz[pI][pJ].cambiarCasilla("Vacio");
-			                    }
-			                }
-			                pI++;
+		                c = matriz[pI + 1][pJ];
+		                if (c.esObjeto("Explosion")) {
+		                	cB.mover(pI + 1, pJ);
+		                    matriz[pI + 1][pJ].destruir();
+		                } else if (c.esObjeto("Enemigo")) {
+		                	matriz[pI][pJ].destruir();
+		                } else {
+		                	System.out.println("hola");
+		                	BomberManBlanco.getBomberMan().setDir(pDir);
+		                	cB.mover(pI + 1, pJ);
+		                }
 		            }
 	        	}
 	        } else if (pDir == 'r') {
 	        	if (!(pJ+1>16)) {
 		            if (movimientoPosible(pI, pJ + 1) || matriz[pI][pJ + 1].esObjeto("Enemigo")) {
-		                BomberManBlanco.getBomberMan().mover(pI, pJ + 1);
 		                c = matriz[pI][pJ + 1];
-		                if (c.esObjeto("Explosion") || c.esObjeto("Enemigo")) {
-		                    BomberManBlanco.getBomberMan().morir();
-		                    matriz[pI][pJ].cambiarCasilla("Morir");
+		                if (c.esObjeto("Explosion")) {
+		                	cB.mover(pI, pJ + 1);
+		                    matriz[pI][pJ + 1].destruir();
+		                } else if (c.esObjeto("Enemigo")) {
+		                	matriz[pI][pJ].destruir();
 		                } else {
-		                    c = matriz[pI][pJ];
-		                    if (!c.esObjeto("Bomba")) {
-		                    	matriz[pI][pJ].cambiarCasilla("Vacio");
-		                    }
+		                	BomberManBlanco.getBomberMan().setDir(pDir);
+		                	cB.mover(pI, pJ + 1);
 		                }
-		                pJ++;
 		            }
 	        	}
 	        } else if (pDir == 'l') {
 	        	if (!(pJ-1<0)) {
 		            if (movimientoPosible(pI, pJ - 1) || matriz[pI][pJ - 1].esObjeto("Enemigo")) {
-		                BomberManBlanco.getBomberMan().mover(pI, pJ - 1);
 		                c = matriz[pI][pJ - 1];
-		                if (c.esObjeto("Explosion") || c.esObjeto("Enemigo")) {
-		                    BomberManBlanco.getBomberMan().morir();
-		                    matriz[pI][pJ].cambiarCasilla("Morir");
+		                if (c.esObjeto("Explosion")) {
+		                	cB.mover(pI, pJ - 1);
+		                    matriz[pI][pJ - 1].destruir();
+		                } else if (c.esObjeto("Enemigo")) {
+		                	matriz[pI][pJ].destruir();
 		                } else {
-		                    c = matriz[pI][pJ];
-		                    if (!c.esObjeto("Bomba")) {
-		                    	matriz[pI][pJ].cambiarCasilla("Vacio");
-		                    }
+		                	BomberManBlanco.getBomberMan().setDir(pDir);
+		                	cB.mover(pI, pJ - 1);
 		                }
-		                pJ--;
 		            }
 	        	}
 	        }
-
-	        // Notificar cambios
-	        if (matriz[prevI][prevJ].esObjeto("Bomba")) {
-	            if (prevI != pI || prevJ != pJ) {
-	            	matriz[prevI][prevJ].cambiarCasilla("Bomba");
-	            	matriz[pI][pJ].cambiarCasilla(String.valueOf(pDir));
-	            }
-	        } else {
-	        	matriz[pI][pJ].cambiarCasilla(String.valueOf(pDir));
-	        }
+	        if (prevI==BomberManBlanco.getBomberMan().getI() && prevJ==BomberManBlanco.getBomberMan().getJ()) {
+            	BomberManBlanco.getBomberMan().setDir(pDir);
+            	cB.mover(pI, pJ);
+            }
 	    }
 	}
 	
@@ -256,11 +230,13 @@ public class Tablero {
     }
     
     public boolean movimientoEnemigo(int pI, int pJ) {
-    	boolean posible = true;
-    	if ((pI == 0 && pJ == 0) || (pI == 0 && pJ == 1) || (pI == 1 && pJ == 0)) {
-    		posible = false;
+    	if(pI<0 || pI >=11 || pJ<0 || pJ>=17) return false;
+    	CasillaTablero c=getCasilla(pI,pJ);
+    	if ((pI == 0 && pJ == 0) || (pI == 0 && pJ == 1) || (pI == 1 && pJ == 0) || 
+    		c.esObjeto("Enemigo") || c.esObjeto("Explosion")) {
+    		return false;
     	}
-    	return posible;
+    	return c.puedeMoverse();
     }
 
     
@@ -273,12 +249,12 @@ public class Tablero {
             if (c.esObjeto("Bomba")) {
                 return;
             }
-            matriz[pI][pJ].cambiarCasilla("BSuper");
+            BomberManBlanco.getBomberMan().ponerBomba();
         }
     }
     
     public void quitarBomba(int pI, int pJ) {
-		matriz[pI][pJ].cambiarCasilla("Vacio");
+		matriz[pI][pJ].destruir();
     }
     
     //EXPLOSION
@@ -298,14 +274,13 @@ public class Tablero {
     	if (c.esObjeto("Duro")) return;
     	else if (c.esObjeto("Bomba")) {
             c.destruir();
-        } else if (c.esObjeto("BomberMan")||esBomberMan(pI, pJ)) {
-        	BomberManBlanco.getBomberMan().morir();
-        	matriz[pI][pJ].cambiarCasilla("Morir");
+        } else if (c.esObjeto("BomberMan") || esBomberMan(pI, pJ)) {
+        	c.destruir();
         } else {
         	if (c.esObjeto("Enemigo")) {
-        		matriz[pI][pJ].cambiarCasilla("Morir");
+        		c.destruir();
         	}
-        	matriz[pI][pJ].cambiarCasilla("Explosion");
+        	c.cambiarCasilla(new Explosion(pI,pJ));
         }
         return;
     }    
@@ -315,7 +290,7 @@ public class Tablero {
     	if (!c.esObjeto("Explosion")) {
         	return;
         }
-		matriz[pI][pJ].cambiarCasilla("Vacio");
+    	c.destruir();
     }
     
     
