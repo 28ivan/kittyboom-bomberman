@@ -28,8 +28,10 @@ public class Tablero {
 		pantalla=pPantalla;
     	if (bMSelec==1) {
     		bMColor="Negro";
+//    		changeStrategy(BUltra);
     	}else {
     		bMColor="Blanco";
+//    		changeStrategy(BSuper);
     	}
     	if (pantalla==1) {
     		crearClassic();
