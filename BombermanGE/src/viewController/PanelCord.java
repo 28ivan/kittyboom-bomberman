@@ -19,10 +19,12 @@ public class PanelCord extends JPanel implements Observer{
 	private int j;
 	private JLabel Label;
 	private boolean alternarBaloon = false;
+	private String bmColor;
 
-	public PanelCord(int pI, int pJ) {
+	public PanelCord(int pI, int pJ, String pBMColor) {
 		this.i = pI;
 		this.j = pJ;
+		this.bmColor = pBMColor;
 		this.setOpaque(false);
 		add(getLabel());
 		this.setSize(getPreferredSize());
@@ -71,19 +73,19 @@ public class PanelCord extends JPanel implements Observer{
 		                alternarBaloon = !alternarBaloon;
 		                break;
 	            case "u":
-	            	setLabel("/viewController/Bomberman/whiteup"+num+".png");
+	            	setLabel("/viewController/Bomberman/"+bmColor+"up"+num+".png");
 	            	break;
 	            case "d":
-	            	setLabel("/viewController/Bomberman/whitedown"+num+".png");
+	            	setLabel("/viewController/Bomberman/"+bmColor+"down"+num+".png");
 	            	break;
 	            case "l":
-	            	setLabel("/viewController/Bomberman/whiteleft"+num+".png");
+	            	setLabel("/viewController/Bomberman/"+bmColor+"left"+num+".png");
 	            	break;
 	            case "r":
-	            	setLabel("/viewController/Bomberman/whiteright"+num+".png");
+	            	setLabel("/viewController/Bomberman/"+bmColor+"right"+num+".png");
 	            	break;
 	            case "BmBomba":
-	            	setLabel("/viewController/Bomberman/whitewithbomb1.png");
+	            	setLabel("/viewController/Bomberman/"+bmColor+"withbomb1.png");
 	            	break;
 	            case "Bomba":
 	                setLabel("/viewController/Objetos/bomb1.png");

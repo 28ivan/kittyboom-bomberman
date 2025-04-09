@@ -11,6 +11,8 @@ public class Tablero {
     private StrategyBloques stBloques;
     private StrategyBombas stBombas;
     private int numEnemigos;
+    private static int bMSelec;
+    private static String bMColor;
     
     private Tablero() {
     	for (int i = 0;  i< fila; i++) {
@@ -19,7 +21,15 @@ public class Tablero {
             }
     	}
     }
-    
+    public static void getTableroBM(int pBMSelec) {
+		Tablero.getTablero();
+		bMSelec=pBMSelec;
+    	if (bMSelec==1) {
+    		bMColor="Negro";
+    	}else {
+    		bMColor="Blanco";
+    	}
+	}
     public static Tablero getTablero() {
     	if(miTablero==null) {
     		miTablero = new Tablero();

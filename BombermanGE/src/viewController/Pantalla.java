@@ -17,14 +17,24 @@ public class Pantalla extends JFrame{
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 	private Controlador controlador;
+	private static int bMSelec;
+	private static String bMColor;
 	
-    public Pantalla() {
+    public Pantalla(int pBMSelec) {
+    	setBM(pBMSelec);
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setObservers();
     	getControlador().actionPerformed(null);
     }
-    
+    private void setBM(int pBMSelec) {
+    	bMSelec=pBMSelec;
+    	if (bMSelec==1) {
+    		bMColor="black";
+    	}else {
+    		bMColor="white";
+    	}
+	}
     private void initialize() {
     	setBounds(100, 100, 840, 520);
         setResizable(false);
@@ -34,7 +44,7 @@ public class Pantalla extends JFrame{
         setContentPane(getContentPane());
         for (int i = 0; i < 11; i++) { 
             for (int j = 0; j < 17; j++) { 
-            	contentPane.add(new PanelCord(i,j));
+            	contentPane.add(new PanelCord(i,j,bMColor));
             }
         }
     }
