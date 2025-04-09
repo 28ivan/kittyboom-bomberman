@@ -7,7 +7,8 @@ public class Tablero {
 	private static final int fila = 11; // Filas
     private static final int col = 17; // Columnas  
     private static Tablero miTablero = null;
-    private CasillaTablero[][] matriz = new CasillaTablero[fila][col];
+    public CasillaTablero[][] matriz = new CasillaTablero[fila][col];
+    private StrategyBloques stBloques;
     
     private Tablero() {
     	for (int i = 0;  i< fila; i++) {
@@ -26,40 +27,58 @@ public class Tablero {
     
     
     public void initializeTablero() {
+    	colocarBomberMan();
+    	colocarBloquesDuros();
+    	changeStrategy(new stBloquesClassic());
+    	colocarBloquesBlandos();
+    	colocarEnemigos();
+    }
+    
+    public void colocarBomberMan() {
     	//Colocar Bomberman
     	matriz[0][0].cambiarCasilla("BomberMan");
-    	    
-    	//Inicializar pantalla con todos los objetos necesarios
-    	Random r = new Random();
+    }
+    
+    public void colocarBloquesDuros() {
     	for (int i = 0;  i< fila; i++) {	//filas
             for (int j = 0; j < col; j++) {	//columnas
-            	boolean random =r.nextBoolean();
-            	if((i==0 && j==1)||(i==1 && j==0)) {
-            		matriz[i][j].cambiarCasilla("Vacio");
-            	}else if (i!=0 && j!=0){
+            	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
             		if (i%2!=0 && j%2!=0) {
             			matriz[i][j].cambiarCasilla("Duro");
-            		}
-            		else{
-            			if (random) {
-            				matriz[i][j].cambiarCasilla("Blando");
-            			}
-            			else {
-            				matriz[i][j].cambiarCasilla("Vacio");
-            			}
             		} 
             	}
             }
     	}
-    	
-    	colocarEnemigos();
     }
     
-    private void colocarEnemigos() {
+    public void colocarBloquesBlandos() {
+    	stBloques.colocarBloquesBlandos();
+    }
+    
+	public void colocarBloquesBlandosC() {
+    	Random r = new Random();
+    	for (int i = 0;  i< fila; i++) {	//filas
+            for (int j = 0; j < col; j++) {	//columnas
+            	boolean random =r.nextBoolean();
+            	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
+            		if (i%2!=0 && j%2!=0) {
+            		}else if (random) {
+            			matriz[i][j].cambiarCasilla("Blando");
+            		}
+            	}
+            }
+    	}
+	 }
+    
+    public void changeStrategy(StrategyBloques stB){
+    	stBloques = stB;
+    }
+
+    public void colocarEnemigos() {
 	    int enemigosColocados = 0;
 		Random r = new Random();
 	
-		while (enemigosColocados < 10) {
+		while (enemigosColocados < 8) {
 		    int i = r.nextInt(fila);
 		    int j = r.nextInt(col);
 	
@@ -71,6 +90,12 @@ public class Tablero {
 		    }
 		}
 	}
+    
+    
+    
+    
+    
+    
     
     public void moverEnemigo(int pI, int pJ) {
         if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;

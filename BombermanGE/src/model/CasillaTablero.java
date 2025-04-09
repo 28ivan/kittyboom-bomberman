@@ -7,6 +7,7 @@ public class CasillaTablero extends Observable {
 	private Casilla c;
 	private int i;
 	private int j;
+	private int n=1;
 	
 	public CasillaTablero(int pI, int pJ) {
 		c=BloqueFactory.getBloqueFactory().generate("Vacio");;
@@ -15,7 +16,6 @@ public class CasillaTablero extends Observable {
 	}
 	
 	public void cambiarCasilla(String pSt) {
-		int n=1;
 		if (pSt=="Vacio") {
 			c=BloqueFactory.getBloqueFactory().generate("Vacio");
 		}
@@ -54,15 +54,15 @@ public class CasillaTablero extends Observable {
 	}
 	
 	public void destruir() {
-		this.c.destruir(this);
+		c.destruir(this);
 	}
 	
 	public boolean esObjeto(String pTipo) {
-		return this.c.esObjeto(pTipo);
+		return c.esObjeto(pTipo);
 	}
 	
 	public boolean isVivo() {
-		return this.c.isVivo();
+		return c.isVivo();
 	}
 	
 	public int getI() {
