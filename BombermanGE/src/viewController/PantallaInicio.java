@@ -170,6 +170,7 @@ public class PantallaInicio extends JFrame implements Observer{
 	        txt.setOpaque(false);
 	        txt.setBorder(null);
 	        txt.setFocusable(false);
+		txt.setForeground(Color.WHITE);
 		}
 		return txt;
 	}
