@@ -62,10 +62,14 @@ public class Seleccion extends Observable{
 			
 			Tablero.getTableroBM(BMSelec);
 	    	//VISTA//
-	    	@SuppressWarnings("unused")
-	    	Pantalla pantalla = new Pantalla(BMSelec);
-	    	setChanged();
-	        notifyObservers(0);
+			if (BMSelec==1) {
+				setChanged();
+		        notifyObservers(0);
+			} else {
+				setChanged();
+		        notifyObservers(4);
+			}
+	    	
 		}
 	}
     

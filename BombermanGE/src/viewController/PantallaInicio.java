@@ -184,6 +184,9 @@ public class PantallaInicio extends JFrame implements Observer{
 			switch (BMSelec) {
 			case 0:
 				setVisible(false);
+				@SuppressWarnings("unused")
+		    	Pantalla pantalla = new Pantalla(1);
+				setVisible(false);
 	        case 1:
 	        	setPane(BMSelec+1); 
 	        	clearPane((BMSelec)*10);
@@ -192,6 +195,11 @@ public class PantallaInicio extends JFrame implements Observer{
 	        	setPane(BMSelec-1);
 	        	clearPane((BMSelec)*10);
 	        	break;
+	        case 4:
+	        	setVisible(false);
+	        	@SuppressWarnings("unused")
+		    	Pantalla pantalla1 = new Pantalla(2);
+				
 	        default:
 			}
 		}
