@@ -11,7 +11,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -23,6 +25,9 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	private Image backgroundImage;
 	private Controlador controlador;
 	private JPanel contentPane;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
 	
 	public PantallaSeleccionTipoTablero() {
 		initialize();
@@ -39,6 +44,9 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
         setFocusable(true);
         requestFocus();
         setContentPane(getContentPane());
+        contentPane.add(getPanel(47,1));
+        contentPane.add(getPanel(242,2));
+        contentPane.add(getPanel(431,3));
         setVisible(true);
 	}
 	
@@ -66,6 +74,33 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 		return contentPane;
 	}
 	
+	private JPanel getPanel(int pX, int pTablero) {
+	    JPanel panel = new JPanel(null);
+	    panel.setBounds(pX, 96, 116, 204);
+
+	    JLabel label = crearImagen(pTablero, 116, 204);
+	    label.setBounds(0, 0, 116, 204);
+	    panel.add(label);
+	    panel.setOpaque(false);
+	    switch (pTablero) {
+	        case 1: panel_1 = panel; break;
+	        case 2: panel_2 = panel; break;
+	        case 3: panel_3 = panel; break;
+	    }
+
+	    return panel;
+	}
+	private JLabel crearImagen(int pTablero, int width, int height) {
+	    try {
+	        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/" + pTablero + ".png"));
+	        Image img = icon.getImage();
+	        Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+	        return new JLabel(new ImageIcon(scaled));
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return new JLabel();
+	    }
+	}
 	
 	
 	
@@ -151,4 +186,5 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 				SeleccionTablero.getSeleccionTablero().initializePantallaSeleccionTipoTablero();
 			}
 	    }
-	}
+	
+}
