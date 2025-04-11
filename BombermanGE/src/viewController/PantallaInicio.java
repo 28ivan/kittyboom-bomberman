@@ -1,33 +1,27 @@
 package viewController;
+import java.awt.Color;
+
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import model.Seleccion;
-
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JTextPane;
-import java.awt.Font;
 
 public class PantallaInicio extends JFrame implements Observer{
 
@@ -44,9 +38,7 @@ public class PantallaInicio extends JFrame implements Observer{
     public PantallaInicio() {
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Seleccion.getSeleccion().addObserver(this);
-        getControlador().actionPerformed(null);
-        
+        Seleccion.getSeleccion().addObserver(this);       
         
     }
     private void initialize() {
@@ -170,7 +162,6 @@ public class PantallaInicio extends JFrame implements Observer{
 	        txt.setOpaque(false);
 	        txt.setBorder(null);
 	        txt.setFocusable(false);
-		txt.setForeground(Color.WHITE);
 		}
 		return txt;
 	}
@@ -186,7 +177,7 @@ public class PantallaInicio extends JFrame implements Observer{
 			case 0:
 				setVisible(false);
 				@SuppressWarnings("unused")
-		    	Pantalla pantalla = new Pantalla(1);
+		    	Pantalla pantalla = new Pantalla(1,1);
 				setVisible(false);
 	        case 1:
 	        	setPane(BMSelec+1); 
@@ -199,7 +190,7 @@ public class PantallaInicio extends JFrame implements Observer{
 	        case 3:
 	        	setVisible(false);
 	        	@SuppressWarnings("unused")
-		    	Pantalla pantalla1 = new Pantalla(2);
+		    	Pantalla pantalla1 = new Pantalla(2,1);
 	        	break;
 	        default:
 			}
@@ -293,7 +284,7 @@ public class PantallaInicio extends JFrame implements Observer{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Seleccion.getSeleccion().initializePantallaInicio();
+				
 			}
 
 			@Override

@@ -21,6 +21,7 @@ public class Tablero {
             	matriz[i][j]=new CasillaTablero(i,j);
             }
     	}
+    	numEnemigos = 0;
     }
     
     public void setTablero(int pBMSelec ,int pPantalla) {
@@ -33,13 +34,13 @@ public class Tablero {
     		bMColor="Blanco";
 //    		changeStrategy(BSuper);
     	}
-    	if (pantalla==1) {
+    	/*if (pantalla==1) {
     		crearClassic();
     	} else if(pantalla==2) {
     		crearSoft();
     	}else if(pantalla==3) {
     		crearEmpty();
-    	}
+    	}*/
 	}
     
     public static Tablero getTablero() {
@@ -52,28 +53,28 @@ public class Tablero {
     
     public void initializeTablero() {
     	colocarBomberMan();
-    	colocarBloquesDuros();
-    	changeStrategy(new stBloquesClassic());
-    	colocarBloquesBlandos();
-    	colocarEnemigos();
+    	changeStrategyBloques(new stBloquesClassic());
+		colocarBloquesDuros();
+		colocarBloquesBlandos();
+		colocarEnemigos();
     }
     
     //pPantalla = 1
 	public void crearClassic() {
-		changeStrategy(new stBloquesClassic());
+		changeStrategyBloques(new stBloquesClassic());
 		colocarBomberMan();
-		colocarEnemigos();
-		colocarBloquesBlandos();
 		colocarBloquesDuros();
+		colocarBloquesBlandos();
+		colocarEnemigos();
 	}
 	
     //pPantalla = 2
 	public void crearSoft() {
-		changeStrategy(new stBloquesSoft());
+		changeStrategyBloques(new stBloquesSoft());
 		colocarBomberMan();
-		colocarEnemigos();
-		colocarBloquesBlandos();
 		colocarBloquesDuros();
+		colocarBloquesBlandos();
+		colocarEnemigos();
 	}
 	
     //pPantalla = 3
@@ -107,7 +108,7 @@ public class Tablero {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Blando"));
     }
     
-    public void changeStrategy(StrategyBloques stB){
+    public void changeStrategyBloques(StrategyBloques stB){
     	stBloques = stB;
     }
 

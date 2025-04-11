@@ -23,10 +23,6 @@ public class Seleccion extends Observable{
     	return miPantallaInicio;
     }
     
-    public void initializePantallaInicio() {
-    	
-    }
-    
     public void seleccionarBomberMan(char pDir) {
     	yaSeleccionado=true;
     	if(BMSelec==0) {

@@ -20,8 +20,9 @@ public class Pantalla extends JFrame{
 	private static int bMSelec;
 	private static String bMColor;
 	
-    public Pantalla(int pBMSelec) {
+    public Pantalla(int pBMSelec,int pPantalla) {
     	setBM(pBMSelec);
+    	setFondoPantalla(pPantalla);
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setObservers();
@@ -35,6 +36,11 @@ public class Pantalla extends JFrame{
     		bMColor="white";
     	}
 	}
+    
+    private void setFondoPantalla(int pBMSelec) {
+    	//HACER; PONER EL FONDO QUE CORRESPONDE DEPENDIENDO DE LA PANTALLA SELECCIONADA
+	}
+    
     private void initialize() {
     	setBounds(100, 100, 840, 520);
         setResizable(false);
