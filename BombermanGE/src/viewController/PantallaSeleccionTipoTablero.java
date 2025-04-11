@@ -91,11 +91,14 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	    return panel;
 	}
 	private JLabel crearImagen(int pTablero, int width, int height) {
-	    try {
+		try {
+	        // Cargar la imagen original
 	        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/" + pTablero + ".png"));
-	        Image img = icon.getImage();
-	        Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-	        return new JLabel(new ImageIcon(scaled));
+	        Image image = icon.getImage();
+	        if (image.getWidth(null) != width || image.getHeight(null) != height) {
+	            image = image.getScaledInstance(width, height, Image.SCALE_SMOOTH); 
+	        }
+	        return new JLabel(new ImageIcon(image));
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return new JLabel();
