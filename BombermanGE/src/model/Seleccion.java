@@ -69,5 +69,19 @@ public class Seleccion extends Observable{
 	    	
 		}
 	}
+	public void seleccionarTipoTablero() {
+		// TODO Auto-generated method stub
+		SeleccionTablero.getSeleccionTablero();
+		setChanged();
+        notifyObservers(4);
+	}
+
+	public void apagarTipoTablero() {
+		// TODO Auto-generated method stub
+		setChanged();
+        notifyObservers(5);
+	}
+
+	
     
 }

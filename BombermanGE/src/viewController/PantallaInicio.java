@@ -2,6 +2,7 @@ package viewController;
 import java.awt.Color;
 
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import model.Seleccion;
 import javax.swing.JTextField;
@@ -30,15 +32,17 @@ public class PantallaInicio extends JFrame implements Observer{
     private JPanel panel;
     private JPanel panel_1;
     private JPanel panel_2;
-    private JTextField txt;
+    private JTextArea txt;
     private Image backgroundImage;
     private Controlador controlador;
     private Map<String, Component> panelMap = new HashMap<>();
+    private boolean notificationsEnabled=true;
     
     public PantallaInicio() {
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Seleccion.getSeleccion().addObserver(this);       
+        Seleccion.getSeleccion().addObserver(this);   
+        getControlador().actionPerformed(null);
         
     }
     private void initialize() {
@@ -150,18 +154,23 @@ public class PantallaInicio extends JFrame implements Observer{
         }
         return panel;
     }
-	private JTextField getTxt() {
+	private JTextArea getTxt() {
 		if (txt == null) {
-			txt = new JTextField();
-			txt.setText("Selecciona con ← ó →");
-			txt.setHorizontalAlignment(SwingConstants.CENTER);
-			txt.setBounds(686, 428, 130, 19);
-			txt.setColumns(10);
-	        txt.setEditable(false);
-	        // Eliminar el fondo
+			txt = new JTextArea();
+	        txt.setText("Selecciona con ← y →\n Presiona <o>pciones");
+	        txt.setForeground(Color.MAGENTA);
+	        txt.setEditable(false); 
 	        txt.setOpaque(false);
-	        txt.setBorder(null);
 	        txt.setFocusable(false);
+	        txt.setBorder(null);
+	        txt.setFont(new Font("SansSerif", Font.PLAIN, 12));
+	        
+	        // Ajustar tamaño para que quepan las dos líneas
+	        txt.setBounds(686, 428, 160, 50); // Más altura para 2 líneas
+
+	        // Alinear texto al centro (horizontal y vertical)
+	        txt.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+	        txt.setAlignmentY(JTextArea.CENTER_ALIGNMENT);
 		}
 		return txt;
 	}
@@ -173,27 +182,43 @@ public class PantallaInicio extends JFrame implements Observer{
 		// TODO Auto-generated method stub
 		if(o instanceof Seleccion) { //ESOBJETO CAMBIARLO------------------
 			int BMSelec = (int) arg;
-			switch (BMSelec) {
-			case 0:
-				setVisible(false);
-				@SuppressWarnings("unused")
-		    	Pantalla pantalla = new Pantalla(1,1);
-				setVisible(false);
-	        case 1:
-	        	setPane(BMSelec+1); 
-	        	clearPane((BMSelec)*10);
-	        	break;
-	        case 2:
-	        	setPane(BMSelec-1);
-	        	clearPane((BMSelec)*10);
-	        	break;
-	        case 3:
-	        	setVisible(false);
-	        	@SuppressWarnings("unused")
-		    	Pantalla pantalla1 = new Pantalla(2,1);
-	        	break;
-	        default:
+			if (notificationsEnabled) {
+				switch (BMSelec) {
+					case 0:
+						setVisible(false);
+						@SuppressWarnings("unused")
+				    	Pantalla pantalla = new Pantalla(1,1);
+			        case 1:
+			        	setPane(BMSelec+1); 
+			        	clearPane((BMSelec)*10);
+			        	break;
+			        case 2:
+			        	setPane(BMSelec-1);
+			        	clearPane((BMSelec)*10);
+			        	break;
+			        case 3:
+			        	setVisible(false);
+			        	@SuppressWarnings("unused")
+				    	Pantalla pantalla1 = new Pantalla(2,1);
+			        	break;
+			        case 4:
+			        	setEnabled(false);
+			        	notificationsEnabled = false;
+			        	@SuppressWarnings("unused")
+				    	PantallaSeleccionTipoTablero pantalla2 = new PantallaSeleccionTipoTablero();
+			        	break;
+			        default:
+				}
+			} else {
+				switch (BMSelec) {
+					case 5:
+						notificationsEnabled = true;
+						setEnabled(true);
+						setVisible(true); //esto lo hago para actualizar la pantalla de seleccion de personaje y que no se ponga la pantalla del eclipse
+		        	break;
+				}
 			}
+			
 		}
 	}
 	private void setPane(int BMSelec) {
@@ -279,6 +304,9 @@ public class PantallaInicio extends JFrame implements Observer{
 		        }
 				else if (pKey==KeyEvent.VK_ENTER || pKey==KeyEvent.VK_SPACE) {
 						Seleccion.getSeleccion().inicializarTablero();
+				}
+				else if (pKey==KeyEvent.VK_O) {
+					Seleccion.getSeleccion().seleccionarTipoTablero();
 				}
 		    }
 
