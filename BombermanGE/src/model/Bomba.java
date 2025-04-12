@@ -83,7 +83,7 @@ public abstract class Bomba implements Casilla{
 	@Override
 	public boolean isVivo() {
     	return false;
-    }
+	}
 
 	@Override
 	public void mover(int pI, int pJ) {
