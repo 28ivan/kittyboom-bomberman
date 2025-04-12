@@ -5,6 +5,9 @@ public class Duro extends Bloque{
 	public Duro() {
 	}
 
+	
+	
+	//METODOS CASILLA
 	@Override
 	public boolean puedeMoverse() {
 		return false;
@@ -18,8 +21,13 @@ public class Duro extends Bloque{
 			return false;
 		}
 	}
+	
 	@Override
-	public void destruir(CasillaTablero pC) {
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
+	}
+	
+	@Override
+	public void vaciar(CasillaTablero pC) {
 	}
 	
 	@Override
