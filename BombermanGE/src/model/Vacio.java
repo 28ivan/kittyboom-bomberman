@@ -5,6 +5,9 @@ public class Vacio extends Bloque {
 	public Vacio() {
 	}
 
+	
+	
+	//METODOS CASILLA
 	@Override
 	public boolean puedeMoverse() {
 		return true;
@@ -20,7 +23,12 @@ public class Vacio extends Bloque {
 	}
 	
 	@Override
-	public void destruir(CasillaTablero pC) {
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
+		pC.cambiarCasilla(new Explosion(pI, pJ));
+	}
+	
+	@Override
+	public void vaciar(CasillaTablero pC) {
 	}
 	
 	@Override
