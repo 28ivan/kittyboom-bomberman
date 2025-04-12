@@ -13,7 +13,10 @@ public abstract class BomberMan implements Casilla {
 	
 	protected BomberMan() {
 	}
+
 	
+	
+	//METODOS GET O SIMILAR
 	public int getI() {
         return i;
     }
@@ -26,28 +29,25 @@ public abstract class BomberMan implements Casilla {
         return num;
     }
     
-    public void aumentarNum() {
-    	num++;
-    	if (num==6) num=1;
+    public char getDir() {
+    	return dir;
     }
     
     public boolean conBomba() {
     	return conBomba;
     }
     
-    public char getDir() {
-    	return dir;
-    }
-    
-    public void setDir(char pD) {
-    	if (pD!=dir) {
-    		dir=pD;
-    		num=0;
-    	}
-    }
+	public boolean antiguaBomba() {
+		if (antiguaBomba) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
     
     public boolean puedeColocarBomba() {
-    	if (this.bombas==10 || !vivo) {
+    	if (this.bombas==10 || !vivo || conBomba) {
     		return false;
     	}
     	else {
@@ -56,28 +56,32 @@ public abstract class BomberMan implements Casilla {
     	}
     }
     
+    
+    
+    //METODOS SET O SIMILAR
+    public void setDir(char pD) {
+    	if (pD!=dir) {
+    		dir=pD;
+    		num=0;
+    	}
+    }
+    
+    public void aumentarNum() {
+    	num++;
+    	if (num==6) num=1;
+    }
+    
+    public void ponerBomba() {
+    	conBomba=true;
+    }
+    
     public void bombaExplotada() {
     	bombas--;
     }
 	
-	public boolean esBomberMan(int pI, int pJ) {
-		if (this.i==pI&&this.j==pJ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-    public void ponerBomba() {
-    }
-	
-	public boolean antiguaBomba() {
-		if (antiguaBomba) {
-			return true;
-		}
-		else return false;
-	}
-	
+    
+    
+	//METODOS CASILLA
 	@Override
 	public boolean puedeMoverse() {
 		return true;
@@ -93,9 +97,13 @@ public abstract class BomberMan implements Casilla {
 	}
 	
 	@Override
-	public void destruir(CasillaTablero pC) {
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
 		vivo=false;
 		pC.cambiarCasilla(miBM);
+	}
+	
+	@Override
+	public void vaciar(CasillaTablero pC) {
 	}
 	
     @Override
