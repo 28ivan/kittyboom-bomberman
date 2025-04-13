@@ -46,16 +46,7 @@ public abstract class BomberMan implements Casilla {
 		}
 	}
     
-    public boolean puedeColocarBomba() {
-    	if (this.bombas==10 || !vivo || conBomba) {
-    		return false;
-    	}
-    	else {
-    		this.bombas++;
-    		return true;
-    	}
-    }
-    
+    public abstract boolean puedeColocarBomba();
     
     
     //METODOS SET O SIMILAR
@@ -71,9 +62,7 @@ public abstract class BomberMan implements Casilla {
     	if (num==6) num=1;
     }
     
-    public void ponerBomba() {
-    	conBomba=true;
-    }
+    public abstract void ponerBomba();
     
     public void bombaExplotada() {
     	bombas--;

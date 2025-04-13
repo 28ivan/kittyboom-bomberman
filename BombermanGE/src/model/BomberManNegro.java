@@ -11,8 +11,21 @@ public class BomberManNegro extends BomberMan{
     	}
 		return miBM;
 	}
+	@Override
+	public boolean puedeColocarBomba() {
+    	if (this.bombas>=1 || !vivo || conBomba) {
+    		return false;
+    	}
+    	else {
+    		this.bombas++;
+    		return true;
+    	}
+    }
+	@Override
     public void ponerBomba() {
-    	conBomba=true;
-    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BUltra", i, j));
+		if(puedeColocarBomba()) {
+			conBomba=true;
+	    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BUltra", i, j));
+		}
     }
 }

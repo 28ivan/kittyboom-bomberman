@@ -29,10 +29,10 @@ public class Tablero {
 		pantalla=pPantalla;
     	if (bMSelec==1) {
     		bMColor="Negro";
-//    		changeStrategy(BUltra);
+    		changeStrategyBomba(new stBUltra());
     	}else {
     		bMColor="Blanco";
-//    		changeStrategy(BSuper);
+    		changeStrategyBomba(new stBSuper());
     	}
     	/*if (pantalla==1) {
     		crearClassic();
@@ -102,6 +102,10 @@ public class Tablero {
     
     public void changeStrategyBloques(StrategyBloques stB){
     	stBloques = stB;
+    }
+    
+    public void changeStrategyBomba(StrategyBombas stB){
+    	stBombas = stB;
     }
 
     public void colocarEnemigos() {
@@ -308,14 +312,13 @@ public class Tablero {
     //EXPLOSION
     public void destruirBloques(int pI, int pJ) {
 		getBomberman().bombaExplotada();
-        procesarExplosion(pI, pJ);
-        procesarExplosion(pI - 1, pJ);
-        procesarExplosion(pI + 1, pJ);
-        procesarExplosion(pI, pJ - 1);
-        procesarExplosion(pI, pJ + 1);
+		if(stBombas!=null) {
+			stBombas.destruirBloques(pI,pJ);
+		}
+        
     }
     
-    private void procesarExplosion(int pI, int pJ) {
+    public void procesarExplosion(int pI, int pJ) {
     	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
     	CasillaTablero c = matriz[pI][pJ];
     	if (c.esObjeto("Enemigo")) {
@@ -329,4 +332,5 @@ public class Tablero {
     	CasillaTablero c = matriz[pI][pJ];
     	c.vaciar();
     }
+
 }
