@@ -164,11 +164,7 @@ public class PantallaInicio extends JFrame implements Observer{
 	        txt.setFocusable(false);
 	        txt.setBorder(null);
 	        txt.setFont(new Font("SansSerif", Font.PLAIN, 12));
-	        
-	        // Ajustar tamaño para que quepan las dos líneas
-	        txt.setBounds(686, 428, 160, 50); // Más altura para 2 líneas
-
-	        // Alinear texto al centro (horizontal y vertical)
+	        txt.setBounds(686, 428, 160, 50); 
 	        txt.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
 	        txt.setAlignmentY(JTextArea.CENTER_ALIGNMENT);
 		}

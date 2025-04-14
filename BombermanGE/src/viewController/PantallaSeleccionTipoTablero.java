@@ -1,5 +1,6 @@
 package viewController;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -7,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,6 +31,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_3;
+	private Map<String, Component> panelMap = new HashMap<>();
 	
 	public PantallaSeleccionTipoTablero() {
 		initialize();
@@ -44,9 +48,6 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
         setFocusable(true);
         requestFocus();
         setContentPane(getContentPane());
-        contentPane.add(getPanel(47,1));
-        contentPane.add(getPanel(242,2));
-        contentPane.add(getPanel(431,3));
         setVisible(true);
 	}
 	
@@ -71,12 +72,23 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
         };
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
+        contentPane.add(getPanel(47,1));
+        contentPane.add(getPanel(260,2));
+        contentPane.add(getPanel(470,3));
+        panelMap.put("panel_1", panel_1);
+        panelMap.put("panel_2", panel_2);
+        panelMap.put("panel_3", panel_3);
+//        clearPane(10);
+//        clearPane(20);
+//        clearPane(30);
+        contentPane.revalidate();
+        contentPane.repaint();
 		return contentPane;
 	}
 	
 	private JPanel getPanel(int pX, int pTablero) {
 	    JPanel panel = new JPanel(null);
-	    panel.setBounds(pX, 96, 179, 316);
+	    panel.setBounds(pX, 40, 179, 316);
 
 	    JLabel label = crearImagen(pTablero, 179, 316);
 	    label.setBounds(0, 0, 179, 316);
@@ -106,6 +118,29 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	}
 	
 	
+//	private void clearPane(int pTablero) {
+//		JPanel panel = (JPanel) panelMap.get("panel_" + (pTablero)/10);
+//		if(panel!=null) {
+//			for (Component comp : panel.getComponents()) {
+//			    if (comp instanceof JLabel) {
+//			        JLabel label = (JLabel) comp;
+//			        
+//			        // Cargar la nueva imagen
+//			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/imagenes/" + pTablero + ".png"));
+//			        Image image = icon.getImage().getScaledInstance(180, 246, Image.SCALE_SMOOTH);
+//			        
+//			        // Cambiar la imagen del JLabel
+//			        
+//			        label.setIcon(new ImageIcon(image));
+//			        break; // Termina el bucle después de encontrar el JLabel
+//			    }
+//			}
+//		}
+//		contentPane.revalidate();
+//        contentPane.repaint();
+//	}
+	
+	
 	
 	
 	
@@ -125,6 +160,15 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 				case 0:
 					this.setVisible(false);
 					Seleccion.getSeleccion().apagarTipoTablero();
+		        case 1:
+					
+		        	break;
+				case 2:
+
+		        	break;
+				case 3:
+
+		        	break;
 		        default:
 			}
 		}
@@ -161,6 +205,12 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 		public void handleKeyPressed(int pKey) {
 				if (pKey==KeyEvent.VK_ENTER || pKey==KeyEvent.VK_SPACE) {
 					SeleccionTablero.getSeleccionTablero().cerrarPantalla();
+				} else if(pKey==KeyEvent.VK_1) {
+					SeleccionTablero.getSeleccionTablero().tableroSelecciondado(1);
+				}else if(pKey==KeyEvent.VK_2) {
+					SeleccionTablero.getSeleccionTablero().tableroSelecciondado(2);
+				}else if(pKey==KeyEvent.VK_3) {
+					SeleccionTablero.getSeleccionTablero().tableroSelecciondado(3);
 				}
 			}
 

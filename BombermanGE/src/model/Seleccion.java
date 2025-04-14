@@ -13,7 +13,7 @@ public class Seleccion extends Observable{
 	private Seleccion() {
 		this.BMSelec= 0;
 		this.yaSeleccionado = false;
-		this.pantallaSelec=0;
+		this.pantallaSelec=1;
     }
     
     public static Seleccion getSeleccion() {
@@ -56,7 +56,7 @@ public class Seleccion extends Observable{
 		
 		if (yaSeleccionado) {
 			//Pasar un set bomberman y pantalla seleccionada
-			Tablero.getTablero().setTablero(BMSelec,1);;
+			Tablero.getTablero().setTablero(BMSelec,pantallaSelec);;
 			
 	    	//VISTA//
 			if (BMSelec==1) {
@@ -81,7 +81,10 @@ public class Seleccion extends Observable{
 		setChanged();
         notifyObservers(5);
 	}
-
+	public void setPantalla(int pTablero) {
+		// TODO Auto-generated method stub
+		pantallaSelec=pTablero;
+	}
 	
     
 }

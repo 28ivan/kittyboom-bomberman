@@ -13,7 +13,8 @@ public class Tablero {
     private int numEnemigos;
     private static int bMSelec;
     private static String bMColor;
-    private static int pantalla;
+    private int pantalla;
+    private boolean seleccionado=false;
     
     private Tablero() {
     	for (int i = 0;  i< fila; i++) {
@@ -25,7 +26,8 @@ public class Tablero {
     }
     
     public void setTablero(int pBMSelec ,int pPantalla) {
-		bMSelec=pBMSelec;
+    	seleccionado=true;
+    	bMSelec=pBMSelec;
 		pantalla=pPantalla;
     	if (bMSelec==1) {
     		bMColor="Negro";
@@ -34,21 +36,18 @@ public class Tablero {
     		bMColor="Blanco";
     		changeStrategyBomba(new stBSuper());
     	}
-    	/*if (pantalla==1) {
-    		crearClassic();
-    	} else if(pantalla==2) {
-    		crearSoft();
-    	}else if(pantalla==3) {
-    		crearEmpty();
-    	}*/
 	}
     
     public void initializeTablero() {
-    	colocarBomberMan();
-    	changeStrategyBloques(new stBloquesClassic());
-		colocarBloquesDuros();
-		colocarBloquesBlandos();
-		colocarEnemigos();
+    	if (seleccionado) {
+    		if (this.pantalla==1) {
+        		crearClassic();
+        	} else if(this.pantalla==2) {
+        		crearSoft();
+        	}else if(this.pantalla==3) {
+        		crearEmpty();
+        	}
+    	}
     }
     
     //pPantalla = 1
@@ -64,7 +63,6 @@ public class Tablero {
 	public void crearSoft() {
 		changeStrategyBloques(new stBloquesSoft());
 		colocarBomberMan();
-		colocarBloquesDuros();
 		colocarBloquesBlandos();
 		colocarEnemigos();
 	}
