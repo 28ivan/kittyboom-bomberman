@@ -20,6 +20,7 @@ public class BombaFactory {
     	}else if(pTipo.equals("BUltra")){
     		bomba = new BUltra(pI,pJ);
     	}
+    	bomba.activar();
     	return bomba;
     }
 }

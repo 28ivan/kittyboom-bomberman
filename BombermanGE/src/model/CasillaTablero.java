@@ -14,6 +14,9 @@ public class CasillaTablero extends Observable {
 		j=pJ;
 	}
 	
+	
+	
+	//METODO ≈changeState()
 	public void cambiarCasilla(Casilla pC) {
 		String st=null;
 		int n=0;
@@ -61,8 +64,15 @@ public class CasillaTablero extends Observable {
 		notifyObservers(new Object[] {st,n});
 	}
 	
+	
+	
+	//METODOS ENCARGADOS DE LA GESTION DE ESTADO
 	public void destruir() {
-		c.destruir(this);
+		c.destruir(this, i, j);
+	}
+	
+	public void vaciar() {
+		c.vaciar(this);
 	}
 	
 	public boolean esObjeto(String pTipo) {

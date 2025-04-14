@@ -20,6 +20,16 @@ public abstract class Bomba implements Casilla{
 		activar();
 	}
 
+	
+	
+	//METODOS GET O SIMILAR
+	public boolean haExplotado() {
+		return explotada;
+	}
+	
+	
+	
+	//LOGICA EXPLOSION BOMBA
 	public void activar() {
 		if (!activa) {
 			activa=true;
@@ -35,15 +45,14 @@ public abstract class Bomba implements Casilla{
 	}
 	
 	public void explotar(){
-		if (!explotada)
+		if (!explotada) 
 		explotada = true;
 		Tablero.getTablero().destruirBloques(i, j);
 	}
 	
-	public boolean haExplotado() {
-		return explotada;
-	}
+	
 
+	//METODOS CASILLA
 	@Override
 	public boolean puedeMoverse() {
 		return false;
@@ -59,14 +68,22 @@ public abstract class Bomba implements Casilla{
 	}
 	
 	@Override
-	public void destruir(CasillaTablero pC) {
-		pC.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
+		if (!explotada) {
+			explotada = true;
+			Tablero.getTablero().destruirBloques(i, j);
+		}
+		pC.cambiarCasilla(new Explosion(pI, pJ));
+	}
+	
+	@Override
+	public void vaciar(CasillaTablero pC) {
 	}
 
 	@Override
 	public boolean isVivo() {
     	return false;
-    }
+	}
 
 	@Override
 	public void mover(int pI, int pJ) {

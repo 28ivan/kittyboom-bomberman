@@ -5,6 +5,9 @@ public class Blando extends Bloque {
 	public Blando() {
 	}
 
+	
+	
+	//METODOS CASILLA
 	@Override
 	public boolean esObjeto(String pTipo) {
 		if(pTipo.equals("Blando")) {
@@ -19,10 +22,13 @@ public class Blando extends Bloque {
 		return false;
 	}
 	
+	@Override
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
+		pC.cambiarCasilla(new Explosion(pI, pJ));
+	}
 	
 	@Override
-	public void destruir(CasillaTablero pC) {
-		pC.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
+	public void vaciar(CasillaTablero pC) {
 	}
 	
 	@Override

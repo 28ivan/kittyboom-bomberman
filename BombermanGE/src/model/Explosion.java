@@ -18,6 +18,9 @@ public class Explosion implements Casilla{
 		activar();
 	}
 	
+	
+	
+	//LOGICA APAGADO EXPLOSION
 	public void activar() {
 	    if (!activa) {
 	        activa = true;
@@ -36,6 +39,9 @@ public class Explosion implements Casilla{
 	    return;
 	}
 
+	
+	
+	//METODOS CASILLA
 	@Override
 	public boolean puedeMoverse() {
 		return true;
@@ -56,7 +62,15 @@ public class Explosion implements Casilla{
     }
 	
 	@Override
-	public void destruir(CasillaTablero pC) {
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
+		if (timer != null) {
+            timer.cancel();
+        }
+		pC.cambiarCasilla(new Explosion(pI, pJ));
+	}
+	
+	@Override
+	public void vaciar(CasillaTablero pC) {
 		pC.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
 	}
 	

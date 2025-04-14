@@ -13,7 +13,10 @@ public abstract class BomberMan implements Casilla {
 	
 	protected BomberMan() {
 	}
+
 	
+	
+	//METODOS GET O SIMILAR
 	public int getI() {
         return i;
     }
@@ -26,19 +29,27 @@ public abstract class BomberMan implements Casilla {
         return num;
     }
     
-    public void aumentarNum() {
-    	num++;
-    	if (num==6) num=1;
+    public char getDir() {
+    	return dir;
     }
     
     public boolean conBomba() {
     	return conBomba;
     }
     
-    public char getDir() {
-    	return dir;
-    }
+	public boolean antiguaBomba() {
+		if (antiguaBomba) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
     
+    public abstract boolean puedeColocarBomba();
+    
+    
+    //METODOS SET O SIMILAR
     public void setDir(char pD) {
     	if (pD!=dir) {
     		dir=pD;
@@ -46,38 +57,20 @@ public abstract class BomberMan implements Casilla {
     	}
     }
     
-    public boolean puedeColocarBomba() {
-    	if (this.bombas==10 || !vivo) {
-    		return false;
-    	}
-    	else {
-    		this.bombas++;
-    		return true;
-    	}
+    public void aumentarNum() {
+    	num++;
+    	if (num==6) num=1;
     }
+    
+    public abstract void ponerBomba();
     
     public void bombaExplotada() {
     	bombas--;
     }
 	
-	public boolean esBomberMan(int pI, int pJ) {
-		if (this.i==pI&&this.j==pJ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-    public void ponerBomba() {
-    }
-	
-	public boolean antiguaBomba() {
-		if (antiguaBomba) {
-			return true;
-		}
-		else return false;
-	}
-	
+    
+    
+	//METODOS CASILLA
 	@Override
 	public boolean puedeMoverse() {
 		return true;
@@ -93,9 +86,13 @@ public abstract class BomberMan implements Casilla {
 	}
 	
 	@Override
-	public void destruir(CasillaTablero pC) {
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
 		vivo=false;
 		pC.cambiarCasilla(miBM);
+	}
+	
+	@Override
+	public void vaciar(CasillaTablero pC) {
 	}
 	
     @Override

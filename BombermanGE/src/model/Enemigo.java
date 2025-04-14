@@ -17,6 +17,9 @@ public class Enemigo implements Casilla{
         empezarTimer();
     }
 
+    
+    
+    //METODOS GET O SIMILAR
     public boolean isVivo() {
         return vivo;
     }
@@ -29,6 +32,9 @@ public class Enemigo implements Casilla{
         return j;
     }
 
+    
+    
+    //LOGICA MOVIMIENTO ENEMIGO
     public void empezarTimer() {
         if (timer == null) {
             timer = new Timer();
@@ -47,6 +53,8 @@ public class Enemigo implements Casilla{
     }
 
     
+    
+	//METODOS CASILLA
 	@Override
 	public boolean puedeMoverse() {
 		return false;
@@ -62,12 +70,16 @@ public class Enemigo implements Casilla{
 	}
 	
 	@Override
-	public void destruir(CasillaTablero pC) {
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
 		this.vivo = false;
         if (timer != null) {
             timer.cancel();
         }
-        pC.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
+        pC.cambiarCasilla(new Explosion(pI, pJ));
+	}
+	
+	@Override
+	public void vaciar(CasillaTablero pC) {
 	}
 	
 	@Override
