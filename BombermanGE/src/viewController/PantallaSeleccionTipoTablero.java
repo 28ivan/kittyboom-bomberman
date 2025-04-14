@@ -54,7 +54,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	public JPanel getContentPane() {
     	// Cargar imagen de fondo
         try {
-            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/back.png"));
+            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/seleccion.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	
 	private JPanel getPanel(int pX, int pTablero) {
 	    JPanel panel = new JPanel(null);
-	    panel.setBounds(pX, 40, 179, 316);
+	    panel.setBounds(pX, 70, 179, 316);
 
 	    JLabel label = crearImagen(pTablero, 179, 316);
 	    label.setBounds(0, 0, 179, 316);
