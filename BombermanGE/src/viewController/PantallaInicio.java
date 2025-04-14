@@ -37,6 +37,7 @@ public class PantallaInicio extends JFrame implements Observer{
     private Controlador controlador;
     private Map<String, Component> panelMap = new HashMap<>();
     private boolean notificationsEnabled=true;
+    private int pantallaSelec=1;
     
     public PantallaInicio() {
     	initialize();
@@ -183,7 +184,7 @@ public class PantallaInicio extends JFrame implements Observer{
 					case 0:
 						setVisible(false);
 						@SuppressWarnings("unused")
-				    	Pantalla pantalla = new Pantalla(1,1);
+				    	Pantalla pantalla = new Pantalla(1,pantallaSelec);
 			        case 1:
 			        	setPane(BMSelec+1); 
 			        	clearPane((BMSelec)*10);
@@ -195,7 +196,7 @@ public class PantallaInicio extends JFrame implements Observer{
 			        case 3:
 			        	setVisible(false);
 			        	@SuppressWarnings("unused")
-				    	Pantalla pantalla1 = new Pantalla(2,1);
+				    	Pantalla pantalla1 = new Pantalla(2,pantallaSelec);
 			        	break;
 			        case 4:
 			        	setEnabled(false);
@@ -214,7 +215,18 @@ public class PantallaInicio extends JFrame implements Observer{
 		        	break;
 				}
 			}
-			
+			switch (BMSelec) {
+			case 10:
+				pantallaSelec=1;
+				break;
+	        case 20:
+	        	pantallaSelec=2;
+	        	break;
+	        case 30:
+	        	pantallaSelec=3;
+	        	break;
+	        default:
+			}
 		}
 	}
 	private void setPane(int BMSelec) {

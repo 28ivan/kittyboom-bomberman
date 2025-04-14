@@ -66,7 +66,6 @@ public class Seleccion extends Observable{
 				setChanged();
 		        notifyObservers(3);
 			}
-	    	
 		}
 	}
 	public void seleccionarTipoTablero() {
@@ -84,6 +83,16 @@ public class Seleccion extends Observable{
 	public void setPantalla(int pTablero) {
 		// TODO Auto-generated method stub
 		pantallaSelec=pTablero;
+		if (pTablero==1) {
+			setChanged();
+	        notifyObservers(10);
+		} else if (pTablero==2) {
+			setChanged();
+	        notifyObservers(20);
+		}else if (pTablero==3) {
+			setChanged();
+	        notifyObservers(30);
+		}
 	}
 	
     

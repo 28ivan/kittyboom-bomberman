@@ -19,9 +19,11 @@ public class Pantalla extends JFrame{
 	private Controlador controlador;
 	private static int bMSelec;
 	private static String bMColor;
+	private static int pantallaSelec=1;
 	
     public Pantalla(int pBMSelec,int pPantalla) {
     	setBM(pBMSelec);
+    	pantallaSelec=1;
     	setFondoPantalla(pPantalla);
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,8 +39,8 @@ public class Pantalla extends JFrame{
     	}
 	}
     
-    private void setFondoPantalla(int pBMSelec) {
-    	//HACER; PONER EL FONDO QUE CORRESPONDE DEPENDIENDO DE LA PANTALLA SELECCIONADA
+    private void setFondoPantalla(int pPantalla) {
+    	pantallaSelec=pPantalla;	
 	}
     
     private void initialize() {
@@ -75,7 +77,7 @@ public class Pantalla extends JFrame{
 	                super.paintComponent(g);
 	                try {
 	                    //  viewController.imagenes
-	                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack3.png"));
+	                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack"+pantallaSelec+".png"));
 	                } catch (IOException e) {
 	                    e.printStackTrace();
 	                }
