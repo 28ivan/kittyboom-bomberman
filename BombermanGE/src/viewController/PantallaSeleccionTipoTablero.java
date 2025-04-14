@@ -37,7 +37,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	}
 	private void initialize() {
 		// TODO Auto-generated method stub
-		setBounds(100, 100, 605, 374);
+		setBounds(100, 100, 707, 438);
         setResizable(false);
         setLocationRelativeTo(null);
         addKeyListener(getControlador());
@@ -76,10 +76,10 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	
 	private JPanel getPanel(int pX, int pTablero) {
 	    JPanel panel = new JPanel(null);
-	    panel.setBounds(pX, 96, 116, 204);
+	    panel.setBounds(pX, 96, 179, 316);
 
-	    JLabel label = crearImagen(pTablero, 116, 204);
-	    label.setBounds(0, 0, 116, 204);
+	    JLabel label = crearImagen(pTablero, 179, 316);
+	    label.setBounds(0, 0, 179, 316);
 	    panel.add(label);
 	    panel.setOpaque(false);
 	    switch (pTablero) {
