@@ -17,13 +17,13 @@ public class BomberManNegro extends BomberMan{
     		return false;
     	}
     	else {
-    		this.bombas++;
     		return true;
     	}
     }
 	@Override
     public void ponerBomba() {
 		if(puedeColocarBomba()) {
+			this.bombas++;
 			conBomba=true;
 	    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BUltra", i, j));
 		}

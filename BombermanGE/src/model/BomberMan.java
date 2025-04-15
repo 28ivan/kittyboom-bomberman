@@ -15,7 +15,6 @@ public abstract class BomberMan implements Casilla {
 	}
 
 	
-	
 	//METODOS GET O SIMILAR
 	public int getI() {
         return i;
@@ -68,7 +67,6 @@ public abstract class BomberMan implements Casilla {
     	bombas--;
     }
 	
-    
     
 	//METODOS CASILLA
 	@Override

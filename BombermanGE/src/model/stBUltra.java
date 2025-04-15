@@ -27,7 +27,7 @@ public class stBUltra implements StrategyBombas {
         }
     }
 
-    //bnloque duro o fuera de tablero
+    //bloque duro o fuera de tablero
     private boolean procesarCasilla(int i, int j) {
         CasillaTablero c = tablero.getCasilla(i, j);
         if (c == null) return false;

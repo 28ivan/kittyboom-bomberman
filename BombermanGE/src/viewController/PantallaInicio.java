@@ -43,7 +43,6 @@ public class PantallaInicio extends JFrame implements Observer{
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Seleccion.getSeleccion().addObserver(this);   
-        getControlador().actionPerformed(null);
         
     }
     private void initialize() {
@@ -184,7 +183,7 @@ public class PantallaInicio extends JFrame implements Observer{
 					case 0:
 						setVisible(false);
 						@SuppressWarnings("unused")
-				    	Pantalla pantalla = new Pantalla(1,pantallaSelec);
+				    	Pantalla pantalla0 = new Pantalla(1,pantallaSelec);
 			        case 1:
 			        	setPane(BMSelec+1); 
 			        	clearPane((BMSelec)*10);

@@ -40,11 +40,11 @@ public class Tablero {
     
     public void initializeTablero() {
     	if (seleccionado) {
-    		if (this.pantalla==1) {
+    		if (pantalla==1) {
         		crearClassic();
-        	} else if(this.pantalla==2) {
+        	} else if(pantalla==2) {
         		crearSoft();
-        	}else if(this.pantalla==3) {
+        	}else if(pantalla==3) {
         		crearEmpty();
         	}
     	}
@@ -75,7 +75,7 @@ public class Tablero {
     
 	//CONSTRUCCION DEL TABLERO
     public void colocarBomberMan() {
-    	matriz[0][0].cambiarCasilla(BomberManFactory.getBomberManFactory().generate("BomberManBlanco"));
+    	matriz[0][0].cambiarCasilla(BomberManFactory.getBomberManFactory().generate("BomberMan"+bMColor));
     }
     
     public void colocarBloquesDuros() {

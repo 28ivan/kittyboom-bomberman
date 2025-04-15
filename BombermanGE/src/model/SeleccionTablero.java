@@ -23,11 +23,6 @@ public class SeleccionTablero extends Observable{
         Seleccion.getSeleccion().apagarTipoTablero();
 	}
 
-	public void initializePantallaSeleccionTipoTablero() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void tableroSelecciondado(int pTablero) {
 		// TODO Auto-generated method stub
 		setChanged();

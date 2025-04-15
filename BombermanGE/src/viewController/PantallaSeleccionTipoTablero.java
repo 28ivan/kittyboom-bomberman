@@ -139,18 +139,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 //		contentPane.revalidate();
 //        contentPane.repaint();
 //	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	@Override
 	public void update(Observable o, Object arg) {
@@ -174,23 +163,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 		}
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 	//CONTROLADOR
 	private Controlador getControlador() {
 		if (controlador == null) {
@@ -223,20 +196,18 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
 			int key = e.getKeyCode();
 			getControlador().handleKeyPressed(key);
 		}
 
 		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-				SeleccionTablero.getSeleccionTablero().initializePantallaSeleccionTipoTablero();
 			}
 	    }
 	
