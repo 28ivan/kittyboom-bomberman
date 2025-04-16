@@ -137,6 +137,13 @@ public class Tablero {
     	}
     }
     
+    public boolean esBomberman(int pI, int pJ) {
+    	if (getBomberman().getI()==pI && getBomberman().getJ()==pJ) {
+    		return true;
+    	}
+    	return false;
+    }
+    
     public CasillaTablero getCasilla(int pI, int pJ) {
     	CasillaTablero c = null;
     	if (pI>=0 && pJ>=0 && pI<11 && pJ<17) {
@@ -319,10 +326,13 @@ public class Tablero {
     public void procesarExplosion(int pI, int pJ) {
     	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
     	CasillaTablero c = matriz[pI][pJ];
-    	if (c.esObjeto("Enemigo")) {
-    		numEnemigos--;
+    	if (esBomberman(pI,pJ)) {
+    		getBomberman().mover(pI, pJ);
     	}
-    	c.destruir();
+	    if (c.esObjeto("Enemigo")) {
+	    	numEnemigos--;
+	    }
+	    c.destruir();
     }    
 
     public void apagar(int pI, int pJ) {
