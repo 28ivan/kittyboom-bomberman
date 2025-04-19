@@ -72,6 +72,12 @@ public class Tablero {
 		colocarBomberMan();
 		colocarEnemigos();
 	}
+	
+	//pPantalla = 4
+	public void crearBoss() {
+		colocarBomberMan();
+		//colocarBoss();
+	}
     
 	//CONSTRUCCION DEL TABLERO
     public void colocarBomberMan() {
