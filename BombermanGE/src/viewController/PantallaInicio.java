@@ -60,7 +60,7 @@ public class PantallaInicio extends JFrame implements Observer{
     public JPanel getContentPane() {
     	// Cargar imagen de fondo
         try {
-            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/back.png"));
+            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/Imagenes/back.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -130,7 +130,7 @@ public class PantallaInicio extends JFrame implements Observer{
     }
     private JLabel crearImagen(int BM, int dir1, int dir2) {
     	// Cargar imagen
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/bomber"+BM+".png"));
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/bomber"+BM+".png"));
         Image image = icon.getImage().getScaledInstance(dir1, dir2, Image.SCALE_SMOOTH);
         // Crear JLabel con el tamaño original de la imagen
         JLabel label = new JLabel(new ImageIcon(image));
@@ -144,7 +144,7 @@ public class PantallaInicio extends JFrame implements Observer{
             panel.setOpaque(false);
             panel.setLayout(null); // Permite posicionar manualmente
             panel.setBounds(117, 20, 576, 160);
-            ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/title.png"));
+            ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/title.png"));
             Image image = icon.getImage().getScaledInstance(576, 160, Image.SCALE_SMOOTH);
             // Crear JLabel con el tamaño original de la imagen
             JLabel label = new JLabel(new ImageIcon(image));
@@ -236,7 +236,7 @@ public class PantallaInicio extends JFrame implements Observer{
 			        JLabel label = (JLabel) comp;
 			        
 			        // Cargar la nueva imagen
-			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/bomber" + BMSelec + ".png"));
+			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/bomber" + BMSelec + ".png"));
 			        Image image = icon.getImage().getScaledInstance(238, 327, Image.SCALE_SMOOTH);
 			        
 			        // Cambiar la imagen del JLabel
@@ -245,7 +245,7 @@ public class PantallaInicio extends JFrame implements Observer{
 			    }
 			}
 			// Añadir GIF
-			ImageIcon originalGif = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/gif.gif"));
+			ImageIcon originalGif = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/gif.gif"));
 			Image scaledGif = originalGif.getImage().getScaledInstance(250, 250, Image.SCALE_DEFAULT);
 			ImageIcon gifIcon = new ImageIcon(scaledGif);
 			JLabel gifLabel = new JLabel(gifIcon);
@@ -271,7 +271,7 @@ public class PantallaInicio extends JFrame implements Observer{
 			        JLabel label = (JLabel) comp;
 			        
 			        // Cargar la nueva imagen
-			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/bomber" + BMSelec + ".png"));
+			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/bomber" + BMSelec + ".png"));
 			        Image image = icon.getImage().getScaledInstance(180, 246, Image.SCALE_SMOOTH);
 			        
 			        // Cambiar la imagen del JLabel
