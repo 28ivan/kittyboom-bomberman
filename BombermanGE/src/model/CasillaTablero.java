@@ -16,7 +16,7 @@ public class CasillaTablero extends Observable {
 	
 	
 	
-	//METODO ≈changeState()
+	//METODO ≈ changeState()
 	public void cambiarCasilla(Casilla pC) {
 		String st=null;
 		int n=0;

@@ -56,7 +56,7 @@ public class Tablero {
 		colocarBomberMan();
 		colocarBloquesDuros();
 		colocarBloquesBlandos();
-		colocarEnemigos();
+		colocarEnemigos(8);
 	}
 	
     //pPantalla = 2
@@ -64,19 +64,20 @@ public class Tablero {
 		changeStrategyBloques(new stBloquesSoft());
 		colocarBomberMan();
 		colocarBloquesBlandos();
-		colocarEnemigos();
+		colocarEnemigos(8);
 	}
 	
     //pPantalla = 3
 	public void crearEmpty() {
 		colocarBomberMan();
-		colocarEnemigos();
+		colocarEnemigos(8);
 	}
 	
 	//pPantalla = 4
 	public void crearBoss() {
 		colocarBomberMan();
-		//colocarBoss();
+		colocarBoss();
+		//colocarBloquesDobles()
 	}
     
 	//CONSTRUCCION DEL TABLERO
@@ -112,19 +113,23 @@ public class Tablero {
     	stBombas = stB;
     }
 
-    public void colocarEnemigos() {
+    public void colocarEnemigos(int num) {
 		Random r = new Random();
-		while (numEnemigos < 8) {
+		while (numEnemigos < num) {
 		    int i = r.nextInt(fila);
 		    int j = r.nextInt(col);	
 		    if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)
 		        && matriz[i][j].esObjeto("Vacio")) {
-		    	matriz[i][j].cambiarCasilla(new Enemigo(i,j));
+		    	matriz[i][j].cambiarCasilla(new Mob(i,j));
 		    	numEnemigos++;
 		    }
 		}
 	}
     
+    
+    public void colocarBoss() {
+    	matriz[0][0].cambiarCasilla(Boss.getBoss());
+    }
     
     
     //METODOS GET
@@ -337,6 +342,9 @@ public class Tablero {
     	}
 	    if (c.esObjeto("Enemigo")) {
 	    	numEnemigos--;
+	    	if (numEnemigos == 0 && pantalla == 4) {
+	    		Boss.getBoss().desactivarEscudo();
+	    	}
 	    }
 	    c.destruir();
     }    

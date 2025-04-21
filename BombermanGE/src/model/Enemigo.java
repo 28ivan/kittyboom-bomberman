@@ -3,17 +3,17 @@ package model;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Enemigo implements Casilla{
-    private int i, j;
-    private boolean vivo;
-    private Timer timer = null;
-    private int tiempoMovimiento;
+public abstract class Enemigo implements Casilla{
+    protected int i, j;
+    protected boolean vivo;
+    protected Timer timer = null;
+    protected int tiempoMovimiento;
     
     public Enemigo(int i, int j) {
-        this.i = i;
-        this.j = j;
-        this.vivo = true;
-        this.tiempoMovimiento = 2000;
+        i = i;
+        j = j;
+        vivo = true;
+        tiempoMovimiento = 2000;
         empezarTimer();
     }
 
@@ -70,15 +70,6 @@ public class Enemigo implements Casilla{
 	}
 	
 	@Override
-	public void destruir(CasillaTablero pC, int pI, int pJ) {
-		this.vivo = false;
-        if (timer != null) {
-            timer.cancel();
-        }
-        pC.cambiarCasilla(new Explosion(pI, pJ));
-	}
-	
-	@Override
 	public void vaciar(CasillaTablero pC) {
 	}
 	
@@ -91,5 +82,12 @@ public class Enemigo implements Casilla{
     	}
     	i = pI;
     	j = pJ;
+	}
+
+
+
+	@Override
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
+		//Lo implementan los hijos
 	}
 }
