@@ -1,8 +1,7 @@
 package model;
 import java.util.Observable;
 
-import viewController.Pantalla;
-
+@SuppressWarnings({"deprecation"})
 public class Seleccion extends Observable{
 	private static Seleccion miPantallaInicio = null;
 	private static final int numBM = 2; //numero de bombermans a elegir
@@ -11,9 +10,9 @@ public class Seleccion extends Observable{
     private static boolean yaSeleccionado;
 	
 	private Seleccion() {
-		this.BMSelec= 0;
-		this.yaSeleccionado = false;
-		this.pantallaSelec=1;
+		BMSelec= 0;
+		yaSeleccionado = false;
+		pantallaSelec=1;
     }
     
     public static Seleccion getSeleccion() {
@@ -53,10 +52,9 @@ public class Seleccion extends Observable{
     }
 
 	public void inicializarTablero() {
-		
 		if (yaSeleccionado) {
 			//Pasar un set bomberman y pantalla seleccionada
-			Tablero.getTablero().setTablero(BMSelec,pantallaSelec);;
+			Tablero.getTablero().setTablero(BMSelec,pantallaSelec);
 			
 	    	//VISTA//
 			if (BMSelec==1) {
@@ -68,6 +66,7 @@ public class Seleccion extends Observable{
 			}
 		}
 	}
+	
 	public void seleccionarTipoTablero() {
 		// TODO Auto-generated method stub
 		SeleccionTablero.getSeleccionTablero();
@@ -80,6 +79,7 @@ public class Seleccion extends Observable{
 		setChanged();
         notifyObservers(5);
 	}
+	
 	public void setPantalla(int pTablero) {
 		// TODO Auto-generated method stub
 		pantallaSelec=pTablero;
