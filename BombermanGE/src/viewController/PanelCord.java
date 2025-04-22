@@ -60,7 +60,10 @@ public class PanelCord extends JPanel implements Observer{
 				int num = (int) res[1];
 				switch (opcion) {
 				 case "Morir":
-		                setLabel("/viewController/Bomberman/onFire2.png");  
+		                setLabel("/viewController/Bomberman/"+ bmColor+ "OnFire" + num + ".png");  
+		                break;
+				 case "Ganar":
+		                setLabel("/viewController/Bomberman/"+ bmColor+ "happy" + num + ".png");  
 		                break;
 				 case "Vacio":
 		                clearLabel();
