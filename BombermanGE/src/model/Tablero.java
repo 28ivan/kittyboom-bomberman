@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Tablero {
 
@@ -291,6 +293,9 @@ public class Tablero {
             	getBomberman().setDir(pDir);
             	cB.mover(pI, pJ);
             }
+	        if ((!getBomberman().isVivo())) {
+	        	
+	        }
 	    }
 	}
 	
@@ -345,6 +350,9 @@ public class Tablero {
 	    	if (numEnemigos == 0 && pantalla == 4) {
 	    		Boss.getBoss().desactivarEscudo();
 	    	}
+	    	else if (numEnemigos == 0 && pantalla != 4) {
+	    		ganar();
+	    	}
 	    }
 	    c.destruir();
     }    
@@ -355,4 +363,28 @@ public class Tablero {
     	c.vaciar();
     }
 
+    
+    
+    //METODOS FIN JUEGO
+    private void ganar() {
+    	BomberMan bm = getBomberman();
+    	bm.ganar();
+    	bm.mover(bm.getI(), bm.getJ());
+    	Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                restart();
+            }
+        }, 0, 3000);
+    }
+    
+    private void restart() {
+    	for (int i = 0;  i< fila; i++) {
+            for (int j = 0; j < col; j++) {
+            	matriz[i][j]=new CasillaTablero(i,j);
+            }
+    	}
+    	numEnemigos = 0;
+    }
 }
