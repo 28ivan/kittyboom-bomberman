@@ -8,6 +8,7 @@ public abstract class BomberMan implements Casilla {
 	protected boolean vivo=true;
 	protected boolean conBomba=false;
 	protected boolean antiguaBomba=false;
+	protected boolean victoria=false;
 	protected char dir = 'd' ;
 	protected int num = 1;
 	
@@ -44,6 +45,10 @@ public abstract class BomberMan implements Casilla {
 			return false;
 		}
 	}
+	
+	public boolean haGanado() {
+    	return victoria;
+    }
     
     public abstract boolean puedeColocarBomba();
     
@@ -65,6 +70,10 @@ public abstract class BomberMan implements Casilla {
     
     public void bombaExplotada() {
     	bombas--;
+    }
+    
+    public void ganar() {
+    	victoria=true;
     }
 	
     
