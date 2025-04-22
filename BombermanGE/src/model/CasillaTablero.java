@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @SuppressWarnings({"deprecation"})
 public class CasillaTablero extends Observable {
@@ -9,7 +11,7 @@ public class CasillaTablero extends Observable {
 	private int j;
 	
 	public CasillaTablero(int pI, int pJ) {
-		c=BloqueFactory.getBloqueFactory().generate("Vacio");;
+		c=BloqueFactory.getBloqueFactory().generate("Vacio");
 		i=pI;
 		j=pJ;
 	}
@@ -22,21 +24,28 @@ public class CasillaTablero extends Observable {
 		int n=0;
 		if (pC.esObjeto("BomberMan")) {
 			BomberMan bm=BomberManBlanco.getBomberMan();
-			if (bm.isVivo()) {
-				if (bm.antiguaBomba()) {
-					st="Bomba";
-				}
-				else if (bm.conBomba()) {
-					st="BmBomba";
+			if (!bm.haGanado()) {
+				if(!bm.isVivo()) {
+					iniciarSecuenciaMuerte();
 				}
 				else {
-					st=String.valueOf(bm.getDir());
-					n=bm.getNum();
-					c=pC;
+					if (bm.antiguaBomba()) {
+						st="Bomba";
+					}
+					else if (bm.conBomba()) {
+						st="BmBomba";
+					}
+					else {
+						st=String.valueOf(bm.getDir());
+						n=bm.getNum();
+						c=pC;
+					}
+					setChanged();
+					notifyObservers(new Object[] {st,n});
 				}
 			}
 			else {
-				st="Morir";
+				iniciarSecuenciaVictoria();
 			}
 		}
 		else {
@@ -59,9 +68,9 @@ public class CasillaTablero extends Observable {
 				st="Enemigo";
 			}
 			c=pC;
+			setChanged();
+			notifyObservers(new Object[] {st,n});
 		}
-		setChanged();
-		notifyObservers(new Object[] {st,n});
 	}
 	
 	
@@ -97,5 +106,50 @@ public class CasillaTablero extends Observable {
     
     public void mover(int pI, int pJ) {
         c.mover(pI,pJ);
+    }
+    
+    
+    
+    //METODOS VARIOS
+    private void iniciarSecuenciaMuerte() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int contador = 1;
+            @Override
+            public void run() {
+                if (contador <= 2) {
+                    setChanged();
+                    notifyObservers(new Object[] {"Morir", contador});
+                    contador++;
+                } else {
+                    timer.cancel();
+                }
+            }
+        }, 0, 200);
+    }
+    
+    private void iniciarSecuenciaVictoria() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int[] secuencia={1, 1, 2, 1, 1};
+            int indice=0;
+            String st;
+            @Override
+            public void run() {
+                if (indice<secuencia.length) {
+                	if (indice==0 || indice==4) {
+                		st="d";
+                	}
+                	else {
+                		st="Ganar";
+                	}
+                	setChanged();
+                    notifyObservers(new Object[] {st, secuencia[indice]});
+                    indice++;
+                } else {
+                    timer.cancel();
+                }
+            }
+        }, 0, 200);
     }
 }
