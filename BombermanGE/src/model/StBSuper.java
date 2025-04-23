@@ -1,6 +1,6 @@
 package model;
 
-public class stBSuper implements StrategyBombas{
+public class StBSuper implements StrategyBombas{
 	private Tablero tablero = Tablero.getTablero();
 	@Override
 	public void destruirBloques(int pI, int pJ) {

@@ -10,7 +10,8 @@ public class Tablero {
     private static final int col = 17; // Columnas  
     private static Tablero miTablero = null;
     private CasillaTablero[][] matriz = new CasillaTablero[fila][col];
-    private StrategyBloques stBloques;
+    private StrategyBloquesDuro stBloquesDuro;
+    private StrategyBloquesBlando stBloquesBlando;
     private StrategyBombas stBombas;
     private int numEnemigos;
     private static int bMSelec;
@@ -33,10 +34,10 @@ public class Tablero {
 		pantalla=pPantalla;
     	if (bMSelec==1) {
     		bMColor="Negro";
-    		changeStrategyBomba(new stBUltra());
+    		changeStrategyBomba(new StBUltra());
     	}else {
     		bMColor="Blanco";
-    		changeStrategyBomba(new stBSuper());
+    		changeStrategyBomba(new StBSuper());
     	}
 	}
     
@@ -48,13 +49,16 @@ public class Tablero {
         		crearSoft();
         	}else if(pantalla==3) {
         		crearEmpty();
+        	}else if(pantalla==4) {
+        		crearBoss();
         	}
     	}
     }
     
     //pPantalla = 1
 	public void crearClassic() {
-		changeStrategyBloques(new stBloquesClassic());
+		changeStrategyBloquesBlando(new StBloquesBlandoClassic());
+		changeStrategyBloquesDuro(new StBloquesDuroClassic());
 		colocarBomberMan();
 		colocarBloquesDuros();
 		colocarBloquesBlandos();
@@ -63,7 +67,7 @@ public class Tablero {
 	
     //pPantalla = 2
 	public void crearSoft() {
-		changeStrategyBloques(new stBloquesSoft());
+		changeStrategyBloquesBlando(new StBloquesBlandoSoft());
 		colocarBomberMan();
 		colocarBloquesBlandos();
 		colocarEnemigos(8);
@@ -77,9 +81,10 @@ public class Tablero {
 	
 	//pPantalla = 4
 	public void crearBoss() {
+		changeStrategyBloquesDuro(new StBloquesDuroBoss());
 		colocarBomberMan();
-		colocarBoss();
-		//colocarBloquesDobles()
+		colocarBloquesDuros();
+
 	}
     
 	//CONSTRUCCION DEL TABLERO
@@ -88,27 +93,27 @@ public class Tablero {
     }
     
     public void colocarBloquesDuros() {
-    	for (int i = 0;  i< fila; i++) {
-            for (int j = 0; j < col; j++) {
-            	if(!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)) {
-            		if (i%2!=0 && j%2!=0) {
-            			matriz[i][j].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Duro"));
-            		} 
-            	}
-            }
-    	}
+    	stBloquesDuro.colocarBloquesDuros();
     }
     
     public void colocarBloquesBlandos() {
-    	stBloques.colocarBloquesBlandos();
+    	stBloquesBlando.colocarBloquesBlandos();
+    }
+    
+    public void setBloqueDuro(int pI, int pJ) {
+    	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Duro"));
     }
     
     public void setBloqueBlando(int pI, int pJ) {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Blando"));
     }
     
-    public void changeStrategyBloques(StrategyBloques stB){
-    	stBloques = stB;
+    public void  changeStrategyBloquesDuro(StrategyBloquesDuro stB){
+    	stBloquesDuro = stB;
+    }
+    
+    public void changeStrategyBloquesBlando(StrategyBloquesBlando stB){
+    	stBloquesBlando = stB;
     }
     
     public void changeStrategyBomba(StrategyBombas stB){

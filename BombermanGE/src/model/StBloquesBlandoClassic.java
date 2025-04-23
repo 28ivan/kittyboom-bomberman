@@ -2,10 +2,10 @@ package model;
 
 import java.util.Random;
 
-public class stBloquesClassic implements StrategyBloques {
+public class StBloquesBlandoClassic implements StrategyBloquesBlando {
 	private Tablero tablero = Tablero.getTablero();
 	
-	public stBloquesClassic() {}
+	public StBloquesBlandoClassic() {}
 	
 	public void colocarBloquesBlandos() {
     	Random r = new Random();

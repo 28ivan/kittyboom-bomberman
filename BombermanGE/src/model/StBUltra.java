@@ -1,9 +1,9 @@
 package model;
 
-public class stBUltra implements StrategyBombas {
+public class StBUltra implements StrategyBombas {
     private Tablero tablero = Tablero.getTablero();
 
-    public stBUltra() {}
+    public StBUltra() {}
 
     @Override
     public void destruirBloques(int pI, int pJ) {

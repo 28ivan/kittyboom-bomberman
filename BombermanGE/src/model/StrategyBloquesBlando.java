@@ -1,6 +1,6 @@
 package model;
 
-public interface StrategyBloques {
+public interface StrategyBloquesBlando {
 	
 	public void colocarBloquesBlandos();
 	
