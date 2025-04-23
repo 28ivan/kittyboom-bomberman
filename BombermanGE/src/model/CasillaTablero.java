@@ -26,11 +26,13 @@ public class CasillaTablero extends Observable {
 			BomberMan bm=BomberManBlanco.getBomberMan();
 			if (!bm.haGanado()) {
 				if(!bm.isVivo()) {
-					iniciarSecuenciaMuerte();
+					animacionMuerte();
 				}
 				else {
 					if (bm.antiguaBomba()) {
+						n=1;
 						st="Bomba";
+						animacionBomba();
 					}
 					else if (bm.conBomba()) {
 						st="BmBomba";
@@ -45,8 +47,13 @@ public class CasillaTablero extends Observable {
 				}
 			}
 			else {
-				iniciarSecuenciaVictoria();
+				animacionVictoria();
 			}
+		}
+		else if (pC.esObjeto("Barrera")) {
+			animacionBarrera();
+			n=3;
+			st="Barrera";
 		}
 		else {
 			if (pC.esObjeto("Vacio")) {
@@ -59,6 +66,7 @@ public class CasillaTablero extends Observable {
 				st="Blando";
 			}
 			else if (pC.esObjeto("Bomba")) {
+				n=1;
 				st="BmBomba";
 			}
 			else if (pC.esObjeto("Explosion")) {
@@ -110,8 +118,8 @@ public class CasillaTablero extends Observable {
     
     
     
-    //METODOS VARIOS
-    private void iniciarSecuenciaMuerte() {
+    //METODOS ANIMACIONES
+    private void animacionMuerte() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int contador = 1;
@@ -125,10 +133,10 @@ public class CasillaTablero extends Observable {
                     timer.cancel();
                 }
             }
-        }, 0, 200);
+        }, 0, 175);
     }
     
-    private void iniciarSecuenciaVictoria() {
+    private void animacionVictoria() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int[] secuencia={1, 1, 2, 1, 1};
@@ -151,5 +159,43 @@ public class CasillaTablero extends Observable {
                 }
             }
         }, 0, 200);
+    }
+    
+    private void animacionBarrera() {
+    	Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int contador = 1;
+            @Override
+            public void run() {
+            	if (contador <= 3) {
+                    setChanged();
+                    notifyObservers(new Object[] {"Barrera", contador});
+                    contador++;
+                } else {
+                    timer.cancel();             
+                }
+            }
+        }, 0, 1000);
+    }
+    
+    private void animacionBomba() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int contador = 1;
+            @Override
+            public void run() {
+                if (contador == 2) {
+                    setChanged();
+                    notifyObservers(new Object[] {"Bomba", 2});
+                } else if (contador == 3) {
+                    setChanged();
+                    notifyObservers(new Object[] {"Bomba", 3});
+                } else if (contador > 3) {
+                    timer.cancel();
+                    return;
+                }
+                contador++;
+            }
+        }, 0, 1000);
     }
 }
