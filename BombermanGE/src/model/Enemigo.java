@@ -9,9 +9,9 @@ public abstract class Enemigo implements Casilla{
     protected Timer timer = null;
     protected int tiempoMovimiento;
     
-    public Enemigo(int i, int j) {
-        i = i;
-        j = j;
+    public Enemigo(int pI, int pJ) {
+        i = pI;
+        j = pJ;
         vivo = true;
         tiempoMovimiento = 2000;
         empezarTimer();
