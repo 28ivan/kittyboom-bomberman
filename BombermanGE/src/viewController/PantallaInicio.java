@@ -38,6 +38,7 @@ public class PantallaInicio extends JFrame implements Observer{
     private Map<String, Component> panelMap = new HashMap<>();
     private boolean notificationsEnabled=true;
     private int pantallaSelec=1;
+    private int BmSelec=1;
     
     public PantallaInicio() {
     	initialize();
@@ -178,6 +179,7 @@ public class PantallaInicio extends JFrame implements Observer{
 		// TODO Auto-generated method stub
 		if(o instanceof Seleccion) { //ESOBJETO CAMBIARLO------------------
 			int BMSelec = (int) arg;
+			BmSelec=BMSelec;
 			if (notificationsEnabled) {
 				switch (BMSelec) {
 					case 0:
@@ -223,6 +225,9 @@ public class PantallaInicio extends JFrame implements Observer{
 	        	break;
 	        case 30:
 	        	pantallaSelec=3;
+	        	break;
+	        case 40:
+	        	pantallaSelec=4;
 	        	break;
 	        default:
 			}
@@ -310,7 +315,7 @@ public class PantallaInicio extends JFrame implements Observer{
 					Seleccion.getSeleccion().seleccionarBomberMan('r');
 		        }
 				else if (pKey==KeyEvent.VK_ENTER || pKey==KeyEvent.VK_SPACE) {
-						Seleccion.getSeleccion().inicializarTablero();
+					Seleccion.getSeleccion().inicializarTablero();
 				}
 				else if (pKey==KeyEvent.VK_O) {
 					Seleccion.getSeleccion().seleccionarTipoTablero();

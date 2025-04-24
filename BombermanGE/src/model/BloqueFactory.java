@@ -19,6 +19,8 @@ public class BloqueFactory {
     		bloque = new Blando();
     	}else if(pTipo.equals("Duro")){
     		bloque = new Duro();
+    	}else if (pTipo.equals("Boss")) {
+    		bloque = new BloqueBoss();
     	}else if (pTipo.equals("Vacio")) {
     		bloque = new Vacio();
     	}

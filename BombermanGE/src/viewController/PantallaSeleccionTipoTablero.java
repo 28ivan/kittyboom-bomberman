@@ -184,6 +184,8 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 					SeleccionTablero.getSeleccionTablero().tableroSelecciondado(2);
 				}else if(pKey==KeyEvent.VK_3) {
 					SeleccionTablero.getSeleccionTablero().tableroSelecciondado(3);
+				}else if(pKey==KeyEvent.VK_4) {
+					SeleccionTablero.getSeleccionTablero().tableroSelecciondado(4);
 				}
 			}
 

@@ -31,7 +31,9 @@ public class SeleccionTablero extends Observable{
         Seleccion.getSeleccion().setPantalla(pTablero);
         } else if(pTablero==2) {
         	Seleccion.getSeleccion().setPantalla(pTablero);
-        }	else if(pTablero==3) {
+        } else if(pTablero==3) {
+        	Seleccion.getSeleccion().setPantalla(pTablero);
+        } else if(pTablero==4) {
         	Seleccion.getSeleccion().setPantalla(pTablero);
         }
         cerrarPantalla();

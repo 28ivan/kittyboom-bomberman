@@ -74,6 +74,8 @@ public class CasillaTablero extends Observable {
 			}
 			else if (pC.esObjeto("Enemigo")) {
 				st="Enemigo";
+			}else if (pC.esObjeto("Boss")) {
+				st="Boss";
 			}
 			c=pC;
 			setChanged();

@@ -54,15 +54,18 @@ public class Seleccion extends Observable{
 	public void inicializarTablero() {
 		if (yaSeleccionado) {
 			//Pasar un set bomberman y pantalla seleccionada
-			Tablero.getTablero().setTablero(BMSelec,pantallaSelec);
-			
-	    	//VISTA//
-			if (BMSelec==1) {
-				setChanged();
-		        notifyObservers(0);
+			if(BMSelec==1&&pantallaSelec==4) {
+				//aqui no tiene q hacer nada, si hago el if de otra manera no me deja ns pq
 			} else {
-				setChanged();
-		        notifyObservers(3);
+				Tablero.getTablero().setTablero(BMSelec,pantallaSelec);
+				//VISTA//
+				if (BMSelec==1) {
+					setChanged();
+			        notifyObservers(0);
+				} else {
+					setChanged();
+			        notifyObservers(3);
+				}
 			}
 		}
 	}
@@ -92,7 +95,9 @@ public class Seleccion extends Observable{
 		}else if (pTablero==3) {
 			setChanged();
 	        notifyObservers(30);
-		}
+		} else if(pTablero==4);
+		setChanged();
+        notifyObservers(40);
 	}
 	
     

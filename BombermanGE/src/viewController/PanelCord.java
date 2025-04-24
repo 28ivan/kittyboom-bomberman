@@ -68,6 +68,9 @@ public class PanelCord extends JPanel implements Observer{
 				 case "Vacio":
 		                clearLabel();
 		                break;
+				 case "Boss":
+		                clearLabel();
+		                break;
 		        case "Enemigo":
 		                String rutaen = alternarBaloon
 		                    ? "/viewController/Objetos/baloon1.png"

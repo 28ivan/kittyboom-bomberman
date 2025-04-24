@@ -77,7 +77,7 @@ public class Pantalla extends JFrame{
 	                super.paintComponent(g);
 	                try {
 	                    //  viewController.imagenes
-	                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/Imagenes/stageBack" + pantallaSelec + ".png"));
+	                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack"+pantallaSelec+".png"));
 	                } catch (IOException e) {
 	                    e.printStackTrace();
 	                }

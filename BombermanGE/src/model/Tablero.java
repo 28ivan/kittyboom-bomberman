@@ -84,7 +84,7 @@ public class Tablero {
 		changeStrategyBloquesDuro(new StBloquesDuroBoss());
 		colocarBomberMan();
 		colocarBloquesDuros();
-
+		colocarEnemigos(3);
 	}
     
 	//CONSTRUCCION DEL TABLERO
@@ -103,6 +103,9 @@ public class Tablero {
     public void setBloqueDuro(int pI, int pJ) {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Duro"));
     }
+    public void setBloqueBoss(int pI, int pJ) {
+    	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Boss"));
+	}
     
     public void setBloqueBlando(int pI, int pJ) {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Blando"));
@@ -235,12 +238,12 @@ public class Tablero {
 	        
 	        if (pDir == 'u') {
 	        	if (!(pI-1<0)) {
-		            if (movimientoPosible(pI - 1, pJ) || matriz[pI - 1][pJ].esObjeto("Enemigo")) {
+		            if (movimientoPosible(pI - 1, pJ) || matriz[pI - 1][pJ].esObjeto("Enemigo") || matriz[pI - 1][pJ].esObjeto("Boss")) {
 		                c = matriz[pI - 1][pJ];
 		                if (c.esObjeto("Explosion")) {
 		                	cB.mover(pI - 1, pJ);
 		                    matriz[pI - 1][pJ].destruir();
-		                } else if (c.esObjeto("Enemigo")) {
+		                } else if (c.esObjeto("Enemigo")||c.esObjeto("Boss")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
 		                	getBomberman().setDir(pDir);
@@ -250,12 +253,12 @@ public class Tablero {
 	        	}
 	        } else if (pDir == 'd') {
 	        	if (!(pI+1>10)) {
-		            if (movimientoPosible(pI + 1, pJ) || matriz[pI + 1][pJ].esObjeto("Enemigo")) {
+		            if (movimientoPosible(pI + 1, pJ) || matriz[pI + 1][pJ].esObjeto("Enemigo") || matriz[pI + 1][pJ].esObjeto("Boss")) {
 		                c = matriz[pI + 1][pJ];
 		                if (c.esObjeto("Explosion")) {
 		                	cB.mover(pI + 1, pJ);
 		                    matriz[pI + 1][pJ].destruir();
-		                } else if (c.esObjeto("Enemigo")) {
+		                } else if (c.esObjeto("Enemigo")||c.esObjeto("Boss")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
 		                	getBomberman().setDir(pDir);
@@ -265,12 +268,12 @@ public class Tablero {
 	        	}
 	        } else if (pDir == 'r') {
 	        	if (!(pJ+1>16)) {
-		            if (movimientoPosible(pI, pJ + 1) || matriz[pI][pJ + 1].esObjeto("Enemigo")) {
+		            if (movimientoPosible(pI, pJ + 1) || matriz[pI][pJ + 1].esObjeto("Enemigo") || matriz[pI][pJ + 1].esObjeto("Boss")) {
 		                c = matriz[pI][pJ + 1];
 		                if (c.esObjeto("Explosion")) {
 		                	cB.mover(pI, pJ + 1);
 		                    matriz[pI][pJ + 1].destruir();
-		                } else if (c.esObjeto("Enemigo")) {
+		                } else if (c.esObjeto("Enemigo")||c.esObjeto("Boss")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
 		                	getBomberman().setDir(pDir);
@@ -280,12 +283,12 @@ public class Tablero {
 	        	}
 	        } else if (pDir == 'l') {
 	        	if (!(pJ-1<0)) {
-		            if (movimientoPosible(pI, pJ - 1) || matriz[pI][pJ - 1].esObjeto("Enemigo")) {
+		            if (movimientoPosible(pI, pJ - 1) || matriz[pI][pJ - 1].esObjeto("Enemigo") || matriz[pI][pJ - 1].esObjeto("Boss")) {
 		                c = matriz[pI][pJ - 1];
 		                if (c.esObjeto("Explosion")) {
 		                	cB.mover(pI, pJ - 1);
 		                    matriz[pI][pJ - 1].destruir();
-		                } else if (c.esObjeto("Enemigo")) {
+		                } else if (c.esObjeto("Enemigo")||c.esObjeto("Boss")) {
 		                	matriz[pI][pJ].destruir();
 		                } else {
 		                	getBomberman().setDir(pDir);
@@ -392,4 +395,6 @@ public class Tablero {
     	}
     	numEnemigos = 0;
     }
+
+	
 }
