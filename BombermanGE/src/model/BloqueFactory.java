@@ -23,6 +23,8 @@ public class BloqueFactory {
     		bloque = new BloqueBoss();
     	}else if (pTipo.equals("Vacio")) {
     		bloque = new Vacio();
+    	}else if(pTipo.equals("Barrera")) {
+    		bloque = new Barrera();
     	}
     	return bloque;
     }

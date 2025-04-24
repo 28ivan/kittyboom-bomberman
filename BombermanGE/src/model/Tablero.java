@@ -84,7 +84,7 @@ public class Tablero {
 		changeStrategyBloquesDuro(new StBloquesDuroBoss());
 		colocarBomberMan();
 		colocarBloquesDuros();
-		colocarEnemigos(3);
+		Boss.getBoss();
 	}
     
 	//CONSTRUCCION DEL TABLERO
@@ -111,6 +111,10 @@ public class Tablero {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Blando"));
     }
     
+    public void setBarrera(int pI, int pJ) {
+    	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Barrera"));
+    }
+    
     public void  changeStrategyBloquesDuro(StrategyBloquesDuro stB){
     	stBloquesDuro = stB;
     }
@@ -129,7 +133,7 @@ public class Tablero {
 		    int i = r.nextInt(fila);
 		    int j = r.nextInt(col);	
 		    if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)
-		        && matriz[i][j].esObjeto("Vacio")) {
+		        && matriz[i][j].esObjeto("Vacio") && !matriz[i][j].esObjeto("Barrera")) {
 		    	matriz[i][j].cambiarCasilla(new Mob(i,j));
 		    	numEnemigos++;
 		    }

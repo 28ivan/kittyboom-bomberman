@@ -105,7 +105,9 @@ public class PanelCord extends JPanel implements Observer{
 	            case "Explosion":
 	            	setLabel("/viewController/Objetos/miniBlast1.gif");
 	            	break;
-	         
+	            case "Barrera":
+	            	setLabel("/viewController/Objetos/Barrera"+num+".png");
+	            	break;
 				}
 			}
 	    }

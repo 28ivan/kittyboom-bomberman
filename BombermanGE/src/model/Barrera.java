@@ -1,6 +1,6 @@
 package model;
 
-public class Barrera extends Bloque{
+public class Barrera extends Duro{
 	
 	public Barrera() {
 	}

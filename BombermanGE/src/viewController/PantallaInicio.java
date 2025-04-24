@@ -33,7 +33,7 @@ public class PantallaInicio extends JFrame implements Observer{
     private JPanel panel_1;
     private JPanel panel_2;
     private JTextArea txt;
-    private Image backgroundImage;
+    private ImageIcon backgroundImage;
     private Controlador controlador;
     private Map<String, Component> panelMap = new HashMap<>();
     private boolean notificationsEnabled=true;
@@ -59,24 +59,41 @@ public class PantallaInicio extends JFrame implements Observer{
 
         
     public JPanel getContentPane() {
-    	// Cargar imagen de fondo
-        try {
-            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/Imagenes/back.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//    	// Cargar imagen de fondo
+//        try {
+//            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/Imagenes/back.png"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        contentPane = new JPanel() {
+//            private static final long serialVersionUID = 1L;
+//
+//            @Override
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                if (backgroundImage != null) {
+//                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+//                }
+//            }
+//        };
+    	// Crear el panel base con layout nulo
+    	if (contentPane == null) {
+            contentPane = new JPanel(null) {
+                private static final long serialVersionUID = 1L;
 
-        contentPane = new JPanel() {
-            private static final long serialVersionUID = 1L;
+                private final ImageIcon gifFondo = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/back.gif"));
 
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (backgroundImage != null) {
-                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    Image img = gifFondo.getImage();
+                    if (img != null) {
+                        g.drawImage(img, 0, 0, getWidth(), getHeight(), this); // Escalado al tamaño del panel
+                    }
                 }
-            }
-        };
+            };
+        
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
         /////////////////////////////
@@ -94,9 +111,12 @@ public class PantallaInicio extends JFrame implements Observer{
         contentPane.setComponentZOrder((JPanel) panelMap.get("panel"), 2); // más al fondo
         contentPane.setComponentZOrder((JPanel) panelMap.get("panel_1"), 1);
         contentPane.setComponentZOrder((JPanel) panelMap.get("panel_2"), 0); // más arriba
+//        contentPane.setComponentZOrder(fondo, contentPane.getComponentCount() - 1);
         contentPane.revalidate();
         contentPane.repaint();
         return contentPane;
+        }
+		return contentPane;
     }
     private JPanel getPanel_Bomberman(int BMSelec) {
     	int BM = BMSelec;
