@@ -27,6 +27,9 @@ public class Tablero {
     	}
     	numEnemigos = 0;
     }
+    public int getNumEnemigos() {
+    	return this.numEnemigos;
+    }
     
     public void setTablero(int pBMSelec ,int pPantalla) {
     	seleccionado=true;
@@ -85,6 +88,7 @@ public class Tablero {
 		colocarBomberMan();
 		colocarBloquesDuros();
 		Boss.getBoss();
+		Boss.getBoss().invocarMobs(numEnemigos);
 	}
     
 	//CONSTRUCCION DEL TABLERO
@@ -148,6 +152,7 @@ public class Tablero {
     	}
     	return miTablero;
     }
+    
     
     public BomberMan getBomberman() {
     	if(bMSelec==1) {
