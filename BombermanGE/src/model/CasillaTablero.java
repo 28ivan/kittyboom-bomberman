@@ -54,6 +54,10 @@ public class CasillaTablero extends Observable {
 			c=pC;
 			animacionBarrera();
 		}
+		else if (pC.esObjeto("Invocacion")) {
+			c=pC;
+			animacionInvocacion();
+		}
 		else {
 			if (pC.esObjeto("Vacio")) {
 				st="Vacio";
@@ -86,9 +90,7 @@ public class CasillaTablero extends Observable {
 			notifyObservers(new Object[] {st,n});
 		}
 	}
-	
-	
-	
+
 	//METODOS ENCARGADOS DE LA GESTION DE ESTADO
 	public void destruir() {
 		c.destruir(this, i, j);
@@ -112,6 +114,10 @@ public class CasillaTablero extends Observable {
 
     public int getJ() {
         return j;
+    }
+    
+    public Casilla getCasilla() {
+    	return this.c;
     }
     
     public boolean puedeMoverse() {
@@ -206,4 +212,9 @@ public class CasillaTablero extends Observable {
             }
         }, 1000, 1000);
     }
+    
+    private void animacionInvocacion() {
+		// TODO Auto-generated method stub
+		
+	}
 }

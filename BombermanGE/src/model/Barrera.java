@@ -1,8 +1,10 @@
 package model;
 
 public class Barrera extends Duro{
+	private boolean destruir;
 	
 	public Barrera() {
+		this.destruir=false;
 	}
 
 	
@@ -22,8 +24,16 @@ public class Barrera extends Duro{
 		}
 	}
 	
+	public void setDestruir(boolean pDestruir) {
+		this.destruir=pDestruir;
+	}
+	
+	
 	@Override
 	public void destruir(CasillaTablero pC, int pI, int pJ) {
+		if (this.destruir) {
+			pC.cambiarCasilla(new Explosion(pI, pJ));
+		}
 	}
 	
 	@Override

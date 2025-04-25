@@ -18,5 +18,6 @@ public class StBloquesDuroClassic implements StrategyBloquesDuro {
     	}
 		
 	}
-	
+	public void colocarBarrera() {};
+	public void destruirBarrera() {};
 }

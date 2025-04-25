@@ -31,7 +31,7 @@ public class Tablero {
     public void setTablero(int pBMSelec ,int pPantalla) {
     	seleccionado=true;
     	bMSelec=pBMSelec;
-		pantalla=4;
+		pantalla=pPantalla;
     	if (bMSelec==1) {
     		bMColor="Negro";
     		changeStrategyBomba(new StBUltra());
@@ -139,11 +139,6 @@ public class Tablero {
 		    }
 		}
 	}
-    
-    
-    public void colocarBoss() {
-    	matriz[0][0].cambiarCasilla(Boss.getBoss());
-    }
     
     
     //METODOS GET
@@ -366,6 +361,9 @@ public class Tablero {
 	    		ganar();
 	    	}
 	    }
+	    if (c.esObjeto("Boss")) {
+	    	Boss.getBoss().restarVida();
+	    }
 	    c.destruir();
     }    
 
@@ -375,7 +373,14 @@ public class Tablero {
     	c.vaciar();
     }
 
-    
+    //BOSS
+    public void destruirBarrera() {
+		// TODO Auto-generated method stub
+    	stBloquesDuro.destruirBarrera();
+	}
+    public void colocarBarrera() {
+    	stBloquesDuro.colocarBarrera();
+    }
     
     //METODOS FIN JUEGO
     private void ganar() {
@@ -396,6 +401,8 @@ public class Tablero {
             }
         }, 0, 2000);
     }
+
+	
     
    /* private void restart() {
     	for (int i = 0;  i< fila; i++) {

@@ -108,6 +108,9 @@ public class PanelCord extends JPanel implements Observer{
 	            case "Barrera":
 	            	setLabel("/viewController/Objetos/barrera"+num+".png");
 	            	break;
+	            case "Invocacion":
+	            	setLabel("/viewController/Objetos/invocacion.gif");
+	            	break;
 				}
 			}
 	    }
