@@ -31,7 +31,7 @@ public class Tablero {
     public void setTablero(int pBMSelec ,int pPantalla) {
     	seleccionado=true;
     	bMSelec=pBMSelec;
-		pantalla=pPantalla;
+		pantalla=4;
     	if (bMSelec==1) {
     		bMColor="Negro";
     		changeStrategyBomba(new StBUltra());
@@ -379,26 +379,32 @@ public class Tablero {
     
     //METODOS FIN JUEGO
     private void ganar() {
-    	BomberMan bm = getBomberman();
-    	bm.ganar();
-    	bm.mover(bm.getI(), bm.getJ());
     	Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
+        	BomberMan bm = getBomberman();
+        	int contador = 1;
             @Override
             public void run() {
-                restart();
+            	if (contador==3) {
+	            	bm.ganar();
+	            	bm.mover(bm.getI(), bm.getJ());
+	            	timer.cancel();
+            	}
+            	else {
+            		contador++;
+            	}
             }
-        }, 0, 3000);
+        }, 0, 2000);
     }
     
-    private void restart() {
+   /* private void restart() {
     	for (int i = 0;  i< fila; i++) {
             for (int j = 0; j < col; j++) {
             	matriz[i][j]=new CasillaTablero(i,j);
             }
     	}
     	numEnemigos = 0;
-    }
+    }*/
 
 	
 }
