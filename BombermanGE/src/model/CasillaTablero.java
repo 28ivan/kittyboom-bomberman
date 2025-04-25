@@ -9,6 +9,8 @@ public class CasillaTablero extends Observable {
 	private Casilla c;
 	private int i;
 	private int j;
+	private int estadoBomba = 1;
+	private Timer timerBomba;
 	
 	public CasillaTablero(int pI, int pJ) {
 		c=BloqueFactory.getBloqueFactory().generate("Vacio");
@@ -29,18 +31,16 @@ public class CasillaTablero extends Observable {
 					animacionMuerte();
 				}
 				else {
-					if (bm.antiguaBomba()) {
-						n=1;
-						st="Bomba";
-						animacionBomba();
-					}
-					else if (bm.conBomba()) {
-						st="BmBomba";
-					}
-					else {
+					if (!bm.conBomba() && !bm.antiguaBomba()){
 						st=String.valueOf(bm.getDir());
 						n=bm.getNum();
 						c=pC;
+					}
+					else {
+						if (bm.antiguaBomba()) {
+							st="Bomba";
+							n=estadoBomba;
+						}
 					}
 					setChanged();
 					notifyObservers(new Object[] {st,n});
@@ -51,9 +51,8 @@ public class CasillaTablero extends Observable {
 			}
 		}
 		else if (pC.esObjeto("Barrera")) {
+			c=pC;
 			animacionBarrera();
-			n=3;
-			st="Barrera";
 		}
 		else {
 			if (pC.esObjeto("Vacio")) {
@@ -66,8 +65,13 @@ public class CasillaTablero extends Observable {
 				st="Blando";
 			}
 			else if (pC.esObjeto("Bomba")) {
-				n=1;
-				st="BmBomba";
+				if (BomberManBlanco.getBomberMan().conBomba() || BomberManNegro.getBomberMan().conBomba()) {
+	                st = "BmBomba";
+	            } else {
+	                st = "Bomba";
+	            }
+				n=estadoBomba;
+				animacionBomba();
 			}
 			else if (pC.esObjeto("Explosion")) {
 				st="Explosion";
@@ -181,23 +185,25 @@ public class CasillaTablero extends Observable {
     }
     
     private void animacionBomba() {
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            int contador = 1;
+        if (timerBomba != null) timerBomba.cancel();
+        timerBomba = new Timer();
+        timerBomba.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (contador == 2) {
-                    setChanged();
-                    notifyObservers(new Object[] {"Bomba", 2});
-                } else if (contador == 3) {
-                    setChanged();
-                    notifyObservers(new Object[] {"Bomba", 3});
-                } else if (contador > 3) {
-                    timer.cancel();
+                estadoBomba++;
+                if (estadoBomba > 3) {
+                    timerBomba.cancel();
                     return;
                 }
-                contador++;
+                String tipo;
+                if (BomberManBlanco.getBomberMan().conBomba() || BomberManNegro.getBomberMan().conBomba()) {
+                    tipo = "BmBomba";
+                } else {
+                    tipo = "Bomba";
+                }
+                setChanged();
+                notifyObservers(new Object[] {tipo, estadoBomba});
             }
-        }, 0, 1000);
+        }, 1000, 1000);
     }
 }
