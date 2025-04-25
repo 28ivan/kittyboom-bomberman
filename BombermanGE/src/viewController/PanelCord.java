@@ -91,7 +91,7 @@ public class PanelCord extends JPanel implements Observer{
 	            	setLabel("/viewController/Bomberman/"+bmColor+"right"+num+".png");
 	            	break;
 	            case "BmBomba":
-	            	setLabel("/viewController/Bomberman/"+bmColor+"withbomb1.png");
+	            	setLabel("/viewController/Bomberman/"+bmColor+"withbomb" + num + ".png");
 	            	break;
 	            case "Bomba":
 	                setLabel("/viewController/Objetos/bomb" + num + ".png");
@@ -106,7 +106,7 @@ public class PanelCord extends JPanel implements Observer{
 	            	setLabel("/viewController/Objetos/miniBlast1.gif");
 	            	break;
 	            case "Barrera":
-	            	setLabel("/viewController/Objetos/Barrera"+num+".png");
+	            	setLabel("/viewController/Objetos/barrera"+num+".png");
 	            	break;
 				}
 			}
