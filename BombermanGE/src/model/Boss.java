@@ -26,7 +26,7 @@ public class Boss extends Enemigo {
 		tiempoEscudo = 10000;
 		tiempoRomperEscudo=2000;
 		int n = Tablero.getTablero().getNumEnemigos();
-		invocarMobs(n);
+		invocarMobs(9);
 		
 	}
 
@@ -41,36 +41,35 @@ public class Boss extends Enemigo {
 	
 	public void invocarMobs(int num) {
 	    Random r = new Random();
-	    Tablero tablero = Tablero.getTablero(); 
-
 	    while (numEnemigos < num) {
-	        int i = r.nextInt(fila);
-	        int j = r.nextInt(col);
+	        
+	        int i = r.nextInt(fila);  
+	        int j = r.nextInt(col);   
 
-	        if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)
-	            && tablero.getCasilla(i, j).esObjeto("Vacio") && !tablero.getCasilla(i, j).esObjeto("Barrera")) {
-
-	            
-	            Invocacion inv = new Invocacion();
-	            tablero.getCasilla(i, j).cambiarCasilla(inv);
-
-	            numEnemigos++;
+	        
+	        if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0) 
+	            && Tablero.getTablero().getCasilla(i, j).esObjeto("Vacio") && !Tablero.getTablero().getCasilla(i, j).esObjeto("Barrera")) {
+	        	Tablero.getTablero().setInvocacion(i, j);
+	            numEnemigos++;  
 
 	           
-	            Timer timer = new Timer();
-	            timer.schedule(new TimerTask() {
-	                @Override
-	                public void run() {
-	                    
-	                    tablero.getCasilla(i, j).cambiarCasilla(new Mob(i, j));
-	                }
-	            }, 1500);
-	            
 	        }
-	    }
+	          
+	    
+	    Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+              
+            	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new Mob(i, j));
+            }
+        }, 1500);  
+    
+	}
+	}
 	
 		
-	}
+	
 	public void desactivarEscudo() {
 		escudo = false; 
 		if (timerEscudo == null) {

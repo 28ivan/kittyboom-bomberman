@@ -88,7 +88,7 @@ public class Tablero {
 		colocarBomberMan();
 		colocarBloquesDuros();
 		Boss.getBoss();
-		Boss.getBoss().invocarMobs(numEnemigos);
+		
 	}
     
 	//CONSTRUCCION DEL TABLERO
@@ -106,6 +106,9 @@ public class Tablero {
     
     public void setBloqueDuro(int pI, int pJ) {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Duro"));
+    }
+    public void setInvocacion(int pI, int pJ) {
+    	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Invocacion"));
     }
     public void setBloqueBoss(int pI, int pJ) {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Boss"));

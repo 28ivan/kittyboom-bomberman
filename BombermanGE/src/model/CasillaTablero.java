@@ -11,7 +11,7 @@ public class CasillaTablero extends Observable {
 	private int j;
 	private int estadoBomba = 1;
 	private Timer timerBomba;
-	
+	private Timer timerInvocacion = null;
 	public CasillaTablero(int pI, int pJ) {
 		c=BloqueFactory.getBloqueFactory().generate("Vacio");
 		i=pI;
@@ -215,6 +215,18 @@ public class CasillaTablero extends Observable {
     
     private void animacionInvocacion() {
 		// TODO Auto-generated method stub
-		
+    	setChanged();
+        notifyObservers(new Object[] {"Invocacion", 1});
+    	timerInvocacion = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                	timerInvocacion.cancel();
+                	timerInvocacion = null; 
+                	setChanged();
+                    notifyObservers(new Object[] {"Vacio", 1});
+            }
+        };
+        timerInvocacion.schedule(timerTask, 1500);
 	}
 }

@@ -25,7 +25,10 @@ public class BloqueFactory {
     		bloque = new Vacio();
     	}else if(pTipo.equals("Barrera")) {
     		bloque = new Barrera();
-    	}
+    	
+	}else if(pTipo.equals("Invocacion")) {
+		bloque = new Invocacion();
+	}
     	return bloque;
     }
 }
