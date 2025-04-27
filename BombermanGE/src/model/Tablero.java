@@ -31,6 +31,10 @@ public class Tablero {
     	return this.numEnemigos;
     }
     
+    public void sumarNumEnemigos() {
+    	this.numEnemigos++;
+    }
+    
     public void setTablero(int pBMSelec ,int pPantalla) {
     	seleccionado=true;
     	bMSelec=pBMSelec;
@@ -142,7 +146,7 @@ public class Tablero {
 		    if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)
 		        && matriz[i][j].esObjeto("Vacio") && !matriz[i][j].esObjeto("Barrera")) {
 		    	matriz[i][j].cambiarCasilla(new Mob(i,j));
-		    	numEnemigos++;
+		    	sumarNumEnemigos();
 		    }
 		}
 	}

@@ -26,7 +26,7 @@ public class Boss extends Enemigo {
 		tiempoEscudo = 10000;
 		tiempoRomperEscudo=2000;
 		int n = Tablero.getTablero().getNumEnemigos();
-		invocarMobs(9);
+		invocarMobs(1);
 		
 	}
 
@@ -50,7 +50,8 @@ public class Boss extends Enemigo {
 	        if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0) 
 	            && Tablero.getTablero().getCasilla(i, j).esObjeto("Vacio") && !Tablero.getTablero().getCasilla(i, j).esObjeto("Barrera")) {
 	        	Tablero.getTablero().setInvocacion(i, j);
-	            numEnemigos++;  
+	            numEnemigos++; 
+	            Tablero.getTablero().sumarNumEnemigos();
 
 	           
 	        }
