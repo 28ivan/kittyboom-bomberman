@@ -227,6 +227,6 @@ public class CasillaTablero extends Observable {
                     notifyObservers(new Object[] {"Vacio", 1});
             }
         };
-        timerInvocacion.schedule(timerTask, 1500);
+        timerInvocacion.schedule(timerTask, 5000);
 	}
 }

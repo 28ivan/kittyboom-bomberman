@@ -52,21 +52,21 @@ public class Boss extends Enemigo {
 	        	Tablero.getTablero().setInvocacion(i, j);
 	            numEnemigos++; 
 	            Tablero.getTablero().sumarNumEnemigos();
-
+	            Timer timer = new Timer();
+	            timer.schedule(new TimerTask() {
+	                @Override
+	                public void run() {
+	                  
+	                	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new Mob(i, j));
+	                }
+	            }, 5000); 
 	           
 	        }
 	          
 	    
-	    Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-              
-            	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new Mob(i, j));
-            }
-        }, 1500);  
+	    
     
-	}
+	    }
 	}
 	
 		
