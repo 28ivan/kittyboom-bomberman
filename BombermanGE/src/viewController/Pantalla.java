@@ -23,7 +23,6 @@ public class Pantalla extends JFrame{
 	
     public Pantalla(int pBMSelec,int pPantalla) {
     	setBM(pBMSelec);
-    	pantallaSelec=1;
     	setFondoPantalla(pPantalla);
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

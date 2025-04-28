@@ -26,7 +26,7 @@ public class Boss extends Enemigo {
 		invocado = false;
 		tiempoEscudo = 10000;
 		tiempoRomperEscudo=2000;
-		invocarMobs(3);
+		invocarMobs(1);
 		
 	}
 
@@ -113,6 +113,12 @@ public class Boss extends Enemigo {
 	private void pasarRonda() {
 		// TODO Auto-generated method stub
 		//hacer el state?
+		if (timerEscudo!=null) {
+			timerEscudo.cancel();
+			timerEscudo=null;
+			Tablero.getTablero().colocarBarrera();
+		}
+		invocarMobs(1);
 	}
 
 	@Override
@@ -126,6 +132,13 @@ public class Boss extends Enemigo {
 		        }
 		        pC.cambiarCasilla(new Explosion(pI, pJ));
 			}
+		}
+	}
+
+
+	public void restarEnemigo() {
+		if (this.numEnemigos>0) {
+			this.numEnemigos--;
 		}
 	}
 }

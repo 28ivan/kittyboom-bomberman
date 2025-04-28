@@ -18,6 +18,7 @@ public class Tablero {
     private static String bMColor;
     private int pantalla;
     private boolean seleccionado=false;
+    private boolean existeBoss=false;
     
     private Tablero() {
     	for (int i = 0;  i< fila; i++) {
@@ -81,6 +82,7 @@ public class Tablero {
 	
 	//pPantalla = 4
 	public void crearBoss() {
+		existeBoss =true;
 		changeStrategyBloquesDuro(new StBloquesDuroBoss());
 		colocarBomberMan();
 		colocarBloquesDuros();
@@ -366,6 +368,9 @@ public class Tablero {
     	}
 	    if (c.esObjeto("Enemigo")) {
 	    	numEnemigos--;
+	    	if(existeBoss) {
+	    		Boss.getBoss().restarEnemigo();
+	    	}
 	    	if (numEnemigos == 0 && pantalla == 4) {
 	    		Boss.getBoss().desactivarEscudo();
 	    	}
