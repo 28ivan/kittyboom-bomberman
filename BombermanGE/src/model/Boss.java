@@ -109,12 +109,12 @@ public class Boss extends Enemigo {
         }
 	}
 	public void restarVida() {
-		if (this.vida>1) {
-			this.vida-=this.vida;
+		if (vida>1) {
+			vida-=vida;
 			pasarRonda();
 			System.out.println("Se ha quitado una vida");
-		}else if(this.vida==1) {
-			this.vida-=this.vida;
+		}else if(vida==1) {
+			vida-=vida;
 			Tablero.getTablero().getBomberman().ganar();
 		}
 	}
