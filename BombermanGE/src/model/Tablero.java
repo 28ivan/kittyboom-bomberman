@@ -27,13 +27,6 @@ public class Tablero {
     	}
     	numEnemigos = 0;
     }
-    public int getNumEnemigos() {
-    	return this.numEnemigos;
-    }
-    
-    public void sumarNumEnemigos() {
-    	this.numEnemigos++;
-    }
     
     public void setTablero(int pBMSelec ,int pPantalla) {
     	seleccionado=true;
@@ -151,6 +144,13 @@ public class Tablero {
 		}
 	}
     
+    public int getNumEnemigos() {
+    	return numEnemigos;
+    }
+    
+    public void sumarNumEnemigos() {
+    	numEnemigos++;
+    }
     
     //METODOS GET
     public static Tablero getTablero() {
