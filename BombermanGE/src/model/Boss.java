@@ -18,6 +18,7 @@ public class Boss extends Enemigo {
 	private int tiempoEscudo;
 	private int tiempoRomperEscudo;
 	private CasillaTablero[][] matriz = new CasillaTablero[fila][col];
+	private RondaState rondaActual;
 	
 	private Boss() {
 		super(11,17);
@@ -27,6 +28,7 @@ public class Boss extends Enemigo {
 		tiempoEscudo = 10000;
 		tiempoRomperEscudo=2000;
 		invocarMobs(1);
+		rondaActual = new RondaUno();
 		
 	}
 
