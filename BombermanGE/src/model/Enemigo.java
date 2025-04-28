@@ -6,8 +6,11 @@ import java.util.TimerTask;
 public abstract class Enemigo implements Casilla{
     protected int i, j;
     protected boolean vivo;
+    protected boolean esperaFinalizada=false;
     protected Timer timer = null;
+    protected Timer timerEspera = null;
     protected int tiempoMovimiento;
+    protected int tiempoEspera;
     
     public Enemigo(int pI, int pJ) {
         i = pI;
@@ -19,7 +22,11 @@ public abstract class Enemigo implements Casilla{
 
     
     
-    //METODOS GET O SIMILAR
+    
+
+
+
+	//METODOS GET O SIMILAR
     public boolean isVivo() {
         return vivo;
     }
@@ -41,11 +48,16 @@ public abstract class Enemigo implements Casilla{
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    if (vivo) {
-                        Tablero.getTablero().moverEnemigo(i, j);
-                    } else {
-                        timer.cancel(); 
-                    }
+                	if(esperaFinalizada) {
+                		if (vivo) {
+                            Tablero.getTablero().moverEnemigo(i, j);
+                        } else {
+                            timer.cancel(); 
+                        }
+                	} else {
+                		esperaFinalizada=true;
+                	}
+                    
                 }
             };
             timer.scheduleAtFixedRate(timerTask, 0, tiempoMovimiento);

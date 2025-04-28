@@ -14,6 +14,7 @@ public class Boss extends Enemigo {
 	private boolean escudo;
 	private boolean invocado;
 	private Timer timerEscudo = null;
+	private Timer timerInvocacion = null;
 	private int tiempoEscudo;
 	private int tiempoRomperEscudo;
 	private CasillaTablero[][] matriz = new CasillaTablero[fila][col];
@@ -25,8 +26,7 @@ public class Boss extends Enemigo {
 		invocado = false;
 		tiempoEscudo = 10000;
 		tiempoRomperEscudo=2000;
-		int n = Tablero.getTablero().getNumEnemigos();
-		invocarMobs(1);
+		invocarMobs(3);
 		
 	}
 
@@ -52,15 +52,6 @@ public class Boss extends Enemigo {
 	        	Tablero.getTablero().setInvocacion(i, j);
 	            numEnemigos++; 
 	            Tablero.getTablero().sumarNumEnemigos();
-	            Timer timer = new Timer();
-	            timer.schedule(new TimerTask() {
-	                @Override
-	                public void run() {
-	                  
-	                	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new Mob(i, j));
-	                }
-	            }, 5000); 
-	           
 	        }
 	          
 	    
