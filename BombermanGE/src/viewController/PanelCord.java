@@ -116,7 +116,9 @@ public class PanelCord extends JPanel implements Observer{
 	    }
 		
 		public void setLabel(String pTipo) {
-			Label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
+			if (pTipo!=null) {
+				Label.setIcon(new ImageIcon(PanelCord.class.getResource(pTipo)));
+			}
 		}
 		
 		public void clearLabel() {
