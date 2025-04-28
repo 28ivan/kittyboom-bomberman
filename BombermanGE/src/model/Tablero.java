@@ -363,6 +363,7 @@ public class Tablero {
     public void procesarExplosion(int pI, int pJ) {
     	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
     	CasillaTablero c = matriz[pI][pJ];
+    	c.destruir();
     	if (esBomberman(pI,pJ)) {
     		getBomberman().mover(pI, pJ);
     	}
@@ -381,7 +382,6 @@ public class Tablero {
 	    if (c.esObjeto("Boss")) {
 	    	Boss.getBoss().restarVida();
 	    }
-	    c.destruir();
     }    
 
     public void apagar(int pI, int pJ) {
