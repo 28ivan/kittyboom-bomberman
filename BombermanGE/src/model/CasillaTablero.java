@@ -10,6 +10,7 @@ public class CasillaTablero extends Observable {
 	private int i;
 	private int j;
 	private int estadoBomba = 1;
+	private String tipoBomba = "BmBomba";
 	private Timer timerBomba;
 	private Timer timerInvocacion;
 	public CasillaTablero(int pI, int pJ) {
@@ -196,19 +197,20 @@ public class CasillaTablero extends Observable {
         timerBomba.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                estadoBomba++;
-                if (estadoBomba > 3) {
+                if (estadoBomba >= 3) {
+                	estadoBomba = 1;
+                	tipoBomba="BmBomba";
                     timerBomba.cancel();
                     return;
                 }
-                String tipo;
-                if (BomberManBlanco.getBomberMan().conBomba() || BomberManNegro.getBomberMan().conBomba()) {
-                    tipo = "BmBomba";
-                } else {
-                    tipo = "Bomba";
+                if ((!BomberManBlanco.getBomberMan().conBomba() && !BomberManNegro.getBomberMan().conBomba()) || 
+                	(BomberManBlanco.getBomberMan().getI()!=i || BomberManBlanco.getBomberMan().getJ()!=j) ||
+                    (BomberManNegro.getBomberMan().getI()!=i || BomberManNegro.getBomberMan().getJ()!=j)){
+                    tipoBomba = "Bomba";
                 }
                 setChanged();
-                notifyObservers(new Object[] {tipo, estadoBomba});
+                notifyObservers(new Object[] {tipoBomba, estadoBomba});
+                estadoBomba++;
             }
         }, 1000, 1000);
     }
