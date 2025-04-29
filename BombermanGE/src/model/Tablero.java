@@ -106,9 +106,11 @@ public class Tablero {
     public void setBloqueDuro(int pI, int pJ) {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Duro"));
     }
+    
     public void setInvocacion(int pI, int pJ) {
-    	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Invocacion"));
+    	matriz[pI][pJ].cambiarCasilla(new Invocacion(pI,pJ));
     }
+    
     public void setBloqueBoss(int pI, int pJ) {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Boss"));
 	}
@@ -118,7 +120,7 @@ public class Tablero {
     }
     
     public void setBarrera(int pI, int pJ) {
-    	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Barrera"));
+    	matriz[pI][pJ].cambiarCasilla(new Barrera());
     }
     
     public void  changeStrategyBloquesDuro(StrategyBloquesDuro stB){
@@ -140,8 +142,8 @@ public class Tablero {
 		    int j = r.nextInt(col);	
 		    if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0)
 		        && matriz[i][j].esObjeto("Vacio") && !matriz[i][j].esObjeto("Barrera")) {
-		    	matriz[i][j].cambiarCasilla(new Mob(i,j));
-		    	sumarNumEnemigos();
+		    	matriz[i][j].cambiarCasilla(new Enemigo(i,j));
+		    	numEnemigos++;
 		    }
 		}
 	}
@@ -150,9 +152,7 @@ public class Tablero {
     	return numEnemigos;
     }
     
-    public void sumarNumEnemigos() {
-    	numEnemigos++;
-    }
+    
     
     //METODOS GET
     public static Tablero getTablero() {
@@ -363,11 +363,13 @@ public class Tablero {
     public void procesarExplosion(int pI, int pJ) {
     	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
     	CasillaTablero c = matriz[pI][pJ];
-    	c.destruir();
     	if (esBomberman(pI,pJ)) {
     		getBomberman().mover(pI, pJ);
     	}
-	    if (c.esObjeto("Enemigo")) {
+    	if (c.esObjeto("Barrera")) {
+    		return;
+    	}
+    	else if (c.esObjeto("Enemigo")) {
 	    	numEnemigos--;
 	    	if(existeBoss) {
 	    		Boss.getBoss().restarEnemigo();
@@ -379,9 +381,7 @@ public class Tablero {
 	    		ganar();
 	    	}
 	    }
-	    if (c.esObjeto("Boss")) {
-	    	Boss.getBoss().restarVida();
-	    }
+	    c.destruir();
     }    
 
     public void apagar(int pI, int pJ) {
@@ -389,15 +389,38 @@ public class Tablero {
     	CasillaTablero c = matriz[pI][pJ];
     	c.vaciar();
     }
+    
+    
 
     //BOSS
     public void destruirBarrera() {
-		// TODO Auto-generated method stub
-    	stBloquesDuro.destruirBarrera();
+    	matriz[5][6].destruir();
+    	matriz[3][8].destruir();
+    	matriz[7][8].destruir();
+    	matriz[5][10].destruir();
 	}
+    
     public void colocarBarrera() {
-    	stBloquesDuro.colocarBarrera();
+    	setBarrera(5,6);
+    	setBarrera(3,8);
+    	setBarrera(7,8);
+    	setBarrera(5,10);
     }
+    
+    public void invocarMobs(int num) {
+	    Random r = new Random();
+	    while (numEnemigos < num) {     
+	        int i = r.nextInt(fila);  
+	        int j = r.nextInt(col);   
+	        if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0) && 
+	        Tablero.getTablero().getCasilla(i, j).esObjeto("Vacio") && !Tablero.getTablero().getCasilla(i, j).esObjeto("Barrera")) {
+	        	Tablero.getTablero().setInvocacion(i, j);
+	            numEnemigos++; 
+	        }
+	    }
+	}
+    
+    
     
     //METODOS FIN JUEGO
     private void ganar() {
