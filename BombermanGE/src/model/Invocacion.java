@@ -1,11 +1,34 @@
 package model;
 
-public class Invocacion extends Duro {
-	private int tiempoInvocacion;
+import java.util.Timer;
+import java.util.TimerTask;
 
-	public Invocacion() {
-		this.tiempoInvocacion=1500;//no lo cambies, es lo q dura la animacion
+public class Invocacion implements Casilla {
+	private int i;
+	private int j;
+	private int tiempoInvocacion=5000;
+	private Timer timer=null;
+
+	public Invocacion(int pI, int pJ) {
+		i=pI;
+		j=pJ;
+		activar();
 	}
+	
+	
+	
+	public void activar() {
+		TimerTask timerTask = new TimerTask(){
+			@Override
+			public void run() {
+				Tablero.getTablero().getCasilla(i, j).cambiarCasilla(new Enemigo(i,j));
+			}
+		};
+		timer = new Timer();
+		timer.schedule(timerTask, tiempoInvocacion);
+	}
+	
+	
 	
 	@Override
 	public boolean puedeMoverse() {
@@ -28,9 +51,13 @@ public class Invocacion extends Duro {
 	@Override
 	public void vaciar(CasillaTablero pC) {
 	}
+	
+	@Override
+	public boolean isVivo() {
+    	return false;
+	}
 
 	@Override
 	public void mover(int pI, int pJ) {
 	}
-
 }
