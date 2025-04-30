@@ -15,7 +15,8 @@ import model.Tablero;
 public class Pantalla extends JFrame{
 
     private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
+    private JLayeredPane contentPane;
+    private JPanel gridPanel;
 	private Controlador controlador;
 	private static int bMSelec;
 	private static String bMColor;
@@ -43,15 +44,25 @@ public class Pantalla extends JFrame{
 	}
     
     private void initialize() {
-    	setBounds(100, 100, 840, 520);
+        setBounds(100, 100, 850, 550);
         setResizable(false);
         setLocationRelativeTo(null);
         addKeyListener(getControlador());
         setVisible(true);
+
         setContentPane(getContentPane());
+
+        if(pantallaSelec==4) {
+        	ponerGifDeFondo("viewController/imagenes/stageBack" + pantallaSelec + ".gif");
+        }else {
+        	ponerImagenDeFondo("viewController/imagenes/stageBack" + pantallaSelec + ".png");
+        }
+        
         for (int i = 0; i < 11; i++) { 
             for (int j = 0; j < 17; j++) { 
-            	contentPane.add(new PanelCord(i,j,bMColor));
+            	PanelCord panel = new PanelCord(i, j, bMColor);
+                panel.setPreferredSize(null);
+                gridPanel.add(panel);
             }
         }
     }
@@ -59,39 +70,48 @@ public class Pantalla extends JFrame{
     private void setObservers() {
     	for (int i = 0; i < 11; i++) { 
             for (int j = 0; j < 17; j++) { 
-            	PanelCord panel = (PanelCord) contentPane.getComponent(i*17+j);
+            	PanelCord panel = (PanelCord) gridPanel.getComponent(i*17+j);
         		panel.setObserver(i,j);
             }
         }
     }
    
  // FONDO
-    public JPanel getContentPane() {
-    	if(contentPane == null) {
-	        contentPane = new JPanel() {
-	        private static final long serialVersionUID = 1L;
-			private Image backgroundImage;
-	            @Override
-	            protected void paintComponent(Graphics g) {
-	                super.paintComponent(g);
-	                try {
-	                    //  viewController.imagenes
-	                    backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/imagenes/stageBack"+pantallaSelec+".png"));
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                }
-	                // Dibujar la imagen de fondo 
-	                if (backgroundImage != null) {
-	                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-	                }
-	            }
-	        };
-	        // TABLERO
-	        contentPane.setLayout(new GridLayout(11, 17, 0, 0));
-    	}
+    public JLayeredPane getContentPane() {
+        if (contentPane == null) {
+            contentPane = new JLayeredPane();
+            contentPane.setLayout(null); // Posicionamiento manual
+
+            // Crear panel de la cuadrícula
+            gridPanel = new JPanel(new GridLayout(11, 17, 0, 0));
+            gridPanel.setOpaque(false);
+            gridPanel.setBounds(0, 0, 840, 520); 
+
+            contentPane.add(gridPanel, JLayeredPane.DEFAULT_LAYER); // Añadir al fondo
+        }
         return contentPane;
-    }   
-	
+    }
+    
+    public void ponerGifDeFondo(String rutaGif) {
+        JLabel gifLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(rutaGif)));
+        gifLabel.setBounds(0, 0, 840, 515); // Asegúrate de coincidir con la ventana
+        contentPane.add(gifLabel, JLayeredPane.FRAME_CONTENT_LAYER); // Capa de fondo
+        contentPane.setComponentZOrder(gifLabel, contentPane.getComponentCount() - 1); // al fondo
+    }
+    
+    public void ponerImagenDeFondo(String rutaImagen) {
+        try {
+            ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource(rutaImagen)));
+            Image imagen = icon.getImage().getScaledInstance(840, 520, Image.SCALE_SMOOTH);
+            JLabel imagenLabel = new JLabel(new ImageIcon(imagen));
+            imagenLabel.setBounds(0, 0, 840, 520);
+            contentPane.add(imagenLabel, JLayeredPane.FRAME_CONTENT_LAYER);
+            contentPane.setComponentZOrder(imagenLabel, contentPane.getComponentCount() - 1); // al fondo
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
 	//CONTROLADOR
 	private Controlador getControlador() {
 		if (controlador == null) {
