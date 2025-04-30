@@ -19,13 +19,10 @@ public class Boss {
 	private int tiempoEscudo = 10000;
 	private int tiempoRomperEscudo = 2000;
 	private CasillaTablero[][] matriz = new CasillaTablero[fila][col];
-	private RondaState rondaActual;
 	
 	private Boss() {
 		Tablero.getTablero().colocarBarrera();
 		Tablero.getTablero().invocarMobs(1);
-		rondaActual = new RondaUno();
-		
 	}
 
 	
