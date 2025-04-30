@@ -25,8 +25,6 @@ public class SeleccionTablero extends Observable{
 
 	public void tableroSelecciondado(int pTablero) {
 		// TODO Auto-generated method stub
-		setChanged();
-        notifyObservers(pTablero);
         if (pTablero==1) {
         Seleccion.getSeleccion().setPantalla(pTablero);
         } else if(pTablero==2) {

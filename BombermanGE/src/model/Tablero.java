@@ -185,7 +185,7 @@ public class Tablero {
     	}
     	return c;
     }
-    
+   
     
     
     //MOVIMIENTO ENEMIGO
@@ -330,6 +330,9 @@ public class Tablero {
     	        return true;
     	    }
     		posible = c.puedeMoverse();
+    		if (c.esObjeto("Barrera")) {
+    		}
+    		
     	}
     	return posible;
     }
@@ -401,9 +404,21 @@ public class Tablero {
 	}
     
     public void colocarBarrera() {
+    	if(esBomberman(5,6)) {
+    		getBomberman().mover(5, 5);
+    	}
     	setBarrera(5,6);
+    	if(esBomberman(3,8)) {
+    		getBomberman().mover(2, 8);
+    	}
     	setBarrera(3,8);
+    	if(esBomberman(7,8)) {
+    		getBomberman().mover(8, 8);
+    	}
     	setBarrera(7,8);
+    	if(esBomberman(5,10)) {
+    		getBomberman().mover(5, 11);
+    	}
     	setBarrera(5,10);
     }
     
@@ -415,7 +430,8 @@ public class Tablero {
 	        if (!(i == 0 && j == 0) && !(i == 0 && j == 1) && !(i == 1 && j == 0) && 
 	        Tablero.getTablero().getCasilla(i, j).esObjeto("Vacio") && !Tablero.getTablero().getCasilla(i, j).esObjeto("Barrera")) {
 	        	Tablero.getTablero().setInvocacion(i, j);
-	            numEnemigos++; 
+	            numEnemigos++;
+	            
 	        }
 	    }
 	}

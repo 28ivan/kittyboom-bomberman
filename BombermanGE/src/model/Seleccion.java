@@ -95,9 +95,10 @@ public class Seleccion extends Observable{
 		}else if (pTablero==3) {
 			setChanged();
 	        notifyObservers(30);
-		} else if(pTablero==4);
-		setChanged();
-        notifyObservers(40);
+		} else if(pTablero==4) {
+			setChanged();
+	        notifyObservers(40);
+        }
 	}
 	
     

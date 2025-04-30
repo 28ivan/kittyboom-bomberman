@@ -22,8 +22,8 @@ public class Boss {
 	private RondaState rondaActual;
 	
 	private Boss() {
-		Tablero.getTablero().invocarMobs(1);
 		Tablero.getTablero().colocarBarrera();
+		Tablero.getTablero().invocarMobs(1);
 		rondaActual = new RondaUno();
 		
 	}
@@ -40,7 +40,7 @@ public class Boss {
 		escudo = false; 
 		if (timerEscudo == null) {
 			timerEscudo = new Timer();
-		}
+		
 	        TimerTask timerTask = new TimerTask() {
 	            @Override
 	            public void run() {
@@ -53,6 +53,7 @@ public class Boss {
 	            }
 	        };
 	        timerEscudo.schedule(timerTask, tiempoRomperEscudo);
+		}
     }
 	
 	public void activarEscudo() {
@@ -77,7 +78,6 @@ public class Boss {
 	public void restarVida() {
 		if (vida>1) {
 			pasarRonda();
-			System.out.println("Se ha quitado una vida");
 		}else if(vida==1) {
 			Tablero.getTablero().getBomberman().ganar();
 		}
@@ -87,9 +87,11 @@ public class Boss {
 	private void pasarRonda() {
 		if (timerEscudo!=null) {
 			timerEscudo.cancel();
+			timerEscudo = null;
 			Tablero.getTablero().colocarBarrera();
+			Tablero.getTablero().invocarMobs(1);
 		}
-		Tablero.getTablero().invocarMobs(1);
+		
 	}
 
 	public void restarEnemigo() {
