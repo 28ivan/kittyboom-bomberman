@@ -1,6 +1,6 @@
 package model;
 
-public class Barrera implements Casilla {
+public class Barrera extends Bloque {
 	
 	public Barrera() {
 	}
