@@ -1,8 +1,10 @@
 package model.Tableros;
 
+import java.util.Observable;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.IntStream;
 
 import model.Bloques.Barrera;
 import model.Bloques.BloqueFactory;
@@ -22,7 +24,7 @@ import model.Mobs.Boss;
 import model.Mobs.Enemigo;
 import model.Mobs.Invocacion;
 
-public class Tablero {
+public class Tablero extends Observable{
 
 	private static final int fila = 11; // Filas
     private static final int col = 17; // Columnas  
@@ -39,11 +41,11 @@ public class Tablero {
     private boolean existeBoss=false;
     
     private Tablero() {
-    	for (int i = 0;  i< fila; i++) {
-            for (int j = 0; j < col; j++) {
-            	matriz[i][j]=new CasillaTablero(i,j);
-            }
-    	}
+    	IntStream.range(0, fila).forEach(i ->
+        IntStream.range(0, col).forEach(j ->
+            matriz[i][j] = new CasillaTablero(i, j)
+        )
+    );
     	numEnemigos = 0;
     }
     
@@ -105,7 +107,6 @@ public class Tablero {
 		colocarBomberMan();
 		colocarBloquesDuros();
 		Boss.getBoss();
-		
 	}
     
 	//CONSTRUCCION DEL TABLERO
@@ -392,6 +393,8 @@ public class Tablero {
     	}
     	else if (c.esObjeto("Enemigo")) {
 	    	numEnemigos--;
+	    	setChanged();
+			notifyObservers(new Object[] {1,numEnemigos});
 	    	if(existeBoss) {
 	    		Boss.getBoss().restarEnemigo();
 	    	}
