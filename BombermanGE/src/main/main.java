@@ -1,7 +1,7 @@
 package main;
 
-import model.Seleccion;
-import viewController.PantallaInicio;
+import model.Tableros.Seleccion;
+import viewController.Pantallas.PantallaInicio;
 
 public class main {
     public static void main(String[] args) {
