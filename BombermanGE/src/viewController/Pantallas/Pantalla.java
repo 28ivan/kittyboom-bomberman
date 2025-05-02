@@ -8,13 +8,11 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import model.Casillas.CasillaTablero;
 import model.Tableros.Tablero;
 
+@SuppressWarnings({"deprecation"})
 public class Pantalla extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
@@ -118,6 +116,15 @@ public class Pantalla extends JFrame implements Observer{
         }
     }
     
+    private void limpiarFondo() {
+        for (Component comp : contentPane.getComponents()) {
+            if (comp instanceof JLabel) {
+                contentPane.remove(comp);
+            }
+        }
+        contentPane.repaint();
+    }
+    
     private void setEnemigosLabel(int numEnemigos) {
     	if (enemigosLabel == null) {
 	    	enemigosLabel = new JLabel("Enemigos: " + numEnemigos); 
@@ -194,9 +201,11 @@ public class Pantalla extends JFrame implements Observer{
 			int num = (int) res[1];
 			switch (opcion) {
 				case 1:
-	               setEnemigosLabel(num);
+					setEnemigosLabel(num);
 	                break;
 				case 2:
+            		limpiarFondo();
+					ponerGifDeFondo("viewController/imagenes/stageBack41.gif");
 			}
 		}
 	}
