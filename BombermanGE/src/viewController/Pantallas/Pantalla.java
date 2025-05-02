@@ -6,14 +6,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
-
-
+import java.util.Observable;
+import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import model.Tableros.Tablero;
 
-public class Pantalla extends JFrame{
+@SuppressWarnings({"deprecation"})
+public class Pantalla extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
     private JLayeredPane contentPane;
@@ -31,6 +31,7 @@ public class Pantalla extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setObservers();
     	getControlador().actionPerformed(null);
+        setEnemigosLabel(Tablero.getTablero().getNumEnemigos());
     }
     private void setBM(int pBMSelec) {
     	bMSelec=pBMSelec;
@@ -67,8 +68,6 @@ public class Pantalla extends JFrame{
                 gridPanel.add(panel);
             }
         }
-        
-        setEnemigosLabel();
     }
     
     private void setObservers() {
@@ -78,6 +77,7 @@ public class Pantalla extends JFrame{
         		panel.setObserver(i,j);
             }
         }
+    	Tablero.getTablero().addObserver(this);
     }
    
  // FONDO
@@ -116,13 +116,26 @@ public class Pantalla extends JFrame{
         }
     }
     
-    private void setEnemigosLabel() {
-    	enemigosLabel = new JLabel("Enemigos: 0"); 
-    	enemigosLabel.setFont(new Font("Arial", Font.BOLD, 20));
-    	enemigosLabel.setForeground(Color.BLACK); 
-    	enemigosLabel.setBounds(640, 480, 180, 30);
-    	enemigosLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-    	contentPane.add(enemigosLabel, JLayeredPane.POPUP_LAYER); 
+    private void limpiarFondo() {
+        for (Component comp : contentPane.getComponents()) {
+            if (comp instanceof JLabel) {
+                contentPane.remove(comp);
+            }
+        }
+        contentPane.repaint();
+    }
+    
+    private void setEnemigosLabel(int numEnemigos) {
+    	if (enemigosLabel == null) {
+	    	enemigosLabel = new JLabel("Enemigos: " + numEnemigos); 
+	    	enemigosLabel.setFont(new Font("Arial", Font.BOLD, 20));
+	    	enemigosLabel.setForeground(Color.BLACK); 
+	    	enemigosLabel.setBounds(640, 480, 180, 30);
+	    	enemigosLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+	    	contentPane.add(enemigosLabel, JLayeredPane.POPUP_LAYER); 
+		}else {
+			enemigosLabel.setText("Enemigos: " + numEnemigos);
+		}
     }
     
 	//CONTROLADOR
@@ -175,6 +188,25 @@ public class Pantalla extends JFrame{
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
+		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof Tablero) {
+			Object res[]=(Object[])arg;
+			//1: cambiar numEnemigos
+			//2: Ganar 
+			int opcion = (int) res[0];
+			int num = (int) res[1];
+			switch (opcion) {
+				case 1:
+					setEnemigosLabel(num);
+	                break;
+				case 2:
+            		limpiarFondo();
+					ponerGifDeFondo("viewController/imagenes/stageBack41.gif");
+			}
 		}
 	}
 }

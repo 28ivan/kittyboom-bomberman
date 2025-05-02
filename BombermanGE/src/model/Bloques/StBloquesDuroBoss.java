@@ -1,5 +1,7 @@
 package model.Bloques;
 
+import java.util.stream.IntStream;
+
 import model.Tableros.Tablero;
 
 public class StBloquesDuroBoss implements StrategyBloquesDuro {
@@ -23,14 +25,14 @@ public class StBloquesDuroBoss implements StrategyBloquesDuro {
 	
 	@Override
 	public void colocarBloquesDuros() {
-		for (int i = 0;  i< 11; i++) {
-            for (int j = 0; j < 17; j++) {
-            	if (matrizBloques[i][j] == 1) {
-            		tablero.setBloqueDuro(i,j);
-            	} else if (matrizBloques[i][j] == 2) {
-        			tablero.setBloqueBoss(i, j);
-            	}
-            }
-    	}
+		IntStream.range(0, 11).forEach(i ->
+	    IntStream.range(0, 17).forEach(j -> {
+		        if (matrizBloques[i][j] == 1) {
+		            tablero.setBloqueDuro(i, j);
+		        } else if (matrizBloques[i][j] == 2) {
+		            tablero.setBloqueBoss(i, j);
+		        }
+	    	})
+		);
 	}
 }
