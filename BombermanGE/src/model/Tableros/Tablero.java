@@ -139,7 +139,7 @@ public class Tablero extends Observable{
     }
     
     public void setBarrera(int pI, int pJ) {
-    	matriz[pI][pJ].cambiarCasilla(new Barrera());
+    	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Barrera"));
     }
     
     public void  changeStrategyBloquesDuro(StrategyBloquesDuro stB){
