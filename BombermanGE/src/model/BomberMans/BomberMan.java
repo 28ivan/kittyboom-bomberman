@@ -58,6 +58,7 @@ public abstract class BomberMan implements Casilla {
     public abstract boolean puedeColocarBomba();
     
     
+    
     //METODOS SET O SIMILAR
     public void setDir(char pD) {
     	if (pD!=dir) {
@@ -80,6 +81,11 @@ public abstract class BomberMan implements Casilla {
     public void ganar() {
     	victoria=true;
     }
+    
+    public void perder() {
+    	victoria=false;
+    }
+    
 	
     
 	//METODOS CASILLA
