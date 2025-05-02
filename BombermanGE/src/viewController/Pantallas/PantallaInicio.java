@@ -1,6 +1,6 @@
 package viewController.Pantallas;
-import java.awt.Color;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,23 +9,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-
 import model.Tableros.Seleccion;
-
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
 public class PantallaInicio extends JFrame implements Observer{
 
@@ -193,6 +187,10 @@ public class PantallaInicio extends JFrame implements Observer{
 		}
 		return txt;
 	}
+	
+	public void reiniciarJuego() {
+		setVisible(true);
+	}
 
 	
 	
@@ -200,42 +198,49 @@ public class PantallaInicio extends JFrame implements Observer{
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		if(o instanceof Seleccion) { //ESOBJETO CAMBIARLO------------------
-			int BMSelec = (int) arg;
-			BmSelec=BMSelec;
-			if (notificationsEnabled) {
-				switch (BMSelec) {
-					case 0:
-						setVisible(false);
-						@SuppressWarnings("unused")
-				    	Pantalla pantalla0 = new Pantalla(1,pantallaSelec);
-			        case 1:
-			        	setPane(BMSelec+1); 
-			        	clearPane((BMSelec)*10);
+			Object res[]=(Object[])arg;
+			int BMSelec = (int) res[0];
+			boolean reiniciar= (boolean) res[1];
+			if (reiniciar) {
+				reiniciarJuego();
+			}
+			else {
+				BmSelec=BMSelec;
+				if (notificationsEnabled) {
+					switch (BMSelec) {
+						case 0:
+							setVisible(false);
+							@SuppressWarnings("unused")
+					    	Pantalla pantalla0 = new Pantalla(1,pantallaSelec);
+				        case 1:
+				        	setPane(BMSelec+1); 
+				        	clearPane((BMSelec)*10);
+				        	break;
+				        case 2:
+				        	setPane(BMSelec-1);
+				        	clearPane((BMSelec)*10);
+				        	break;
+				        case 3:
+				        	setVisible(false);
+				        	@SuppressWarnings("unused")
+					    	Pantalla pantalla1 = new Pantalla(2,pantallaSelec);
+				        	break;
+				        case 4:
+				        	setEnabled(false);
+				        	notificationsEnabled = false;
+				        	@SuppressWarnings("unused")
+					    	PantallaSeleccionTipoTablero pantalla2 = new PantallaSeleccionTipoTablero();
+				        	break;
+				        default:
+					}
+				} else {
+					switch (BMSelec) {
+						case 5:
+							notificationsEnabled = true;
+							setEnabled(true);
+							setVisible(true); //esto lo hago para actualizar la pantalla de seleccion de personaje y que no se ponga la pantalla del eclipse
 			        	break;
-			        case 2:
-			        	setPane(BMSelec-1);
-			        	clearPane((BMSelec)*10);
-			        	break;
-			        case 3:
-			        	setVisible(false);
-			        	@SuppressWarnings("unused")
-				    	Pantalla pantalla1 = new Pantalla(2,pantallaSelec);
-			        	break;
-			        case 4:
-			        	setEnabled(false);
-			        	notificationsEnabled = false;
-			        	@SuppressWarnings("unused")
-				    	PantallaSeleccionTipoTablero pantalla2 = new PantallaSeleccionTipoTablero();
-			        	break;
-			        default:
-				}
-			} else {
-				switch (BMSelec) {
-					case 5:
-						notificationsEnabled = true;
-						setEnabled(true);
-						setVisible(true); //esto lo hago para actualizar la pantalla de seleccion de personaje y que no se ponga la pantalla del eclipse
-		        	break;
+					}
 				}
 			}
 			switch (BMSelec) {
