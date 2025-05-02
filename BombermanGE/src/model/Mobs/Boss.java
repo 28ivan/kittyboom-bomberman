@@ -1,31 +1,19 @@
 package model.Mobs;
 
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import model.Casillas.CasillaTablero;
 import model.Tableros.Tablero;
 
 public class Boss {
 	
 	private static Boss miBoss;
-	private static final int fila = 11; // Filas
-    private static final int col = 17; // Columnas  
-	private int numEnemigos;
 	private boolean vivo = true;
 	private int vida = 3;
-	private boolean escudo = true;
-	private boolean invocado = false;
 	private Timer timerEscudo = null;
-	private Timer timerInvocacion = null;
 	private int tiempoEscudo = 10000;
 	private int tiempoRomperEscudo = 2000;
-	private CasillaTablero[][] matriz = new CasillaTablero[fila][col];
 	
 	private Boss() {
-		Tablero.getTablero().colocarBarrera();
-		Tablero.getTablero().invocarMobs(1);
 	}
 
 	
@@ -35,12 +23,19 @@ public class Boss {
     	}
     	return miBoss;
 	}
+	
+	public void empezar() {
+		Tablero.getTablero().colocarBarrera();
+		Tablero.getTablero().invocarMobs(1);
+	}
+	
+	public int getVida() {
+		return vida;
+	}
 		
 	public void desactivarEscudo() {
-		escudo = false; 
 		if (timerEscudo == null) {
 			timerEscudo = new Timer();
-		
 	        TimerTask timerTask = new TimerTask() {
 	            @Override
 	            public void run() {
@@ -49,7 +44,11 @@ public class Boss {
 	                   	Tablero.getTablero().destruirBarrera();
 	                   	timerEscudo = null; 
 	                   	activarEscudo();
-	                }
+	               }
+	               else if (vida==0) {
+	            	   timerEscudo.cancel(); 
+	            	   timerEscudo = null; 
+	               }
 	            }
 	        };
 	        timerEscudo.schedule(timerTask, tiempoRomperEscudo);
@@ -62,13 +61,16 @@ public class Boss {
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
-                    if (vivo) {
-                    	escudo = true;
+                    if (vivo && vida!=0) {
                     	timerEscudo.cancel();
                     	timerEscudo = null; 
                     	Tablero.getTablero().colocarBarrera();
                     	Tablero.getTablero().invocarMobs(1);
                     }
+                    else if (vida==0) {
+ 	            	   timerEscudo.cancel(); 
+ 	            	   timerEscudo = null; 
+ 	               }
                 }
             };
             timerEscudo.schedule(timerTask, tiempoEscudo);
@@ -79,7 +81,7 @@ public class Boss {
 		if (vida>1) {
 			pasarRonda();
 		}else if(vida==1) {
-			Tablero.getTablero().getBomberman().ganar();
+			Tablero.getTablero().ganar();
 		}
 		vida--;
 	}
@@ -91,12 +93,11 @@ public class Boss {
 			Tablero.getTablero().colocarBarrera();
 			Tablero.getTablero().invocarMobs(1);
 		}
-		
 	}
-
-	public void restarEnemigo() {
-		if (this.numEnemigos>0) {
-			this.numEnemigos--;
-		}
+	
+	public void reiniciar() {
+		vida=3;
+		vivo=true;
+		timerEscudo=null;
 	}
 }
