@@ -16,7 +16,7 @@ public class BomberManNegro extends BomberMan{
 	}
 	@Override
 	public boolean puedeColocarBomba() {
-    	if (this.bombas>=1 || !vivo || conBomba) {
+    	if (this.bombas>=1 || !vivo || conBomba || victoria) {
     		return false;
     	}
     	else {
