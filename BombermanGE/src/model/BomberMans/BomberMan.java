@@ -78,12 +78,12 @@ public abstract class BomberMan implements Casilla {
     	bombas--;
     }
     
-    public void ganar() {
-    	victoria=true;
+    public void setVictoria(boolean pWin) {
+    	victoria=pWin;
     }
     
-    public void perder() {
-    	victoria=false;
+    public void setVivo() {
+    	vivo=true;
     }
     
 	
@@ -105,8 +105,10 @@ public abstract class BomberMan implements Casilla {
 	
 	@Override
 	public void destruir(CasillaTablero pC, int pI, int pJ) {
+		if (!vivo) return;
 		vivo=false;
 		pC.cambiarCasilla(miBM);
+		Tablero.getTablero().reiniciar();
 	}
 	
 	@Override
