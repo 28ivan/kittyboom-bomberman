@@ -31,6 +31,8 @@ public class StBloquesDuroBoss implements StrategyBloquesDuro {
 		            tablero.setBloqueDuro(i, j);
 		        } else if (matrizBloques[i][j] == 2) {
 		            tablero.setBloqueBoss(i, j);
+		        } else if (matrizBloques[i][j] == 0) {
+		            tablero.setBloqueVacio(i, j);
 		        }
 	    	})
 		);
