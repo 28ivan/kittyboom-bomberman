@@ -48,7 +48,7 @@ public class Seleccion extends Observable{
     		}
     	}
     	setChanged();
-        notifyObservers(BMSelec);
+        notifyObservers(new Object[] {BMSelec, false});
     }
 
 	public void inicializarTablero() {
@@ -61,10 +61,10 @@ public class Seleccion extends Observable{
 				//VISTA//
 				if (BMSelec==1) {
 					setChanged();
-			        notifyObservers(0);
+			        notifyObservers(new Object[] {0, false});
 				} else {
 					setChanged();
-			        notifyObservers(3);
+			        notifyObservers(new Object[] {3, false});
 				}
 			}
 		}
@@ -74,13 +74,13 @@ public class Seleccion extends Observable{
 		// TODO Auto-generated method stub
 		SeleccionTablero.getSeleccionTablero();
 		setChanged();
-        notifyObservers(4);
+        notifyObservers(new Object[] {4, false});
 	}
 
 	public void apagarTipoTablero() {
 		// TODO Auto-generated method stub
 		setChanged();
-        notifyObservers(5);
+        notifyObservers(new Object[] {5, false});
 	}
 	
 	public void setPantalla(int pTablero) {
@@ -88,18 +88,21 @@ public class Seleccion extends Observable{
 		pantallaSelec=pTablero;
 		if (pTablero==1) {
 			setChanged();
-	        notifyObservers(10);
+	        notifyObservers(new Object[] {10, false});
 		} else if (pTablero==2) {
 			setChanged();
-	        notifyObservers(20);
+	        notifyObservers(new Object[] {20, false});
 		}else if (pTablero==3) {
 			setChanged();
-	        notifyObservers(30);
+	        notifyObservers(new Object[] {30, false});
 		} else if(pTablero==4) {
 			setChanged();
-	        notifyObservers(40);
+	        notifyObservers(new Object[] {40, false});
         }
 	}
 	
-    
+	public void reiniciarJuego() {
+		setChanged();
+		notifyObservers(new Object[] {0, true});
+	}
 }
