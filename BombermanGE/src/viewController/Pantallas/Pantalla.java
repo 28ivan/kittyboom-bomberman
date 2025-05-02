@@ -10,6 +10,8 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import model.Tableros.Seleccion;
 import model.Tableros.Tablero;
 
 @SuppressWarnings({"deprecation"})
@@ -138,6 +140,34 @@ public class Pantalla extends JFrame implements Observer{
 		}
     }
     
+    
+    
+    //UPDATE
+    @Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof Tablero) {
+			Object res[]=(Object[])arg;
+			//1: cambiar numEnemigos
+			//2: Ganar 
+			int opcion = (int) res[0];
+			int num = (int) res[1];
+			switch (opcion) {
+				case 1:
+					setEnemigosLabel(num);
+	                break;
+				case 2:
+            		limpiarFondo();
+					ponerGifDeFondo("viewController/imagenes/stageBack41.gif");
+					break;
+				case 3:
+					setVisible(false);
+					Seleccion.getSeleccion().reiniciarJuego();
+			}
+		}
+	}
+    
+    
+    
 	//CONTROLADOR
 	private Controlador getControlador() {
 		if (controlador == null) {
@@ -188,25 +218,6 @@ public class Pantalla extends JFrame implements Observer{
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
-		}
-	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		if(o instanceof Tablero) {
-			Object res[]=(Object[])arg;
-			//1: cambiar numEnemigos
-			//2: Ganar 
-			int opcion = (int) res[0];
-			int num = (int) res[1];
-			switch (opcion) {
-				case 1:
-					setEnemigosLabel(num);
-	                break;
-				case 2:
-            		limpiarFondo();
-					ponerGifDeFondo("viewController/imagenes/stageBack41.gif");
-			}
 		}
 	}
 }
