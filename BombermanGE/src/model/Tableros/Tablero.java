@@ -5,8 +5,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.stream.IntStream;
-
-import model.Bloques.Barrera;
 import model.Bloques.BloqueFactory;
 import model.Bloques.StBloquesBlandoClassic;
 import model.Bloques.StBloquesBlandoSoft;
@@ -24,6 +22,7 @@ import model.Mobs.Boss;
 import model.Mobs.Enemigo;
 import model.Mobs.Invocacion;
 
+@SuppressWarnings({"deprecation"})
 public class Tablero extends Observable{
 
 	private static final int fila = 11; // Filas
@@ -38,18 +37,17 @@ public class Tablero extends Observable{
     private static String bMColor;
     private int pantalla;
     private boolean seleccionado=false;
-    private boolean existeBoss=false;
-    
+
     private Tablero() {
     	IntStream.range(0, fila).forEach(i ->
         IntStream.range(0, col).forEach(j ->
             matriz[i][j] = new CasillaTablero(i, j)
         )
-    );
+    	);
     	numEnemigos = 0;
     }
     
-    public void setTablero(int pBMSelec ,int pPantalla) {
+    public void setTablero(int pBMSelec, int pPantalla) {
     	seleccionado=true;
     	bMSelec=pBMSelec;
 		pantalla=pPantalla;
@@ -80,7 +78,13 @@ public class Tablero extends Observable{
 	public void crearClassic() {
 		changeStrategyBloquesBlando(new StBloquesBlandoClassic());
 		changeStrategyBloquesDuro(new StBloquesDuroClassic());
+		vaciarTablero();
 		colocarBomberMan();
+		getBomberman().setDir('d');
+		getBomberman().mover(0,0);
+		while (getBomberman().getNum()!=1) {
+			getBomberman().aumentarNum();
+		}
 		colocarBloquesDuros();
 		colocarBloquesBlandos();
 		colocarEnemigos(8);
@@ -89,24 +93,40 @@ public class Tablero extends Observable{
     //pPantalla = 2
 	public void crearSoft() {
 		changeStrategyBloquesBlando(new StBloquesBlandoSoft());
+		vaciarTablero();
 		colocarBomberMan();
+		getBomberman().setDir('d');
+		getBomberman().mover(0,0);
+		while (getBomberman().getNum()!=1) {
+			getBomberman().aumentarNum();
+		}
 		colocarBloquesBlandos();
 		colocarEnemigos(8);
 	}
 	
     //pPantalla = 3
 	public void crearEmpty() {
+		vaciarTablero();
 		colocarBomberMan();
-		colocarEnemigos(8);
+		getBomberman().setDir('d');
+		getBomberman().mover(0,0);
+		while (getBomberman().getNum()!=1) {
+			getBomberman().aumentarNum();
+		}
+		colocarEnemigos(1);
 	}
 	
 	//pPantalla = 4
 	public void crearBoss() {
-		existeBoss =true;
 		changeStrategyBloquesDuro(new StBloquesDuroBoss());
-		colocarBomberMan();
+		vaciarTablero();
 		colocarBloquesDuros();
-		Boss.getBoss();
+		Boss.getBoss().empezar();
+		getBomberman().setDir('d');
+		getBomberman().mover(0,0);
+		while (getBomberman().getNum()!=1) {
+			getBomberman().aumentarNum();
+		}
 	}
     
 	//CONSTRUCCION DEL TABLERO
@@ -140,6 +160,14 @@ public class Tablero extends Observable{
     
     public void setBarrera(int pI, int pJ) {
     	matriz[pI][pJ].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Barrera"));
+    }
+    
+    public void vaciarTablero() {
+    	IntStream.range(0, fila).forEach(i ->
+        IntStream.range(0, col).forEach(j ->
+            matriz[i][j].cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"))
+        )
+    	);
     }
     
     public void  changeStrategyBloquesDuro(StrategyBloquesDuro stB){
@@ -211,6 +239,7 @@ public class Tablero extends Observable{
     public void moverEnemigo(int pI, int pJ) {
         if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
         if (!matriz[pI][pJ].esObjeto("Enemigo")) return;
+        if (!getBomberman().isVivo()) return;
         CasillaTablero c = matriz[pI][pJ];
         if (!c.isVivo()) return;
         int nuevoI = c.getI();
@@ -260,14 +289,13 @@ public class Tablero extends Observable{
     
     //MOVIMIENTO BOMBERMAN
 	public void moverBomberman(char pDir) {
-	    if (getBomberman().isVivo()) {
+	    if (getBomberman().isVivo() && !getBomberman().haGanado()) {
 	        int pI = getBomberman().getI();
 	        int pJ = getBomberman().getJ();
 	        int prevI=pI;
 	        int prevJ=pJ;
 	        BomberMan cB = getBomberman();
 	        CasillaTablero c;
-	        
 	        if (pDir == 'u') {
 	        	if (!(pI-1<0)) {
 		            if (movimientoPosible(pI - 1, pJ) || matriz[pI - 1][pJ].esObjeto("Enemigo") || matriz[pI - 1][pJ].esObjeto("Boss")) {
@@ -333,9 +361,6 @@ public class Tablero extends Observable{
             	getBomberman().setDir(pDir);
             	cB.mover(pI, pJ);
             }
-	        if ((!getBomberman().isVivo())) {
-	        	
-	        }
 	    }
 	}
 	
@@ -395,9 +420,6 @@ public class Tablero extends Observable{
 	    	numEnemigos--;
 	    	setChanged();
 			notifyObservers(new Object[] {1,numEnemigos});
-	    	if(existeBoss) {
-	    		Boss.getBoss().restarEnemigo();
-	    	}
 	    	if (numEnemigos == 0 && pantalla == 4) {
 	    		Boss.getBoss().desactivarEscudo();
 	    	}
@@ -406,6 +428,7 @@ public class Tablero extends Observable{
 	    	}
 	    }
 	    c.destruir();
+	    
     }    
 
     public void apagar(int pI, int pJ) {
@@ -460,7 +483,7 @@ public class Tablero extends Observable{
     
     
     //METODOS FIN JUEGO
-    private void ganar() {
+    public void ganar() {
     	Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
         	BomberMan bm = getBomberman();
@@ -468,9 +491,23 @@ public class Tablero extends Observable{
             @Override
             public void run() {
             	if (contador==3) {
-	            	bm.ganar();
+	            	bm.setVictoria(true);
 	            	bm.mover(bm.getI(), bm.getJ());
-	            	timer.cancel();
+	            	contador++;
+            	}
+            	else if (contador==4) {
+            		if (pantalla!=4) {
+	            		bm.setVictoria(false);
+	            		pantalla=4;
+	            		initializeTablero();
+	            		setChanged();
+	    				notifyObservers(new Object[] {2,0});
+	    				timer.cancel();
+            		}
+            		else {
+            			reiniciar();
+            			timer.cancel();
+            		}
             	}
             	else {
             		contador++;
@@ -478,17 +515,30 @@ public class Tablero extends Observable{
             }
         }, 0, 2000);
     }
-
-	
     
-   /* private void restart() {
-    	for (int i = 0;  i< fila; i++) {
-            for (int j = 0; j < col; j++) {
-            	matriz[i][j]=new CasillaTablero(i,j);
+    public void reiniciar() {
+        Timer timer = new Timer();
+        BomberMan bm = getBomberman();
+        final int[] contador = {0};
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                if (contador[0] == 3) {
+                    bm.setVictoria(false);
+                    bm.setVivo();
+                    vaciarTablero();
+                    numEnemigos = 0;
+                    seleccionado = false;
+                    setChanged();
+                    notifyObservers(new Object[] {3, numEnemigos});
+                    Boss.getBoss().reiniciar();
+                    this.cancel();
+                    timer.cancel();
+                } else {
+                    contador[0]++;
+                }
             }
-    	}
-    	numEnemigos = 0;
-    }*/
-
-	
+        };
+        timer.scheduleAtFixedRate(task, 0, 1000);
+    }
 }
