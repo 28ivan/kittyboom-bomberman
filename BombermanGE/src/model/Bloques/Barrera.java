@@ -1,31 +1,45 @@
 package model.Bloques;
 
-public class BloqueFactory {
-	private static BloqueFactory miBF;
+import model.Casillas.CasillaTablero;
+import model.Casillas.Explosion;
+
+public class Barrera extends Bloque {
 	
-	private BloqueFactory() {
-    }
-    
-    public static BloqueFactory getBloqueFactory() {
-    	if(miBF==null) {
-    		miBF = new BloqueFactory();
-    	}
-    	return miBF;
-    }
-    
-    public Bloque generate(String pTipo) {
-    	Bloque bloque = null;
-    	if(pTipo.equals("Blando")){
-    		bloque = new Blando();
-    	}else if(pTipo.equals("Duro")){
-    		bloque = new Duro();
-    	}else if (pTipo.equals("Boss")) {
-    		bloque = new BloqueBoss();
-    	}else if (pTipo.equals("Vacio")) {
-    		bloque = new Vacio();
-    	}else if (pTipo.equals("Barrera")) {
-    		bloque = new Barrera();
-    	}
-	    return bloque;
-    }
+	public Barrera() {
+	}
+
+	
+	
+	//METODOS CASILLA
+	@Override
+	public boolean puedeMoverse() {
+		return false;
+	}
+
+	@Override
+	public boolean esObjeto(String pTipo) {
+		if(pTipo.equals("Barrera")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
+			pC.cambiarCasilla(new Explosion(pI, pJ));
+	}
+	
+	@Override
+	public void vaciar(CasillaTablero pC) {
+	}
+	
+	@Override
+	public boolean isVivo() {
+    	return false;
+	}
+	
+	@Override
+	public void mover(int pI, int pJ) {
+	}
 }
