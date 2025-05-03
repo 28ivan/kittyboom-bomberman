@@ -214,7 +214,9 @@ public class Tablero extends Observable{
     
     
     public BomberMan getBomberman() {
-    	if(bMSelec==1) {
+    	if (pantalla==4) {
+    		return BomberManFactory.getBomberManFactory().generate("BomberManBlanco");
+		}else if(bMSelec==1) {
     		return BomberManFactory.getBomberManFactory().generate("BomberManNegro");
     	}else {
     		return BomberManFactory.getBomberManFactory().generate("BomberManBlanco");
