@@ -113,7 +113,7 @@ public class Tablero extends Observable{
 		while (getBomberman().getNum()!=1) {
 			getBomberman().aumentarNum();
 		}
-		colocarEnemigos(1);
+		colocarEnemigos(8);
 	}
 	
 	//pPantalla = 4
