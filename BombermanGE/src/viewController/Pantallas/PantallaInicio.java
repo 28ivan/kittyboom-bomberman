@@ -186,7 +186,7 @@ public class PantallaInicio extends JFrame implements Observer{
 			int BMSelec = (int) res[0];
 			boolean reiniciar= (boolean) res[1];
 			if (reiniciar) {
-				clearPane((BMSelec)*10);
+				clearPane((BMSelec+1)*10);
 				setPane(BMSelec+1); 
 	        	clearPane((BMSelec)*10);
 	        	reiniciarJuego();
