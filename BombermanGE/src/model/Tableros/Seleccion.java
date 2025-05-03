@@ -103,6 +103,6 @@ public class Seleccion extends Observable{
 	
 	public void reiniciarJuego() {
 		setChanged();
-		notifyObservers(new Object[] {0, true});
+        notifyObservers(new Object[] {BMSelec, true});
 	}
 }

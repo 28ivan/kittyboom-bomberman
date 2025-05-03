@@ -55,24 +55,6 @@ public class PantallaInicio extends JFrame implements Observer{
 
         
     public JPanel getContentPane() {
-//    	// Cargar imagen de fondo
-//        try {
-//            backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/Imagenes/back.png"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        contentPane = new JPanel() {
-//            private static final long serialVersionUID = 1L;
-//
-//            @Override
-//            protected void paintComponent(Graphics g) {
-//                super.paintComponent(g);
-//                if (backgroundImage != null) {
-//                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-//                }
-//            }
-//        };
     	// Crear el panel base con layout nulo
     	if (contentPane == null) {
             contentPane = new JPanel(null) {
@@ -189,6 +171,8 @@ public class PantallaInicio extends JFrame implements Observer{
 	}
 	
 	public void reiniciarJuego() {
+		revalidate();
+		repaint();
 		setVisible(true);
 	}
 
@@ -202,8 +186,11 @@ public class PantallaInicio extends JFrame implements Observer{
 			int BMSelec = (int) res[0];
 			boolean reiniciar= (boolean) res[1];
 			if (reiniciar) {
-				reiniciarJuego();
-			}
+				clearPane((BMSelec)*10);
+				setPane(BMSelec+1); 
+	        	clearPane((BMSelec)*10);
+	        	reiniciarJuego();
+				}
 			else {
 				BmSelec=BMSelec;
 				if (notificationsEnabled) {

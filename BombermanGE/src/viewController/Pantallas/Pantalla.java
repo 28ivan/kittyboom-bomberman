@@ -58,7 +58,7 @@ public class Pantalla extends JFrame implements Observer{
         setContentPane(getContentPane());
 
         if(pantallaSelec==4) {
-        	ponerGifDeFondo("viewController/imagenes/stageBack" + pantallaSelec + "1.gif");
+        	ponerGifDeFondo("viewController/imagenes/stageBack" + pantallaSelec + ".gif");
         }else {
         	ponerImagenDeFondo("viewController/imagenes/stageBack" + pantallaSelec + ".png");
         }
@@ -157,7 +157,7 @@ public class Pantalla extends JFrame implements Observer{
 	                break;
 				case 2:
             		limpiarFondo();
-					ponerGifDeFondo("viewController/imagenes/stageBack41.gif");
+					ponerGifDeFondo("viewController/imagenes/stageBack4.gif");
 					break;
 				case 3:
 					setVisible(false);

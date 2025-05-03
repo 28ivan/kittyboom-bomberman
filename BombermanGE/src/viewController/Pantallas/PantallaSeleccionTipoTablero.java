@@ -117,30 +117,6 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	    }
 	}
 	
-	
-//	private void clearPane(int pTablero) {
-//		JPanel panel = (JPanel) panelMap.get("panel_" + (pTablero)/10);
-//		if(panel!=null) {
-//			for (Component comp : panel.getComponents()) {
-//			    if (comp instanceof JLabel) {
-//			        JLabel label = (JLabel) comp;
-//			        
-//			        // Cargar la nueva imagen
-//			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/imagenes/imagenes/" + pTablero + ".png"));
-//			        Image image = icon.getImage().getScaledInstance(180, 246, Image.SCALE_SMOOTH);
-//			        
-//			        // Cambiar la imagen del JLabel
-//			        
-//			        label.setIcon(new ImageIcon(image));
-//			        break; // Termina el bucle después de encontrar el JLabel
-//			    }
-//			}
-//		}
-//		contentPane.revalidate();
-//        contentPane.repaint();
-//	}
-		
-	
 	@Override
 	public void update(Observable o, Object arg) {
 		if(o instanceof SeleccionTablero) { //ESOBJETO CAMBIARLO------------------
@@ -149,16 +125,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 				case 0:
 					this.setVisible(false);
 					Seleccion.getSeleccion().apagarTipoTablero();
-		        case 1:
-					
-		        	break;
-				case 2:
-
-		        	break;
-				case 3:
-
-		        	break;
-		        default:
+					break;
 			}
 		}
 		
