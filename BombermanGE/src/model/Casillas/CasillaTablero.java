@@ -8,6 +8,7 @@ import model.Bloques.BloqueFactory;
 import model.BomberMans.BomberMan;
 import model.BomberMans.BomberManBlanco;
 import model.BomberMans.BomberManNegro;
+import model.Tableros.Tablero;
 
 @SuppressWarnings({"deprecation"})
 public class CasillaTablero extends Observable {
@@ -64,6 +65,11 @@ public class CasillaTablero extends Observable {
 				st="Vacio";
 			}
 			else if (pC.esObjeto("Duro")) {
+				if (Tablero.getTablero().getPantalla()==4) {
+					n=6;
+				}else {
+					n=5;
+				}
 				st="Duro";
 			}
 			else if (pC.esObjeto("Blando")) {
@@ -82,9 +88,19 @@ public class CasillaTablero extends Observable {
 				st="Explosion";
 			}
 			else if (pC.esObjeto("Enemigo")) {
+				if (Tablero.getTablero().getPantalla()==4) {
+					n=2;
+				}else {
+					n=1;
+				}
 				st="Enemigo";
 			}
 			else if (pC.esObjeto("Invocacion")) {
+				if (Tablero.getTablero().getPantalla()==4) {
+					n=2;
+				}else {
+					n=1;
+				}
 				st="Invocacion";
 			}
 			else if (pC.esObjeto("Boss")) {

@@ -72,12 +72,22 @@ public class PanelCord extends JPanel implements Observer{
 		                clearLabel();
 		                break;
 		        case "Enemigo":
-		                String rutaen = alternarBaloon
-		                    ? "/viewController/Objetos/baloon1.png"
-		                    : "/viewController/Objetos/baloon2.png";
-		                setLabel(rutaen);
-		                alternarBaloon = !alternarBaloon;
-		                break;
+		        		if (num==1) {
+		        			String rutaen = alternarBaloon
+				                    ? "/viewController/Objetos/baloon1.png"
+				                    : "/viewController/Objetos/baloon2.png";
+				                setLabel(rutaen);
+				                alternarBaloon = !alternarBaloon;
+				                break;
+		        		} else {
+		        			String rutaen = alternarBaloon
+				                    ? "/viewController/Objetos/queso1.png"
+				                    : "/viewController/Objetos/queso2.png";
+				                setLabel(rutaen);
+				                alternarBaloon = !alternarBaloon;
+				                break;
+		        		}
+		                
 	            case "u":
 	            	setLabel("/viewController/Bomberman/"+bmColor+"up"+num+".png");
 	            	break;
@@ -97,7 +107,7 @@ public class PanelCord extends JPanel implements Observer{
 	                setLabel("/viewController/Objetos/bomb" + num + ".png");
 	                break;
 	            case "Duro":
-	            	setLabel("/viewController/Objetos/hard5.png");
+	            	setLabel("/viewController/Objetos/hard"+ num +".png");
 	            	break;
 	            case "Blando":
 	            	setLabel("/viewController/Objetos/soft4.png");
@@ -109,7 +119,7 @@ public class PanelCord extends JPanel implements Observer{
 	            	setLabel("/viewController/Objetos/barrera"+num+".png");
 	            	break;
 	            case "Invocacion":
-	            	setLabel("/viewController/Objetos/invocacion.gif");
+	            	setLabel("/viewController/Objetos/invocacion"+num+".gif");
 	            	break;
 				}
 			}

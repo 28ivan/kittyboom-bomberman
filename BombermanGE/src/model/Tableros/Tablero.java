@@ -212,6 +212,9 @@ public class Tablero extends Observable{
     	return miTablero;
     }
     
+    public int getPantalla() {
+		return pantalla;
+	}
     
     public BomberMan getBomberman() {
     	if (pantalla==4) {
@@ -546,4 +549,6 @@ public class Tablero extends Observable{
         };
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
+
+	
 }
