@@ -27,8 +27,8 @@ public class Pantalla extends JFrame implements Observer{
 	private static int pantallaSelec=1;
 	
     public Pantalla(int pBMSelec,int pPantalla) {
-    	setBM(pBMSelec);
     	setFondoPantalla(pPantalla);
+    	setBM(pBMSelec);
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setObservers();
@@ -37,10 +37,10 @@ public class Pantalla extends JFrame implements Observer{
     }
     private void setBM(int pBMSelec) {
     	bMSelec=pBMSelec;
-    	if (bMSelec==1) {
-    		bMColor="black";
-    	}else {
+    	if (bMSelec==2 || pantallaSelec==1) {
     		bMColor="white";
+    	}else {
+    		bMColor="black";
     	}
 	}
     

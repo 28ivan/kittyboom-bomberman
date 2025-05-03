@@ -51,12 +51,15 @@ public class Tablero extends Observable{
     	seleccionado=true;
     	bMSelec=pBMSelec;
 		pantalla=pPantalla;
-    	if (bMSelec==1) {
-    		bMColor="Negro";
-    		changeStrategyBomba(new StBUltra());
-    	}else {
+    	if (bMSelec==2) {
     		bMColor="Blanco";
     		changeStrategyBomba(new StBSuper());
+    	}else {
+    		bMColor="Negro";
+    		changeStrategyBomba(new StBUltra());
+    		if (pantalla==4) {
+    			changeStrategyBomba(new StBSuper());
+    		}
     	}
 	}
     
