@@ -83,11 +83,6 @@ public class Tablero extends Observable{
 		changeStrategyBloquesDuro(new StBloquesDuroClassic());
 		vaciarTablero();
 		colocarBomberMan();
-		getBomberman().setDir('d');
-		getBomberman().mover(0,0);
-		while (getBomberman().getNum()!=1) {
-			getBomberman().aumentarNum();
-		}
 		colocarBloquesDuros();
 		colocarBloquesBlandos();
 		colocarEnemigos(8);
@@ -98,11 +93,6 @@ public class Tablero extends Observable{
 		changeStrategyBloquesBlando(new StBloquesBlandoSoft());
 		vaciarTablero();
 		colocarBomberMan();
-		getBomberman().setDir('d');
-		getBomberman().mover(0,0);
-		while (getBomberman().getNum()!=1) {
-			getBomberman().aumentarNum();
-		}
 		colocarBloquesBlandos();
 		colocarEnemigos(8);
 	}
@@ -111,11 +101,6 @@ public class Tablero extends Observable{
 	public void crearEmpty() {
 		vaciarTablero();
 		colocarBomberMan();
-		getBomberman().setDir('d');
-		getBomberman().mover(0,0);
-		while (getBomberman().getNum()!=1) {
-			getBomberman().aumentarNum();
-		}
 		colocarEnemigos(1);
 	}
 	
@@ -123,18 +108,19 @@ public class Tablero extends Observable{
 	public void crearBoss() {
 		changeStrategyBloquesDuro(new StBloquesDuroBoss());
 		vaciarTablero();
+		colocarBomberMan();
 		colocarBloquesDuros();
 		Boss.getBoss().empezar();
-		getBomberman().setDir('d');
-		getBomberman().mover(0,0);
-		while (getBomberman().getNum()!=1) {
-			getBomberman().aumentarNum();
-		}
 	}
     
 	//CONSTRUCCION DEL TABLERO
     public void colocarBomberMan() {
     	matriz[0][0].cambiarCasilla(BomberManFactory.getBomberManFactory().generate("BomberMan"+bMColor));
+    	getBomberman().setDir('d');
+		getBomberman().mover(0,0);
+		while (getBomberman().getNum()!=1) {
+			getBomberman().aumentarNum();
+		}
     }
     
     public void colocarBloquesDuros() {
