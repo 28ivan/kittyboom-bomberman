@@ -61,7 +61,7 @@ public class Pantalla extends JFrame implements Observer{
         setContentPane(getContentPane());
 
         if(pantallaSelec==4) {
-        	ponerGifDeFondo("viewController/imagenes/stageBack" + pantallaSelec + ".gif");
+        	ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
         }else {
         	ponerImagenDeFondo("viewController/imagenes/stageBack" + pantallaSelec + ".png");
         }
@@ -115,7 +115,7 @@ public class Pantalla extends JFrame implements Observer{
             JLabel imagenLabel = new JLabel(new ImageIcon(imagen));
             imagenLabel.setBounds(0, 0, 840, 520);
             contentPane.add(imagenLabel, JLayeredPane.FRAME_CONTENT_LAYER);
-            contentPane.setComponentZOrder(imagenLabel, contentPane.getComponentCount() - 1); // al fondo
+//            contentPane.setComponentZOrder(imagenLabel, contentPane.getComponentCount() - 1); // al fondo
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -165,12 +165,13 @@ public class Pantalla extends JFrame implements Observer{
 	                break;
 				case 2:
             		limpiarFondo();
-					ponerGifDeFondo("viewController/imagenes/stageBack4.gif");
+					ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
 					break;
 				case 3:
 					setVisible(false);
 					Seleccion.getSeleccion().reiniciarJuego();
 				case 4:
+					limpiarFondo();
 					ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
 					Timer timer = new Timer();
 		            timer.schedule(new TimerTask() {
@@ -180,7 +181,7 @@ public class Pantalla extends JFrame implements Observer{
 		                    ponerGifDeFondo("viewController/imagenes/stageBack4.gif");
 		                    timer.cancel();
 		                }
-		            }, 5000);
+		            }, 4500);
 		            break;					
 					
 			}

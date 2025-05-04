@@ -476,7 +476,9 @@ public class Tablero extends Observable{
     }
     
     public void invocarMobs(int num) {
-	    Random r = new Random();
+    	setChanged();
+		notifyObservers(new Object[] {4,numEnemigos});
+    	Random r = new Random();
 	    while (numEnemigos < num) {     
 	        int i = r.nextInt(fila);  
 	        int j = r.nextInt(col);   
@@ -488,8 +490,7 @@ public class Tablero extends Observable{
 	    }
 	    setChanged();
 		notifyObservers(new Object[] {1,numEnemigos});
-		setChanged();
-		notifyObservers(new Object[] {4,numEnemigos});
+		
 	}
     
     
