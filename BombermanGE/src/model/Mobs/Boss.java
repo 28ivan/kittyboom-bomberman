@@ -130,6 +130,13 @@ public class Boss {
 	public void reiniciar() {
 		vida=3;
 		vivo=true;
-		timerEscudo=null;
+		if (timerEscudo!=null) {
+			timerEscudo.cancel();
+			timerEscudo = null;
+		}
+		if (timerEspera!=null) {
+			timerEspera.cancel();
+			timerEspera = null;
+		}
 	}
 }
