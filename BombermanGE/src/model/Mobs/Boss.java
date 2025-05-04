@@ -103,12 +103,6 @@ public class Boss {
 			}else if(vida==1) {
 				Tablero.getTablero().invocarMobs(5);
 			}
-			
-			if(vida==2) {
-				Tablero.getTablero().invocarMobs(3);
-			}else if(vida==1) {
-				Tablero.getTablero().invocarMobs(5);
-			}
 		}
 	}
 	
