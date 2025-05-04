@@ -441,6 +441,25 @@ public class Tablero extends Observable{
     	matriz[5][10].destruir();
 	}
     
+    public boolean hayBombas() {
+    	if(pantalla==4) {
+    		if (matriz[5][6].esObjeto("Bomba") || matriz[5][6].esObjeto("Explosion")) {
+	    		System.out.println("tablero: hay bomba");
+	    		return true;
+	    	}else if (matriz[3][8].esObjeto("Bomba") || matriz[3][8].esObjeto("Explosion")) {
+	    		System.out.println("tablero: hay bomba");
+	    		return true;
+	    	}else if (matriz[7][8].esObjeto("Bomba") || matriz[7][8].esObjeto("Explosion")){
+	    		System.out.println("tablero: hay bomba");
+	    		return true;
+	    	}else if (matriz[5][10].esObjeto("Bomba") || matriz[5][10].esObjeto("Explosion")){
+	    		System.out.println("tablero: hay bomba");
+	    		return true;
+	    	}
+    	}
+    	return false;
+	}
+    
     public void colocarBarrera() {
     	if(esBomberman(5,6)) {
     		getBomberman().mover(5, 5);
@@ -535,6 +554,8 @@ public class Tablero extends Observable{
         };
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
+
+	
 
 	
 }

@@ -16,7 +16,7 @@ public class BomberManBlanco extends BomberMan{
 	}
 	@Override
 	public boolean puedeColocarBomba() {
-    	if (this.bombas>=10 || !vivo || conBomba || victoria) {
+    	if (this.bombas>=10 || !vivo || conBomba || victoria || Tablero.getTablero().hayBombas()) {
     		return false;
     	}
     	else {
