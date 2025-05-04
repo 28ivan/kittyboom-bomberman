@@ -65,8 +65,15 @@ public class Boss {
                     	timerEscudo.cancel();
                     	timerEscudo = null; 
                     	Tablero.getTablero().colocarBarrera();
-                    	Tablero.getTablero().invocarMobs(1);
-                    }
+                    	if(vida==3) {
+                    		Tablero.getTablero().invocarMobs(1);
+                    	}
+                    	else if(vida==2) {
+            				Tablero.getTablero().invocarMobs(3);
+            			}else if(vida==1) {
+            				Tablero.getTablero().invocarMobs(5);
+            			}
+          	         }
                     else if (vida==0) {
  	            	   timerEscudo.cancel(); 
  	            	   timerEscudo = null; 
@@ -91,7 +98,11 @@ public class Boss {
 			timerEscudo.cancel();
 			timerEscudo = null;
 			Tablero.getTablero().colocarBarrera();
-			Tablero.getTablero().invocarMobs(1);
+			if(vida==2) {
+				Tablero.getTablero().invocarMobs(3);
+			}else if(vida==1) {
+				Tablero.getTablero().invocarMobs(5);
+			}
 		}
 	}
 	
