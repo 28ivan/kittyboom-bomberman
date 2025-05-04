@@ -24,7 +24,6 @@ public class BloqueBoss extends Duro {
 
 	@Override
 	public void destruir(CasillaTablero pC, int pI, int pJ) {
-		System.out.println("bloqueboss: destruir, quitar vida");
 		Boss.getBoss().restarVida();
 	}
 

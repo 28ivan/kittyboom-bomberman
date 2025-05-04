@@ -119,12 +119,14 @@ public class Pantalla extends JFrame implements Observer{
     }
     
     private void limpiarFondo() {
-        for (Component comp : contentPane.getComponents()) {
+       for (Component comp : contentPane.getComponents()) {
             if (comp instanceof JLabel) {
                 contentPane.remove(comp);
             }
         }
+       	enemigosLabel = null;
         contentPane.repaint();
+        setEnemigosLabel(Tablero.getTablero().getNumEnemigos());
     }
     
     private void setEnemigosLabel(int numEnemigos) {

@@ -81,7 +81,6 @@ public class Boss {
 	 	            	   timerEscudo = null; 
 	                    }
                 	}else {
-                		System.out.println("boss: hay bomba, parar escudo");
                 		timerEscudo.cancel(); 
                 		timerEscudo = null;
                 	}
