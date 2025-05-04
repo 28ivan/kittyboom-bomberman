@@ -8,6 +8,9 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -151,6 +154,9 @@ public class Pantalla extends JFrame implements Observer{
 			Object res[]=(Object[])arg;
 			//1: cambiar numEnemigos
 			//2: Ganar 
+			//4: gif Boss invocando
+			//5:
+			//6:
 			int opcion = (int) res[0];
 			int num = (int) res[1];
 			switch (opcion) {
@@ -164,6 +170,19 @@ public class Pantalla extends JFrame implements Observer{
 				case 3:
 					setVisible(false);
 					Seleccion.getSeleccion().reiniciarJuego();
+				case 4:
+					ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
+					Timer timer = new Timer();
+		            timer.schedule(new TimerTask() {
+		                @Override
+		                public void run() {
+		                    limpiarFondo();
+		                    ponerGifDeFondo("viewController/imagenes/stageBack4.gif");
+		                    timer.cancel();
+		                }
+		            }, 5000);
+		            break;					
+					
 			}
 		}
 	}

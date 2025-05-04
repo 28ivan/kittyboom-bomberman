@@ -488,6 +488,8 @@ public class Tablero extends Observable{
 	    }
 	    setChanged();
 		notifyObservers(new Object[] {1,numEnemigos});
+		setChanged();
+		notifyObservers(new Object[] {4,numEnemigos});
 	}
     
     
