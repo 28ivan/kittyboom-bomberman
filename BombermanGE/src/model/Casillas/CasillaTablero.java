@@ -31,7 +31,7 @@ public class CasillaTablero extends Observable {
 		String st=null;
 		int n=0;
 		if (pC.esObjeto("BomberMan")) {
-			BomberMan bm=BomberManBlanco.getBomberMan();
+			BomberMan bm=Tablero.getTablero().getBomberman();
 			if (!bm.haGanado()) {
 				if(!bm.isVivo()) {
 					animacionMuerte();

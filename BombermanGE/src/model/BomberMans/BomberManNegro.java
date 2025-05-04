@@ -4,8 +4,14 @@ import model.Bombas.BombaFactory;
 import model.Tableros.Tablero;
 
 public class BomberManNegro extends BomberMan{
+	private int bombasMax=0;
 	private BomberManNegro() {
 		super();
+		bombasMax=1;
+		if (Tablero.getTablero().getPantalla()==4) {
+			bombasMax=10;
+		}
+		
 	}
 	
 	public static BomberMan getBomberMan() {
@@ -16,7 +22,7 @@ public class BomberManNegro extends BomberMan{
 	}
 	@Override
 	public boolean puedeColocarBomba() {
-    	if (this.bombas>=1 || !vivo || conBomba || victoria) {
+    	if (this.bombas>= bombasMax || !vivo || conBomba || victoria) {
     		return false;
     	}
     	else {
