@@ -439,6 +439,8 @@ public class Tablero extends Observable{
     	matriz[3][8].destruir();
     	matriz[7][8].destruir();
     	matriz[5][10].destruir();
+    	setChanged();
+		notifyObservers(new Object[] {4,2});
 	}
     
     public boolean hayBombas() {
@@ -477,7 +479,7 @@ public class Tablero extends Observable{
     
     public void invocarMobs(int num) {
     	setChanged();
-		notifyObservers(new Object[] {4,numEnemigos});
+		notifyObservers(new Object[] {4,1});
     	Random r = new Random();
 	    while (numEnemigos < num) {     
 	        int i = r.nextInt(fila);  

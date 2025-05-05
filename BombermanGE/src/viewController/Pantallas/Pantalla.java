@@ -64,7 +64,7 @@ public class Pantalla extends JFrame implements Observer{
         setContentPane(getContentPane());
 
         if(pantallaSelec==4) {
-        	ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
+        	ponerGifDeFondo("viewController/imagenes/stageBack4.png");
         }else {
         	ponerImagenDeFondo("viewController/imagenes/stageBack" + pantallaSelec + ".png");
         }
@@ -103,12 +103,20 @@ public class Pantalla extends JFrame implements Observer{
     }
     
     private void ponerGifDeFondo(String rutaGif) {
-    	if (fondoTemporal != null) contentPane.remove(fondoTemporal);
-        fondoTemporal = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(rutaGif)));
-        fondoTemporal.setBounds(0, 0, 840, 520);
-        contentPane.add(fondoTemporal, JLayeredPane.DEFAULT_LAYER);
-        contentPane.revalidate();
-        contentPane.repaint();
+    	try {
+	    	if (fondoTemporal != null) {
+	            contentPane.remove(fondoTemporal);
+	            fondoTemporal = null;
+	        }
+	    	byte[] gifBytes = getClass().getClassLoader().getResourceAsStream(rutaGif).readAllBytes();
+	        ImageIcon gifIcon = new ImageIcon(gifBytes);
+	        fondoTemporal = new JLabel(gifIcon);
+	        fondoTemporal.setBounds(0, 0, 840, 520);
+	        contentPane.add(fondoTemporal, JLayeredPane.DEFAULT_LAYER);
+	        contentPane.repaint();
+    	} catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     private void ponerImagenDeFondo(String rutaImagen) {
@@ -133,6 +141,9 @@ public class Pantalla extends JFrame implements Observer{
             fondoPermanente = fondoTemporal;
             fondoTemporal = null;
         }
+    	if (enemigosLabel != null) {
+    	    contentPane.remove(enemigosLabel);
+    	}
         enemigosLabel = null;
         contentPane.repaint();
         setEnemigosLabel(Tablero.getTablero().getNumEnemigos());
@@ -171,24 +182,40 @@ public class Pantalla extends JFrame implements Observer{
 	                break;
 				case 2:
             		limpiarFondo();
-					ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
+            		ponerImagenDeFondo("viewController/imagenes/stageBack4.png");
 					break;
 				case 3:
 					setVisible(false);
 					Seleccion.getSeleccion().reiniciarJuego();
 				case 4:
-					limpiarFondo();
-					ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
-					Timer timer = new Timer();
-		            timer.schedule(new TimerTask() {
-		                @Override
-		                public void run() {
-		                    limpiarFondo();
-		                    ponerGifDeFondo("viewController/imagenes/stageBack4.gif");
-		                    timer.cancel();
-		                }
-		            }, 4500);
-		            break;					
+					if(num==1) {
+						limpiarFondo();
+						ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
+						Timer timer = new Timer();
+			            timer.schedule(new TimerTask() {
+			                @Override
+			                public void run() {
+			                    limpiarFondo();
+			                    ponerGifDeFondo("viewController/imagenes/dormir.gif");
+			                    timer.cancel();
+			                }
+			            }, 4500);
+			            break;	
+					} else if (num==2) {
+						ponerGifDeFondo("viewController/imagenes/despertar.gif");
+						limpiarFondo();
+						ponerGifDeFondo("viewController/imagenes/despertar.gif");
+						Timer timer = new Timer();
+			            timer.schedule(new TimerTask() {
+			                @Override
+			                public void run() {
+			                    limpiarFondo();
+			                    ponerGifDeFondo("viewController/imagenes/stageBack4.png");
+			                    timer.cancel();
+			                }
+			            }, 2500);
+					}
+									
 					
 			}
 		}
