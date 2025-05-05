@@ -31,6 +31,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_3;
+	private JPanel panel_4;
 	private Map<String, Component> panelMap = new HashMap<>();
 	
 	public PantallaSeleccionTipoTablero() {
@@ -72,12 +73,14 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
         };
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
-        contentPane.add(getPanel(47,1));
-        contentPane.add(getPanel(260,2));
-        contentPane.add(getPanel(470,3));
+        contentPane.add(getPanel(19,1));
+        contentPane.add(getPanel(185,2));
+        contentPane.add(getPanel(355,3));
+        contentPane.add(getPanel(525,4));
         panelMap.put("panel_1", panel_1);
         panelMap.put("panel_2", panel_2);
         panelMap.put("panel_3", panel_3);
+        panelMap.put("panel_4", panel_4);
 //        clearPane(10);
 //        clearPane(20);
 //        clearPane(30);
@@ -88,16 +91,17 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	
 	private JPanel getPanel(int pX, int pTablero) {
 	    JPanel panel = new JPanel(null);
-	    panel.setBounds(pX, 70, 179, 316);
+	    panel.setBounds(pX, 90, 152, 270);
 
-	    JLabel label = crearImagen(pTablero, 179, 316);
-	    label.setBounds(0, 0, 179, 316);
+	    JLabel label = crearImagen(pTablero, 152, 270);
+	    label.setBounds(0, 0, 152, 270);
 	    panel.add(label);
 	    panel.setOpaque(false);
 	    switch (pTablero) {
 	        case 1: panel_1 = panel; break;
 	        case 2: panel_2 = panel; break;
 	        case 3: panel_3 = panel; break;
+	        case 4: panel_4 = panel; break;
 	    }
 
 	    return panel;

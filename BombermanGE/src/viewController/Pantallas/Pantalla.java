@@ -21,9 +21,12 @@ import model.Tableros.Tablero;
 public class Pantalla extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
+    private static final Integer BACKGROUND_LAYER = -100;
     private JLayeredPane contentPane;
     private JPanel gridPanel;
     private JLabel enemigosLabel;
+    private JLabel fondoPermanente;
+    private JLabel fondoTemporal;
 	private Controlador controlador;
 	private static int bMSelec;
 	private static String bMColor;
@@ -89,45 +92,48 @@ public class Pantalla extends JFrame implements Observer{
     public JLayeredPane getContentPane() {
         if (contentPane == null) {
             contentPane = new JLayeredPane();
-            contentPane.setLayout(null); // Posicionamiento manual
-
-            // Crear panel de la cuadrícula
+            contentPane.setLayout(null);
             gridPanel = new JPanel(new GridLayout(11, 17, 0, 0));
             gridPanel.setOpaque(false);
             gridPanel.setBounds(0, 0, 840, 520); 
 
-            contentPane.add(gridPanel, JLayeredPane.DEFAULT_LAYER); // Añadir al fondo
+            contentPane.add(gridPanel, JLayeredPane.PALETTE_LAYER);
         }
         return contentPane;
     }
     
     private void ponerGifDeFondo(String rutaGif) {
-        JLabel gifLabel = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(rutaGif)));
-        gifLabel.setBounds(0, 0, 840, 515); // Asegúrate de coincidir con la ventana
-        contentPane.add(gifLabel, JLayeredPane.FRAME_CONTENT_LAYER); // Capa de fondo
-        contentPane.setComponentZOrder(gifLabel, contentPane.getComponentCount() - 1); // al fondo
+    	if (fondoTemporal != null) contentPane.remove(fondoTemporal);
+        fondoTemporal = new JLabel(new ImageIcon(getClass().getClassLoader().getResource(rutaGif)));
+        fondoTemporal.setBounds(0, 0, 840, 520);
+        contentPane.add(fondoTemporal, JLayeredPane.DEFAULT_LAYER);
+        contentPane.revalidate();
+        contentPane.repaint();
     }
     
     private void ponerImagenDeFondo(String rutaImagen) {
         try {
+        	if (fondoPermanente != null) contentPane.remove(fondoPermanente);
             ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource(rutaImagen)));
             Image imagen = icon.getImage().getScaledInstance(840, 520, Image.SCALE_SMOOTH);
-            JLabel imagenLabel = new JLabel(new ImageIcon(imagen));
-            imagenLabel.setBounds(0, 0, 840, 520);
-            contentPane.add(imagenLabel, JLayeredPane.FRAME_CONTENT_LAYER);
-//            contentPane.setComponentZOrder(imagenLabel, contentPane.getComponentCount() - 1); // al fondo
+            fondoPermanente = new JLabel(new ImageIcon(imagen));
+            fondoPermanente.setBounds(0, 0, 840, 520);
+            contentPane.add(fondoPermanente, BACKGROUND_LAYER);
+            contentPane.revalidate();
+            contentPane.repaint();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
     private void limpiarFondo() {
-       for (Component comp : contentPane.getComponents()) {
-            if (comp instanceof JLabel) {
-                contentPane.remove(comp);
-            }
+    	if (fondoTemporal != null) {
+            // Mover gif como fondo permanente
+            contentPane.setLayer(fondoTemporal, BACKGROUND_LAYER);
+            fondoPermanente = fondoTemporal;
+            fondoTemporal = null;
         }
-       	enemigosLabel = null;
+        enemigosLabel = null;
         contentPane.repaint();
         setEnemigosLabel(Tablero.getTablero().getNumEnemigos());
     }
