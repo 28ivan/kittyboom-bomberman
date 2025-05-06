@@ -209,7 +209,7 @@ public class Pantalla extends JFrame implements Observer{
 			                @Override
 			                public void run() {
 			                    limpiarFondo();
-//			                    ponerGifDeFondo("viewController/imagenes/stageBack4.png");
+			                    ponerGifDeFondo("viewController/imagenes/tieso.png");
 			                    timer.cancel();
 			                }
 			            }, 2500);
