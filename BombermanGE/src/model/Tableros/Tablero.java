@@ -546,6 +546,7 @@ public class Tablero extends Observable{
                     seleccionado = false;
                     setChanged();
                     notifyObservers(new Object[] {3, numEnemigos});
+					Seleccion.getSeleccion().reiniciarJuego();
                     Boss.getBoss().reiniciar();
                     this.cancel();
                     timer.cancel();

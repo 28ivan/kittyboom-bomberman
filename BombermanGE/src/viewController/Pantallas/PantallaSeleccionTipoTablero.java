@@ -128,7 +128,6 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 			switch (seleccionPantalla) {
 				case 0:
 					this.setVisible(false);
-					Seleccion.getSeleccion().apagarTipoTablero();
 					break;
 			}
 		}

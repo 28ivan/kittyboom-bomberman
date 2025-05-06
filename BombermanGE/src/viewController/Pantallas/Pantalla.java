@@ -14,7 +14,6 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import model.Tableros.Seleccion;
 import model.Tableros.Tablero;
 
 @SuppressWarnings({"deprecation"})
@@ -29,17 +28,19 @@ public class Pantalla extends JFrame implements Observer{
     private JLabel fondoTemporal;
 	private Controlador controlador;
 	private static int bMSelec;
+	private static int numEnemigos;
 	private static String bMColor;
 	private static int pantallaSelec=1;
 	
     public Pantalla(int pBMSelec,int pPantalla) {
     	setFondoPantalla(pPantalla);
     	setBM(pBMSelec);
+    	setEnemigos(getEnemigos());
     	initialize();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setObservers();
     	getControlador().actionPerformed(null);
-        setEnemigosLabel(Tablero.getTablero().getNumEnemigos());
+        setEnemigosLabel(0);
     }
     private void setBM(int pBMSelec) {
     	bMSelec=pBMSelec;
@@ -121,14 +122,20 @@ public class Pantalla extends JFrame implements Observer{
     
     private void ponerImagenDeFondo(String rutaImagen) {
         try {
-        	if (fondoPermanente != null) contentPane.remove(fondoPermanente);
-            ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource(rutaImagen)));
-            Image imagen = icon.getImage().getScaledInstance(840, 520, Image.SCALE_SMOOTH);
-            fondoPermanente = new JLabel(new ImageIcon(imagen));
-            fondoPermanente.setBounds(0, 0, 840, 520);
-            contentPane.add(fondoPermanente, BACKGROUND_LAYER);
-            contentPane.revalidate();
-            contentPane.repaint();
+        	if (fondoPermanente != null) {
+        		System.out.println("borrando, poniendo " + rutaImagen);
+        		contentPane.remove(fondoPermanente);
+        		fondoPermanente=null;
+        	}        		
+        		ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource(rutaImagen)));
+                Image imagen = icon.getImage().getScaledInstance(840, 520, Image.SCALE_SMOOTH);
+                fondoPermanente = new JLabel(new ImageIcon(imagen));
+                fondoPermanente.setBounds(0, 0, 840, 520);
+                contentPane.add(fondoPermanente, BACKGROUND_LAYER);
+                contentPane.revalidate();
+                contentPane.repaint();
+                
+                
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -138,7 +145,7 @@ public class Pantalla extends JFrame implements Observer{
     	if (fondoTemporal != null) {
             // Mover gif como fondo permanente
             contentPane.setLayer(fondoTemporal, BACKGROUND_LAYER);
-            fondoPermanente = fondoTemporal;
+//            fondoPermanente = fondoTemporal;
             fondoTemporal = null;
         }
     	if (enemigosLabel != null) {
@@ -146,7 +153,7 @@ public class Pantalla extends JFrame implements Observer{
     	}
         enemigosLabel = null;
         contentPane.repaint();
-        setEnemigosLabel(Tablero.getTablero().getNumEnemigos());
+        setEnemigosLabel(getEnemigos());
     }
     
     private void setEnemigosLabel(int numEnemigos) {
@@ -162,6 +169,13 @@ public class Pantalla extends JFrame implements Observer{
 		}
     }
     
+    private void setEnemigos(int pNumEnemigos) {
+    	numEnemigos=pNumEnemigos;
+    }
+    
+    private int getEnemigos() {
+    	return numEnemigos;
+    }
     
     
     //UPDATE
@@ -178,7 +192,8 @@ public class Pantalla extends JFrame implements Observer{
 			int num = (int) res[1];
 			switch (opcion) {
 				case 1:
-					setEnemigosLabel(num);
+					setEnemigos(num);
+					setEnemigosLabel(getEnemigos());
 	                break;
 				case 2:
             		limpiarFondo();
@@ -186,15 +201,16 @@ public class Pantalla extends JFrame implements Observer{
 					break;
 				case 3:
 					setVisible(false);
-					Seleccion.getSeleccion().reiniciarJuego();
 				case 4:
 					if(num==1) {
+						ponerImagenDeFondo("viewController/imagenes/tieso.png");
 						limpiarFondo();
 						ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
 						Timer timer = new Timer();
 			            timer.schedule(new TimerTask() {
 			                @Override
 			                public void run() {
+			                	ponerImagenDeFondo("viewController/imagenes/stageBack4.png");
 			                    limpiarFondo();
 			                    ponerGifDeFondo("viewController/imagenes/dormir.gif");
 			                    timer.cancel();
