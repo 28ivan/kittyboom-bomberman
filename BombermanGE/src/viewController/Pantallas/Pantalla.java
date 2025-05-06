@@ -202,7 +202,6 @@ public class Pantalla extends JFrame implements Observer{
 			            }, 4500);
 			            break;	
 					} else if (num==2) {
-						ponerGifDeFondo("viewController/imagenes/despertar.gif");
 						limpiarFondo();
 						ponerGifDeFondo("viewController/imagenes/despertar.gif");
 						Timer timer = new Timer();
@@ -210,7 +209,7 @@ public class Pantalla extends JFrame implements Observer{
 			                @Override
 			                public void run() {
 			                    limpiarFondo();
-			                    ponerGifDeFondo("viewController/imagenes/stageBack4.png");
+//			                    ponerGifDeFondo("viewController/imagenes/stageBack4.png");
 			                    timer.cancel();
 			                }
 			            }, 2500);
