@@ -107,16 +107,18 @@ public class Pantalla extends JFrame implements Observer{
     
     private void ponerGifDeFondo(String rutaGif) {
     	try {
-	    	if (fondoTemporal != null) {
-	            contentPane.remove(fondoTemporal);
-	            fondoTemporal = null;
-	        }
+    		if (fondoTemporal != null && fondoTemporal.getParent() == contentPane) {
+                contentPane.remove(fondoTemporal);
+                fondoTemporal = null;
+            }
 	    	byte[] gifBytes = getClass().getClassLoader().getResourceAsStream(rutaGif).readAllBytes();
 	        ImageIcon gifIcon = new ImageIcon(gifBytes);
 	        fondoTemporal = new JLabel(gifIcon);
 	        fondoTemporal.setBounds(0, 0, 840, 520);
 	        contentPane.add(fondoTemporal, JLayeredPane.DEFAULT_LAYER);
+	        contentPane.revalidate();
 	        contentPane.repaint();
+	        System.gc();
     	} catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,16 +145,17 @@ public class Pantalla extends JFrame implements Observer{
     }
     
     private void limpiarFondo() {
-    	if (fondoTemporal != null) {
-            // Mover gif como fondo permanente
-            contentPane.setLayer(fondoTemporal, BACKGROUND_LAYER);
-//            fondoPermanente = fondoTemporal;
+    	if (fondoTemporal != null && fondoTemporal.getParent() == contentPane) {
+            contentPane.remove(fondoTemporal);
             fondoTemporal = null;
         }
-    	if (enemigosLabel != null) {
-    	    contentPane.remove(enemigosLabel);
-    	}
+    	
+
+        if (enemigosLabel != null) {
+            contentPane.remove(enemigosLabel);
+        }
         enemigosLabel = null;
+        contentPane.revalidate();
         contentPane.repaint();
         setEnemigosLabel(getEnemigos());
     }
@@ -212,7 +215,7 @@ public class Pantalla extends JFrame implements Observer{
 			                @Override
 			                public void run() {
 			                	ponerImagenDeFondo("viewController/Imagenes/stageBack4.png");
-			                    limpiarFondo();
+			                	limpiarFondo();
 			                    ponerGifDeFondo("viewController/Imagenes/dormir.gif");
 			                    timer.cancel();
 			                }
