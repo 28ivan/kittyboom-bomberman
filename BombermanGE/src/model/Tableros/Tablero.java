@@ -562,6 +562,9 @@ public class Tablero extends Observable{
                     vaciarTablero();
                     numEnemigos = 0;
                     seleccionado = false;
+                    if (bMSelec==1){
+                    	getBomberman().setBombas(1);
+                    }
                     setChanged();
                     notifyObservers(new Object[] {3, numEnemigos});
 					Seleccion.getSeleccion().reiniciarJuego();
