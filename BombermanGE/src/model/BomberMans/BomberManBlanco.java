@@ -1,9 +1,13 @@
 package model.BomberMans;
 
+import model.Bloques.BloqueFactory;
 import model.Bombas.BombaFactory;
+import model.Casillas.CasillaTablero;
 import model.Tableros.Tablero;
 
 public class BomberManBlanco extends BomberMan{
+	private static BomberMan miBM = null;
+
 	private BomberManBlanco() {
 		super();
 		bombasMax=10;
@@ -37,6 +41,35 @@ public class BomberManBlanco extends BomberMan{
 	    	conBomba=true;
 	    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BSuper", i, j));			
 		}
-
     }
+	
+	@Override
+	public void destruir(CasillaTablero pC, int pI, int pJ) {
+		if (!vivo) return;
+		vivo=false;
+		pC.cambiarCasilla(miBM);
+		Tablero.getTablero().reiniciar();
+	}
+	
+	@Override
+	public void mover(int pI, int pJ) {
+		if (conBomba) {
+    		conBomba=false;
+    	}
+    	aumentarNum();
+    	if (i!=pI || j!=pJ) {
+    		CasillaTablero c=Tablero.getTablero().getCasilla(i, j);
+    		if (c.esObjeto("Bomba")) {
+    			antiguaBomba=true;
+    			c.cambiarCasilla(miBM);
+    			antiguaBomba=false;
+    		}
+    		else {
+    			c.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
+    		}
+    	}
+    	i = pI;
+    	j = pJ;
+    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(miBM);
+	}
 }
