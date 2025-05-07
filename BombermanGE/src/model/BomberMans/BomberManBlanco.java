@@ -4,7 +4,6 @@ import model.Bombas.BombaFactory;
 import model.Tableros.Tablero;
 
 public class BomberManBlanco extends BomberMan{
-	private int bombasMax=0;
 	private BomberManBlanco() {
 		super();
 		bombasMax=10;
@@ -16,15 +15,21 @@ public class BomberManBlanco extends BomberMan{
     	}
 		return miBM;
 	}
+	
+	public void setBombas(int pNumBombas) {
+		bombasMax=pNumBombas;
+	}
+	
 	@Override
 	public boolean puedeColocarBomba() {
-    	if (this.bombas>=bombasMax || !vivo || conBomba || victoria || Tablero.getTablero().hayBombas()) {
+    	if (this.bombas >= bombasMax || !vivo || conBomba || victoria || Tablero.getTablero().hayBombas()) {
     		return false;
     	}
     	else {
     		return true;
     	}
     }
+
 	@Override
     public void ponerBomba() {
 		if(puedeColocarBomba()) {
@@ -34,8 +39,4 @@ public class BomberManBlanco extends BomberMan{
 		}
 
     }
-	
-	public void soyBomberman() {
-		System.out.println("blanco");
-	}
 }
