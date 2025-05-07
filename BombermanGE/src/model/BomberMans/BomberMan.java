@@ -16,6 +16,7 @@ public abstract class BomberMan implements Casilla {
 	protected boolean victoria=false;
 	protected char dir = 'd' ;
 	protected int num = 1;
+	protected int bombasMax=0;
 	
 	protected BomberMan() {
 	}
@@ -25,7 +26,6 @@ public abstract class BomberMan implements Casilla {
 	public int getI() {
         return i;
     }
-
 
     public int getJ() {
         return j;
@@ -51,14 +51,14 @@ public abstract class BomberMan implements Casilla {
 			return false;
 		}
 	}
-	//
+	
 	public boolean haGanado() {
     	return victoria;
     }
     
     public abstract boolean puedeColocarBomba();
     
-    public abstract void soyBomberman();
+    public abstract void setBombas(int pNumBombas);
     
     //METODOS SET O SIMILAR
     public void setDir(char pD) {
