@@ -407,9 +407,6 @@ public class Tablero extends Observable{
     public void procesarExplosion(int pI, int pJ) {
     	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
     	CasillaTablero c = matriz[pI][pJ];
-    	if (esBomberman(pI,pJ)) {
-    		getBomberman().mover(pI, pJ);
-    	}
     	if (c.esObjeto("Barrera")) {
     		return;
     	}
@@ -425,11 +422,15 @@ public class Tablero extends Observable{
 	    	}
 	    }
 	    c.destruir();
-	    
+	    if (esBomberman(pI,pJ)) {
+    		getBomberman().destruir(c,pI,pJ);
+    		getBomberman().mover(pI, pJ);
+    	}
     }    
 
     public void apagar(int pI, int pJ) {
     	if (pI < 0 || pI >= fila || pJ < 0 || pJ >= col) return;
+    	if (esBomberman(pI,pJ)) return;
     	CasillaTablero c = matriz[pI][pJ];
     	c.vaciar();
     }
