@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import model.Tableros.Seleccion;
 
+@SuppressWarnings({"deprecation"})
 public class PantallaInicio extends JFrame implements Observer{
 
     private static final long serialVersionUID = 1L;
@@ -29,7 +30,6 @@ public class PantallaInicio extends JFrame implements Observer{
     private JPanel panel_1;
     private JPanel panel_2;
     private JTextArea txt;
-    private ImageIcon backgroundImage;
     private Controlador controlador;
     private Map<String, Component> panelMap = new HashMap<>();
     private boolean notificationsEnabled=true;
