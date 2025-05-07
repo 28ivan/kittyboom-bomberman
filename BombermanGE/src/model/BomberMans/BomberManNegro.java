@@ -37,4 +37,8 @@ public class BomberManNegro extends BomberMan{
 	    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BUltra", i, j));
 		}
     }
+	
+	public void soyBomberman() {
+		System.out.println("negro");
+	}
 }

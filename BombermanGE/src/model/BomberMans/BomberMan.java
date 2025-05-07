@@ -26,6 +26,7 @@ public abstract class BomberMan implements Casilla {
         return i;
     }
 
+
     public int getJ() {
         return j;
     }
@@ -57,7 +58,7 @@ public abstract class BomberMan implements Casilla {
     
     public abstract boolean puedeColocarBomba();
     
-    
+    public abstract void soyBomberman();
     
     //METODOS SET O SIMILAR
     public void setDir(char pD) {

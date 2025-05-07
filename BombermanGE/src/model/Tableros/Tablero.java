@@ -209,10 +209,10 @@ public class Tablero extends Observable{
     	if (pantalla==4) {
     		return BomberManFactory.getBomberManFactory().generate("BomberManBlanco");
 		}else if(bMSelec==1) {
-			System.out.println("BomberManNegro");
+//			System.out.println("BomberManNegro");
     		return BomberManFactory.getBomberManFactory().generate("BomberManNegro");
     	}else {
-    		System.out.println("BomberManBlanco");
+//    		System.out.println("BomberManBlanco");
     		return BomberManFactory.getBomberManFactory().generate("BomberManBlanco");
     	}
     }
@@ -384,6 +384,8 @@ public class Tablero extends Observable{
     
     //BOMBA
     public void colocarBomba() {
+    	System.out.println(bMSelec);
+    	getBomberman().soyBomberman();
     	int pI = getBomberman().getI();
     	int pJ = getBomberman().getJ();
         if (getBomberman().puedeColocarBomba()) {

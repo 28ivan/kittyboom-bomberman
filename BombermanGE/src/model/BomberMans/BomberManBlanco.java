@@ -34,4 +34,8 @@ public class BomberManBlanco extends BomberMan{
 		}
 
     }
+	
+	public void soyBomberman() {
+		System.out.println("blanco");
+	}
 }
