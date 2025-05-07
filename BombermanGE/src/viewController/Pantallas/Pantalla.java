@@ -40,9 +40,7 @@ public class Pantalla extends JFrame implements Observer{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setObservers();
     	getControlador().actionPerformed(null);
-    	if (pPantalla==4) {
-    		setEnemigosLabel(0);
-    	}
+        setEnemigosLabel(0);
     }
     private void setBM(int pBMSelec) {
     	bMSelec=pBMSelec;
@@ -125,7 +123,6 @@ public class Pantalla extends JFrame implements Observer{
     private void ponerImagenDeFondo(String rutaImagen) {
         try {
         	if (fondoPermanente != null) {
-        		System.out.println("borrando, poniendo " + rutaImagen);
         		contentPane.remove(fondoPermanente);
         		fondoPermanente=null;
         	}        		
@@ -227,32 +224,12 @@ public class Pantalla extends JFrame implements Observer{
 			                @Override
 			                public void run() {
 			                    limpiarFondo();
-			                    ponerGifDeFondo("viewController/imagenes/tieso.gif");
+			                    ponerGifDeFondo("viewController/imagenes/tieso.png");
 			                    timer.cancel();
 			                }
-			            }, 2520);
-			            break;
-					} else if (num==3) {
-						limpiarFondo();
-						ponerGifDeFondo("viewController/imagenes/daño.gif");
-						Timer timer = new Timer();
-			            timer.schedule(new TimerTask() {
-			                @Override
-			                public void run() {
-			                	ponerImagenDeFondo("viewController/imagenes/tieso.png");
-			                    limpiarFondo();
-			                    ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
-			                    timer.cancel();
-			                }
-			            }, 2000);
-			            break;
-		            } else if (num==4) {
-						limpiarFondo();
-						ponerGifDeFondo("viewController/imagenes/muerto.gif");
-		            } else if (num==5) {
-						limpiarFondo();
-						ponerGifDeFondo("viewController/imagenes/luser.gif");
-		            }
+			            }, 2500);
+					}
+									
 					
 			}
 		}
