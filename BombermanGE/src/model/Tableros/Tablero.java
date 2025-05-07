@@ -54,10 +54,13 @@ public class Tablero extends Observable{
     	if (bMSelec==2) {
     		bMColor="Blanco";
     		changeStrategyBomba(new StBSuper());
-    	}else {
+    		getBomberman().setBombas(10);
+    	}else if (bMSelec==1){
     		bMColor="Negro";
     		changeStrategyBomba(new StBUltra());
+    		getBomberman().setBombas(1);
     		if (pantalla==4) {
+    			getBomberman().setBombas(10);
     			changeStrategyBomba(new StBSuper());
     		}
     	}
@@ -106,7 +109,6 @@ public class Tablero extends Observable{
 	
 	//pPantalla = 4
 	public void crearBoss() {
-		changeStrategyBomba(new StBSuper());
 		changeStrategyBloquesDuro(new StBloquesDuroBoss());
 		vaciarTablero();
 		colocarBomberMan();
@@ -183,8 +185,6 @@ public class Tablero extends Observable{
 		    	numEnemigos++;
 		    }
 		}
-		setChanged();
-		notifyObservers(new Object[] {1,numEnemigos});
 	}
     
     public int getNumEnemigos() {
@@ -206,13 +206,9 @@ public class Tablero extends Observable{
 	}
     
     public BomberMan getBomberman() {
-    	if (pantalla==4) {
-    		return BomberManFactory.getBomberManFactory().generate("BomberManBlanco");
-		}else if(bMSelec==1) {
-//			System.out.println("BomberManNegro");
+		if(bMSelec==1) {
     		return BomberManFactory.getBomberManFactory().generate("BomberManNegro");
     	}else {
-//    		System.out.println("BomberManBlanco");
     		return BomberManFactory.getBomberManFactory().generate("BomberManBlanco");
     	}
     }
@@ -384,8 +380,6 @@ public class Tablero extends Observable{
     
     //BOMBA
     public void colocarBomba() {
-    	System.out.println(bMSelec);
-    	getBomberman().soyBomberman();
     	int pI = getBomberman().getI();
     	int pJ = getBomberman().getJ();
         if (getBomberman().puedeColocarBomba()) {
@@ -484,11 +478,6 @@ public class Tablero extends Observable{
     	setBarrera(5,10);
     }
     
-    public void notificarQuitarVidaBoss() {
-    	setChanged();
-		notifyObservers(new Object[] {4,3});
-	}
-    
     public void invocarMobs(int num) {
     	setChanged();
 		notifyObservers(new Object[] {4,1});
@@ -511,10 +500,6 @@ public class Tablero extends Observable{
     
     //METODOS FIN JUEGO
     public void ganar() {
-    	if (pantalla==4) {
-    		setChanged();
-			notifyObservers(new Object[] {4,4});
-    	}
     	Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
         	BomberMan bm = getBomberman();
@@ -548,13 +533,8 @@ public class Tablero extends Observable{
     }
     
     public void reiniciar() {
-    	
         Timer timer = new Timer();
         BomberMan bm = getBomberman();
-        if (pantalla==4 && !bm.isVivo()) {
-    		setChanged();
-			notifyObservers(new Object[] {4,5});
-    	}
         final int[] contador = {0};
         TimerTask task = new TimerTask() {
             @Override
@@ -578,8 +558,6 @@ public class Tablero extends Observable{
         };
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
-
-	
 
 	
 
