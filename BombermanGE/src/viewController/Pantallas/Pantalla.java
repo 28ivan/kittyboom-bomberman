@@ -65,9 +65,9 @@ public class Pantalla extends JFrame implements Observer{
         setContentPane(getContentPane());
 
         if(pantallaSelec==4) {
-        	ponerGifDeFondo("viewController/imagenes/stageBack4.png");
+        	ponerGifDeFondo("viewController/Imagenes/stageBack4.png");
         }else {
-        	ponerImagenDeFondo("viewController/imagenes/stageBack" + pantallaSelec + ".png");
+        	ponerImagenDeFondo("viewController/Imagenes/stageBack" + pantallaSelec + ".png");
         }
         
         for (int i = 0; i < 11; i++) { 
@@ -196,35 +196,35 @@ public class Pantalla extends JFrame implements Observer{
 	                break;
 				case 2:
             		limpiarFondo();
-            		ponerImagenDeFondo("viewController/imagenes/stageBack4.png");
+            		ponerImagenDeFondo("viewController/Imagenes/stageBack4.png");
 					break;
 				case 3:
 					setVisible(false);
 				case 4:
 					if(num==1) {
-						ponerImagenDeFondo("viewController/imagenes/tieso.png");
+						ponerImagenDeFondo("viewController/Imagenes/tieso.png");
 						limpiarFondo();
-						ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
+						ponerGifDeFondo("viewController/Imagenes/invocacionBoss.gif");
 						Timer timer = new Timer();
 			            timer.schedule(new TimerTask() {
 			                @Override
 			                public void run() {
-			                	ponerImagenDeFondo("viewController/imagenes/stageBack4.png");
+			                	ponerImagenDeFondo("viewController/Imagenes/stageBack4.png");
 			                    limpiarFondo();
-			                    ponerGifDeFondo("viewController/imagenes/dormir.gif");
+			                    ponerGifDeFondo("viewController/Imagenes/dormir.gif");
 			                    timer.cancel();
 			                }
 			            }, 4500);
 			            break;	
 					} else if (num==2) {
 						limpiarFondo();
-						ponerGifDeFondo("viewController/imagenes/despertar.gif");
+						ponerGifDeFondo("viewController/Imagenes/despertar.gif");
 						Timer timer = new Timer();
 			            timer.schedule(new TimerTask() {
 			                @Override
 			                public void run() {
 			                    limpiarFondo();
-			                    ponerGifDeFondo("viewController/imagenes/tieso.png");
+			                    ponerGifDeFondo("viewController/Imagenes/tieso.png");
 			                    timer.cancel();
 			                }
 			            }, 2500);
