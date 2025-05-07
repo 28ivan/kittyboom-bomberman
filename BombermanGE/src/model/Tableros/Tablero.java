@@ -104,7 +104,7 @@ public class Tablero extends Observable{
 	public void crearEmpty() {
 		vaciarTablero();
 		colocarBomberMan();
-		colocarEnemigos(1);
+		colocarEnemigos(8);
 	}
 	
 	//pPantalla = 4

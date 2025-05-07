@@ -131,7 +131,12 @@ public class Pantalla extends JFrame implements Observer{
         		fondoPermanente=null;
         	}        		
         		ImageIcon icon = new ImageIcon(ImageIO.read(getClass().getClassLoader().getResource(rutaImagen)));
-        		fondoPermanente = new JLabel(icon);
+        		if(pantallaSelec==4) {
+        			fondoPermanente = new JLabel(icon);
+        		} else {
+        			Image imagen = icon.getImage().getScaledInstance(840, 520, Image.SCALE_SMOOTH);
+        	        fondoPermanente = new JLabel(new ImageIcon(imagen));
+        		}
                 fondoPermanente.setBounds(0, 0, 840, 520);
                 contentPane.add(fondoPermanente, BACKGROUND_LAYER);
                 contentPane.revalidate();
