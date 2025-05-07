@@ -40,7 +40,9 @@ public class Pantalla extends JFrame implements Observer{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setObservers();
     	getControlador().actionPerformed(null);
-        setEnemigosLabel(0);
+    	if (pPantalla==4) {
+    		setEnemigosLabel(0);
+    	}
     }
     private void setBM(int pBMSelec) {
     	bMSelec=pBMSelec;
@@ -224,11 +226,32 @@ public class Pantalla extends JFrame implements Observer{
 			                @Override
 			                public void run() {
 			                    limpiarFondo();
-			                    ponerGifDeFondo("viewController/Imagenes/tieso.png");
+			                    ponerGifDeFondo("viewController/Imagenes/tieso.gif");
 			                    timer.cancel();
 			                }
 			            }, 2500);
-					}
+			            break;
+					} else if (num==3) {
+						limpiarFondo();
+						ponerGifDeFondo("viewController/imagenes/daño.gif");
+						Timer timer = new Timer();
+			            timer.schedule(new TimerTask() {
+			                @Override
+			                public void run() {
+			                	ponerImagenDeFondo("viewController/imagenes/tieso.png");
+			                    limpiarFondo();
+			                    ponerGifDeFondo("viewController/imagenes/invocacionBoss.gif");
+			                    timer.cancel();
+			                }
+			            }, 2000);
+			            break;
+		            } else if (num==4) {
+						limpiarFondo();
+						ponerGifDeFondo("viewController/imagenes/muerto.gif");
+		            } else if (num==5) {
+						limpiarFondo();
+						ponerGifDeFondo("viewController/imagenes/luser.gif");
+		            }
 									
 					
 			}
