@@ -51,7 +51,7 @@ public abstract class BomberMan implements Casilla {
 			return false;
 		}
 	}
-	
+	//
 	public boolean haGanado() {
     	return victoria;
     }
