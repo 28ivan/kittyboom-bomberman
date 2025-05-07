@@ -4,14 +4,9 @@ import model.Bombas.BombaFactory;
 import model.Tableros.Tablero;
 
 public class BomberManNegro extends BomberMan{
-	private int bombasMax=0;
 	private BomberManNegro() {
 		super();
 		bombasMax=1;
-		if (Tablero.getTablero().getPantalla()==4) {
-			bombasMax=10;
-		}
-		
 	}
 	
 	public static BomberMan getBomberMan() {
@@ -20,9 +15,14 @@ public class BomberManNegro extends BomberMan{
     	}
 		return miBM;
 	}
+	
+	public void setBombas(int pNumBombas) {
+		bombasMax=pNumBombas;
+	}
+	
 	@Override
 	public boolean puedeColocarBomba() {
-    	if (this.bombas>= bombasMax || !vivo || conBomba || victoria || Tablero.getTablero().hayBombas()) {
+    	if (this.bombas >= bombasMax || !vivo || conBomba || victoria || Tablero.getTablero().hayBombas()) {
     		return false;
     	}
     	else {
@@ -37,8 +37,4 @@ public class BomberManNegro extends BomberMan{
 	    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(BombaFactory.getBombaFactory().generate("BUltra", i, j));
 		}
     }
-	
-	public void soyBomberman() {
-		System.out.println("negro");
-	}
 }
