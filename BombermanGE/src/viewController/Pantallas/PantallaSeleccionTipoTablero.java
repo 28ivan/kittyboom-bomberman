@@ -12,17 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import model.Tableros.Seleccion;
 import model.Tableros.SeleccionTablero;
 
+@SuppressWarnings({"deprecation"})
 public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	private static final long serialVersionUID = 1L;
 	private Image backgroundImage;
