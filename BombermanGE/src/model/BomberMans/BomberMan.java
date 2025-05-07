@@ -1,12 +1,9 @@
 package model.BomberMans;
 
-import model.Bloques.BloqueFactory;
 import model.Casillas.Casilla;
 import model.Casillas.CasillaTablero;
-import model.Tableros.Tablero;
 
 public abstract class BomberMan implements Casilla {
-	protected static BomberMan miBM = null;
 	protected int i=0;
 	protected int j=0;
 	protected int bombas=0;
@@ -106,10 +103,6 @@ public abstract class BomberMan implements Casilla {
 	
 	@Override
 	public void destruir(CasillaTablero pC, int pI, int pJ) {
-		if (!vivo) return;
-		vivo=false;
-		pC.cambiarCasilla(miBM);
-		Tablero.getTablero().reiniciar();
 	}
 	
 	@Override
@@ -124,23 +117,5 @@ public abstract class BomberMan implements Casilla {
 	
 	@Override
 	public void mover(int pI, int pJ) {
-		if (conBomba) {
-    		conBomba=false;
-    	}
-    	BomberManBlanco.getBomberMan().aumentarNum();
-    	if (i!=pI || j!=pJ) {
-    		CasillaTablero c=Tablero.getTablero().getCasilla(i, j);
-    		if (c.esObjeto("Bomba")) {
-    			antiguaBomba=true;
-    			c.cambiarCasilla(miBM);
-    			antiguaBomba=false;
-    		}
-    		else {
-    			c.cambiarCasilla(BloqueFactory.getBloqueFactory().generate("Vacio"));
-    		}
-    	}
-    	i = pI;
-    	j = pJ;
-    	Tablero.getTablero().getCasilla(i, j).cambiarCasilla(miBM);
 	}
 }
