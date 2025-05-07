@@ -8,7 +8,7 @@ public class Boss {
 	
 	private static Boss miBoss;
 	private boolean vivo = true;
-	private int vida = 3;
+	private int vida = 1;
 	private Timer timerEscudo = null;
 	private Timer timerEspera = null;
 	private int tiempoEspera = 2500;
@@ -93,6 +93,7 @@ public class Boss {
 	public void restarVida() {
 		vida--;
 		if (vida>=1) {
+			Tablero.getTablero().notificarQuitarVidaBoss();
 			pasarRonda();
 		}else if(vida==0) {
 			Tablero.getTablero().ganar();
