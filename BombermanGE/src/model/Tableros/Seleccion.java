@@ -58,7 +58,6 @@ public class Seleccion extends Observable{
 //				//aqui no tiene q hacer nada, si hago el if de otra manera no me deja ns pq
 //				BMSelec=2;
 //			} 
-				System.out.println(BMSelec);
 				Tablero.getTablero().setTablero(BMSelec,pantallaSelec);
 				//VISTA//
 				if (BMSelec==1) {
