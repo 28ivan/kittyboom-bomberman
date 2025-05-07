@@ -153,6 +153,7 @@ public class CasillaTablero extends Observable {
     
     //METODOS ANIMACIONES
     private void animacionMuerte() {
+    	System.out.println("hola");
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int contador = 1;
@@ -217,20 +218,19 @@ public class CasillaTablero extends Observable {
         timerBomba.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (estadoBomba >= 3) {
+                if (estadoBomba >= 3 || !Tablero.getTablero().getBomberman().isVivo()) {
                 	estadoBomba = 1;
                 	tipoBomba="BmBomba";
                     timerBomba.cancel();
                     return;
                 }
-                if ((!BomberManBlanco.getBomberMan().conBomba() && !BomberManNegro.getBomberMan().conBomba()) || 
-                	(BomberManBlanco.getBomberMan().getI()!=i || BomberManBlanco.getBomberMan().getJ()!=j) ||
-                    (BomberManNegro.getBomberMan().getI()!=i || BomberManNegro.getBomberMan().getJ()!=j)){
+                if ((Tablero.getTablero().getBomberman().getI()!=i || Tablero.getTablero().getBomberman().getJ()!=j) ||
+                	 !Tablero.getTablero().getBomberman().conBomba()){
                     tipoBomba = "Bomba";
                 }
+                estadoBomba++;
                 setChanged();
                 notifyObservers(new Object[] {tipoBomba, estadoBomba});
-                estadoBomba++;
             }
         }, 1000, 1000);
     }
