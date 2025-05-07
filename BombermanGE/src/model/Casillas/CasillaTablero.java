@@ -153,7 +153,6 @@ public class CasillaTablero extends Observable {
     
     //METODOS ANIMACIONES
     private void animacionMuerte() {
-    	System.out.println("hola");
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             int contador = 1;
