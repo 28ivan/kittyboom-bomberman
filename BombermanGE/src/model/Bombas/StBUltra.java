@@ -31,11 +31,11 @@ public class StBUltra implements StrategyBombas {
     }
 
     //bloque duro o fuera de tablero
-    private boolean procesarCasilla(int i, int j) {
-        CasillaTablero c = tablero.getCasilla(i, j);
+    private boolean procesarCasilla(int pI, int pJ) {
+        CasillaTablero c = tablero.getCasilla(pI, pJ);
         if (c == null) return false;
         if (c.esObjeto("Duro")) return false;
-        tablero.procesarExplosion(i, j);
+        tablero.procesarExplosion(pI, pJ);
         return true;
     }
 }
