@@ -18,15 +18,15 @@ import model.Bombas.StrategyBombas;
 import model.BomberMans.BomberMan;
 import model.BomberMans.BomberManFactory;
 import model.Casillas.CasillaTablero;
+import model.Casillas.Invocacion;
 import model.Mobs.Boss;
 import model.Mobs.Enemigo;
-import model.Mobs.Invocacion;
 
 @SuppressWarnings({"deprecation"})
 public class Tablero extends Observable{
 
-	private static final int fila = 11; // Filas
-    private static final int col = 17; // Columnas  
+	private static final int fila = 11;
+    private static final int col = 17;
     private static Tablero miTablero = null;
     private CasillaTablero[][] matriz = new CasillaTablero[fila][col];
     private StrategyBloquesDuro stBloquesDuro;
@@ -579,7 +579,4 @@ public class Tablero extends Observable{
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
 
-	
-
-	
 }

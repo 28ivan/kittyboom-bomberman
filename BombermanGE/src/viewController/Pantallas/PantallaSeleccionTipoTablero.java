@@ -51,7 +51,6 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	}
 	
 	public JPanel getContentPane() {
-    	// Cargar imagen de fondo
         try {
             backgroundImage = ImageIO.read(getClass().getClassLoader().getResource("viewController/Imagenes/seleccion.png"));
         } catch (IOException e) {
@@ -79,9 +78,6 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
         panelMap.put("panel_2", panel_2);
         panelMap.put("panel_3", panel_3);
         panelMap.put("panel_4", panel_4);
-//        clearPane(10);
-//        clearPane(20);
-//        clearPane(30);
         contentPane.revalidate();
         contentPane.repaint();
 		return contentPane;
@@ -104,9 +100,9 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 
 	    return panel;
 	}
+	
 	private JLabel crearImagen(int pTablero, int width, int height) {
 		try {
-	        // Cargar la imagen original
 	        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/" + pTablero + ".png"));
 	        Image image = icon.getImage();
 	        if (image.getWidth(null) != width || image.getHeight(null) != height) {
@@ -121,7 +117,7 @@ public class PantallaSeleccionTipoTablero extends JFrame implements Observer{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		if(o instanceof SeleccionTablero) { //ESOBJETO CAMBIARLO------------------
+		if(o instanceof SeleccionTablero) {
 			int seleccionPantalla = (int) arg;
 			switch (seleccionPantalla) {
 				case 0:

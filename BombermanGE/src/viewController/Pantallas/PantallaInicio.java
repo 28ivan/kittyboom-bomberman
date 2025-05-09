@@ -34,7 +34,7 @@ public class PantallaInicio extends JFrame implements Observer{
     private Map<String, Component> panelMap = new HashMap<>();
     private boolean notificationsEnabled=true;
     private int pantallaSelec=1;
-    private int BmSelec=1;
+    
     
     public PantallaInicio() {
     	initialize();
@@ -55,7 +55,6 @@ public class PantallaInicio extends JFrame implements Observer{
 
         
     public JPanel getContentPane() {
-    	// Crear el panel base con layout nulo
     	if (contentPane == null) {
             contentPane = new JPanel(null) {
                 private static final long serialVersionUID = 1L;
@@ -67,7 +66,7 @@ public class PantallaInicio extends JFrame implements Observer{
                     super.paintComponent(g);
                     Image img = gifFondo.getImage();
                     if (img != null) {
-                        g.drawImage(img, 0, 0, getWidth(), getHeight(), this); // Escalado al tamaño del panel
+                        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
                     }
                 }
             };
@@ -75,34 +74,32 @@ public class PantallaInicio extends JFrame implements Observer{
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
         /////////////////////////////
-        contentPane.add(getPanel_Bomberman(20)); // más arriba
+        contentPane.add(getPanel_Bomberman(20));
         contentPane.add(getPanel_Bomberman(10));
-        contentPane.add(getPanel()); // más al fondo
-        
-        
+        contentPane.add(getPanel());
         contentPane.add(getTxt());
         panelMap.put("panel_1", panel_1);
         panelMap.put("panel_2", panel_2);
         panelMap.put("panel", panel);
         clearPane(10);
         clearPane(20);
-        contentPane.setComponentZOrder((JPanel) panelMap.get("panel"), 2); // más al fondo
+        contentPane.setComponentZOrder((JPanel) panelMap.get("panel"), 2);
         contentPane.setComponentZOrder((JPanel) panelMap.get("panel_1"), 1);
-        contentPane.setComponentZOrder((JPanel) panelMap.get("panel_2"), 0); // más arriba
-//        contentPane.setComponentZOrder(fondo, contentPane.getComponentCount() - 1);
+        contentPane.setComponentZOrder((JPanel) panelMap.get("panel_2"), 0);
         contentPane.revalidate();
         contentPane.repaint();
         return contentPane;
         }
 		return contentPane;
     }
+    
     private JPanel getPanel_Bomberman(int BMSelec) {
     	int BM = BMSelec;
     	if (BMSelec==1||BMSelec==10) {
     		if (panel_1 == null) {
                 panel_1 = new JPanel();
                 panel_1.setOpaque(false);
-                panel_1.setLayout(null); // Permite posicionar manualmente
+                panel_1.setLayout(null);
                 JLabel label;
                 panel_1.setBounds(400, 155, 350, 327);
                 label = crearImagen(BM,300, 327);
@@ -116,10 +113,9 @@ public class PantallaInicio extends JFrame implements Observer{
     		if (panel_2 == null) {
                 panel_2 = new JPanel();
                 panel_2.setOpaque(false);
-                panel_2.setLayout(null); // Permite posicionar manualmente
+                panel_2.setLayout(null);
                 panel_2.setBounds(154, 155, 238, 327);
                 JLabel label = crearImagen(BM,238, 327);
-                //añadir gif?
                 panel_2.add(label);
             }
             return panel_2;
@@ -127,13 +123,12 @@ public class PantallaInicio extends JFrame implements Observer{
 		return null;
         
     }
+    
     private JLabel crearImagen(int BM, int dir1, int dir2) {
-    	// Cargar imagen
         ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/bomber"+BM+".png"));
         Image image = icon.getImage().getScaledInstance(dir1, dir2, Image.SCALE_SMOOTH);
-        // Crear JLabel con el tamaño original de la imagen
         JLabel label = new JLabel(new ImageIcon(image));
-        label.setBounds(0, 0, dir1, dir2); // Ajustar tamaño
+        label.setBounds(0, 0, dir1, dir2);
         return label;
     }
 
@@ -141,18 +136,18 @@ public class PantallaInicio extends JFrame implements Observer{
         if (panel == null) {
             panel = new JPanel();
             panel.setOpaque(false);
-            panel.setLayout(null); // Permite posicionar manualmente
+            panel.setLayout(null);
             panel.setBounds(117, 20, 576, 160);
             ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/title.png"));
             Image image = icon.getImage().getScaledInstance(576, 160, Image.SCALE_SMOOTH);
-            // Crear JLabel con el tamaño original de la imagen
             JLabel label = new JLabel(new ImageIcon(image));
-            label.setBounds(0, 0, 576, 160); // Ajustar tamaño
+            label.setBounds(0, 0, 576, 160);
             panel.add(label);
             
         }
         return panel;
     }
+    
 	private JTextArea getTxt() {
 		if (txt == null) {
 			txt = new JTextArea();
@@ -175,13 +170,65 @@ public class PantallaInicio extends JFrame implements Observer{
 		repaint();
 		setVisible(true);
 	}
-
 	
+	private void setPane(int BMSelec) {
+		JPanel panel = (JPanel) panelMap.get("panel_" + BMSelec);
+		if(panel!=null) {
+			for (Component comp : panel.getComponents()) {
+			    if (comp instanceof JLabel) {
+			        JLabel label = (JLabel) comp;
+			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/bomber" + BMSelec + ".png"));
+			        Image image = icon.getImage().getScaledInstance(238, 327, Image.SCALE_SMOOTH);
+			        label.setIcon(new ImageIcon(image));
+			        break;
+			    }
+			}
+			ImageIcon originalGif = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/gif.gif"));
+			Image scaledGif = originalGif.getImage().getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+			ImageIcon gifIcon = new ImageIcon(scaledGif);
+			JLabel gifLabel = new JLabel(gifIcon);
+	        gifLabel.setName("gif");
+	        int gifWidth = gifIcon.getIconWidth();
+	        int gifHeight = gifIcon.getIconHeight();
+	        int x = (238 - gifWidth) / 2;
+	        int y = 50 ;
+	        gifLabel.setBounds(x, y, gifWidth, gifHeight);
+	        panel.add(gifLabel);
+	        panel.setComponentZOrder(gifLabel, panel.getComponentCount() - 1);
+		}
+		contentPane.revalidate();
+        contentPane.repaint();
+	}
+	
+	private void clearPane(int BMSelec) {
+		JPanel panel = (JPanel) panelMap.get("panel_" + (BMSelec)/10);
+		if(panel!=null) {
+			for (Component comp : panel.getComponents()) {
+			    if (comp instanceof JLabel) {
+			        JLabel label = (JLabel) comp;
+			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/bomber" + BMSelec + ".png"));
+			        Image image = icon.getImage().getScaledInstance(180, 246, Image.SCALE_SMOOTH);
+			        label.setIcon(new ImageIcon(image));
+			        break;
+			    }
+			}
+			 for (Component comp : panel.getComponents()) {
+		            if (comp.getName() != null && comp.getName().equals("gif")) {
+		                panel.remove(comp);
+		                
+		                break;
+		            }
+	        }
+		}
+		contentPane.revalidate();
+        contentPane.repaint();
+	}	
+
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		if(o instanceof Seleccion) { //ESOBJETO CAMBIARLO------------------
+		if(o instanceof Seleccion) {
 			Object res[]=(Object[])arg;
 			int BMSelec = (int) res[0];
 			boolean reiniciar= (boolean) res[1];
@@ -192,7 +239,6 @@ public class PantallaInicio extends JFrame implements Observer{
 	        	reiniciarJuego();
 				}
 			else {
-				BmSelec=BMSelec;
 				if (notificationsEnabled) {
 					switch (BMSelec) {
 						case 0:
@@ -225,7 +271,7 @@ public class PantallaInicio extends JFrame implements Observer{
 						case 5:
 							notificationsEnabled = true;
 							setEnabled(true);
-							setVisible(true); //esto lo hago para actualizar la pantalla de seleccion de personaje y que no se ponga la pantalla del eclipse
+							setVisible(true);
 			        	break;
 					}
 				}
@@ -247,69 +293,7 @@ public class PantallaInicio extends JFrame implements Observer{
 			}
 		}
 	}
-	private void setPane(int BMSelec) {
-		JPanel panel = (JPanel) panelMap.get("panel_" + BMSelec);
-		if(panel!=null) {
-			for (Component comp : panel.getComponents()) {
-			    if (comp instanceof JLabel) {
-			        JLabel label = (JLabel) comp;
-			        
-			        // Cargar la nueva imagen
-			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/bomber" + BMSelec + ".png"));
-			        Image image = icon.getImage().getScaledInstance(238, 327, Image.SCALE_SMOOTH);
-			        
-			        // Cambiar la imagen del JLabel
-			        label.setIcon(new ImageIcon(image));
-			        break; // Termina el bucle después de encontrar el JLabel
-			    }
-			}
-			// Añadir GIF
-			ImageIcon originalGif = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/gif.gif"));
-			Image scaledGif = originalGif.getImage().getScaledInstance(250, 250, Image.SCALE_DEFAULT);
-			ImageIcon gifIcon = new ImageIcon(scaledGif);
-			JLabel gifLabel = new JLabel(gifIcon);
-	        gifLabel.setName("gif");
-
-	        // Centrar el gif horizontalmente respecto al ancho del panel
-	        int gifWidth = gifIcon.getIconWidth();
-	        int gifHeight = gifIcon.getIconHeight();
-	        int x = (238 - gifWidth) / 2;
-	        int y = 50 ;
-	        gifLabel.setBounds(x, y, gifWidth, gifHeight);
-	        panel.add(gifLabel);
-	        panel.setComponentZOrder(gifLabel, panel.getComponentCount() - 1);
-		}
-		contentPane.revalidate();
-        contentPane.repaint();
-	}
-	private void clearPane(int BMSelec) {
-		JPanel panel = (JPanel) panelMap.get("panel_" + (BMSelec)/10);
-		if(panel!=null) {
-			for (Component comp : panel.getComponents()) {
-			    if (comp instanceof JLabel) {
-			        JLabel label = (JLabel) comp;
-			        
-			        // Cargar la nueva imagen
-			        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("viewController/Imagenes/bomber" + BMSelec + ".png"));
-			        Image image = icon.getImage().getScaledInstance(180, 246, Image.SCALE_SMOOTH);
-			        
-			        // Cambiar la imagen del JLabel
-			        
-			        label.setIcon(new ImageIcon(image));
-			        break; // Termina el bucle después de encontrar el JLabel
-			    }
-			}
-			 for (Component comp : panel.getComponents()) {
-		            if (comp.getName() != null && comp.getName().equals("gif")) {
-		                panel.remove(comp);
-		                
-		                break;
-		            }
-	        }
-		}
-		contentPane.revalidate();
-        contentPane.repaint();
-	}	
+	
 		//CONTROLADOR
 		private Controlador getControlador() {
 			if (controlador == null) {

@@ -191,11 +191,6 @@ public class Pantalla extends JFrame implements Observer{
 	public void update(Observable o, Object arg) {
 		if(o instanceof Tablero) {
 			Object res[]=(Object[])arg;
-			//1: cambiar numEnemigos
-			//2: Ganar 
-			//4: gif Boss invocando
-			//5:
-			//6:
 			int opcion = (int) res[0];
 			int num = (int) res[1];
 			switch (opcion) {

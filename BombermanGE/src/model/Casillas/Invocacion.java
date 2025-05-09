@@ -1,10 +1,9 @@
-package model.Mobs;
+package model.Casillas;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import model.Casillas.Casilla;
-import model.Casillas.CasillaTablero;
+import model.Mobs.Enemigo;
 import model.Tableros.Tablero;
 
 public class Invocacion implements Casilla {
