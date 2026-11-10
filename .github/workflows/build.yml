@@ -1,0 +1,49 @@
+name: Java CI Build & Artifact
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Bomberman Executable JAR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compile and Package JAR
+        run: |
+          mkdir -p bin_build
+          find BombermanGE/src -name "*.java" > sources.txt
+          javac -encoding UTF-8 -d bin_build @sources.txt
+          
+          # Copy resources preserving directory structure
+          cd BombermanGE/src
+          find . -type f ! -name "*.java" ! -name "*.cld" ! -name "*.gitkeep" -exec cp --parents {} ../../bin_build/ \;
+          cd ../..
+
+          # Create Manifest
+          echo "Manifest-Version: 1.0" > MANIFEST.MF
+          echo "Main-Class: main.main" >> MANIFEST.MF
+          echo "" >> MANIFEST.MF
+
+          # Package into runnable JAR
+          jar cvfm Bomberman.jar MANIFEST.MF -C bin_build .
+
+      - name: Upload Bomberman.jar artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bomberman-Game-Executable
+          path: Bomberman.jar
+          retention-days: 30
